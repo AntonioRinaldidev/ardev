@@ -9,11 +9,12 @@ export const NavBar: React.FC = () => {
 
 	return (
 		<header className="navbar">
-			<div className="navbar-start">
+			<div className="navbar-start px-5"></div>{" "}
+			<div className="navbar-center">
 				<Link
 					href="/"
-					className=" primary">
-					LOGO
+					className="Logo">
+					ARDEV
 				</Link>
 			</div>
 			<div className="navbar-end">
