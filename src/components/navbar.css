@@ -1,0 +1,23 @@
+.Link{
+    color: #ffffff;
+    position: relative;
+}
+.Link:hover{
+    color: #ff9900;
+}
+.Link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px; /* Adjust as needed */
+    width: 100%;
+    height: 2px; /* Thickness of the underline */
+    background-color: transparent; /* Default to transparent */
+    transition: background-color 0.3s ease;
+}
+
+
+
+.Link.active::after {
+    background-color: #ff9900; /* Colore sottolineatura attivo: arancione */
+}
