@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import "./customcard.css";
+import Image from "next/image";
 
 interface CardProps {
 	title: string;
@@ -24,7 +25,7 @@ const CustomCard: React.FC<CardProps> = ({
 	return (
 		<div className="card lg:card-side bg-base-100">
 			<figure className="flex-shrink-0 w-full md:w-1/3">
-				<img
+				<Image
 					src={image}
 					alt={imagealt}
 					className="object-cover w-full h-full  image"
