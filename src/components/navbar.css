@@ -1,11 +1,37 @@
-.Link{
-    color: #ffffff;
-    position: relative;
+.header {
+    width: 100vw; /* Full width for header */
+    display: flex;
+    justify-content: space-between; /* Space between ARDEV and the nav links */
+    align-items: center; /* Vertically center the content */
+    padding: 20px;
+    background: #101112; /* Background color for the header */
+    color: #ffffff; /* Text color in the header */
+    position: absolute;
+    top: 0;
+    z-index: 1000;
 }
-.Link:hover{
+
+.header h1 {
+    font-size: 2.5rem;
+    margin: 0;
+    margin-left: 20px; /* Optional: add some left margin for spacing */
+}
+
+
+
+.nav-link {
+    color: #ffffff; /* Default color for links */
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    position: relative; /* Needed for positioning the pseudo-element */
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover{
     color: #ff9900;
 }
-.Link::after {
+.nav-link::after {
     content: '';
     position: absolute;
     left: 0;
@@ -16,8 +42,10 @@
     transition: background-color 0.3s ease;
 }
 
+.nav-link:hover::after {
+    background-color: #ff9900; /* Colore sottolineatura hover: arancione */
+}
 
-
-.Link.active::after {
+.nav-link.active::after {
     background-color: #ff9900; /* Colore sottolineatura attivo: arancione */
 }

@@ -1,0 +1,102 @@
+/* Basic Timeline Structure */
+
+  
+  .timeline-vertical {
+    padding: 2rem 0;
+  }
+  
+  /* Timeline Components */
+  .timeline-start {
+    text-align: right;
+    font-weight: bold;
+    width: 25%;
+    padding-right: 1rem;
+  }
+  
+  .timeline-middle {
+    width: 2%;
+    text-align: center;
+    position: relative;
+  }
+  
+  .timeline-end {
+    width: 73%;
+    padding-left: 1rem;
+  }
+  
+  .timeline-box {
+    background-color: transparent;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+
+  
+  .timeline-middle svg {
+    position: relative;
+    z-index: 1;
+    border-radius: 50%;
+    padding: 2px;
+    color: white;
+  }
+  .skill-list-wrapper {
+    background-color: transparent; /* Slightly darker background for skill list */
+    padding: 20px;
+    border-radius: 8px;
+}
+
+/* Skill list styles */
+.skill-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap; /* Allow items to wrap */
+    justify-content: center;
+    gap: 15px; /* Space between skill items */
+}
+.section {
+    background-color: transparent;
+    color: #ffffff;
+    padding: 10%;
+    
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Section headers */
+.section h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    color: #ff9900; /* Main color for headings */
+}
+
+/* Section paragraphs */
+.section p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #ffffff; /* Default text color */
+}
+
+/* Skill list items */
+.skill-list li {
+    background-color: #ff9900; /* Main color for skill items */
+    color: #ffffff;
+    padding: 10px 15px;
+    border-radius: 15px;
+    font-weight: 500;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Hover effect for skill list items */
+.skill-list li:hover {
+    
+    transform: translateY(-5px); /* Slight lift on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+}

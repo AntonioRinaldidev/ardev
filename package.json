@@ -9,11 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@headlessui/react": "^2.1.4",
-    "@heroicons/react": "^2.1.5",
-    "@tailwindcss/typography": "^0.5.15",
-    "headlessui": "^0.0.0",
-    "heroicons": "^2.1.5",
+    "daisyui": "^4.12.10",
+    "framer-motion": "^11.5.2",
+    "gsap": "^3.12.5",
+    "lenis": "^1.1.13",
     "next": "14.2.7",
     "react": "^18",
     "react-dom": "^18"
@@ -22,7 +21,6 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "daisyui": "^4.12.10",
     "eslint": "^8",
     "eslint-config-next": "14.2.7",
     "postcss": "^8",

@@ -1,0 +1,14 @@
+.btn:hover{
+    background-color: transparent;
+    border: 1px solid #764301;
+}
+.hero{
+    width: 100%;
+  }
+  
+  
+  .hero-container{
+    overflow: hidden;
+    border-radius: 0% 0px 25% 25% / 0% 0px 5% 5%;
+    border-bottom: 15px solid rgba(243, 158, 45, 1);
+  }
