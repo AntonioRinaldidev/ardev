@@ -1,0 +1,7 @@
+.card{
+    background-color: blueviolet;
+    width: 50vw;
+    height: 30vh;
+
+    position: relative;
+}
