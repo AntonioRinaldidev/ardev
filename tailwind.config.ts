@@ -1,11 +1,6 @@
 import type { Config } from "tailwindcss";
-<<<<<<< HEAD
-import daisyui from "daisyui"
-import typography from '@tailwindcss/typography';
-=======
 import daisy from "daisyui"
 
->>>>>>> develop
 const config: Config = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -21,10 +16,6 @@ const config: Config = {
       },
     },
   },
-<<<<<<< HEAD
-  plugins: [typography,daisyui],
-=======
   plugins: [require('daisyui'),],
->>>>>>> develop
 };
 export default config;
