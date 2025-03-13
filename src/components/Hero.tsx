@@ -21,12 +21,12 @@ function Hero() {
 			initial={{
 				scale: 3,
 				background:
-					"radial-gradient(circle, rgba(255,145,0,1) 0%, rgba(0,0,0,1) 0%)",
+					"radial-gradient(circle, rgba(91, 89, 197, 1) 0%,  rgba(35, 37, 40, 1) 0%)",
 			}}
 			animate={{
 				scale: 1,
 				background:
-					"radial-gradient(circle, rgba(255,145,0,1) 0%, rgba(0,0,0,1) 40%)",
+					"radial-gradient(circle, rgba(58, 56, 125, 1) 20%,  rgba(35, 37, 40, 1) 35%)",
 			}} // Stato finale
 			transition={{ ease: "easeIn", duration: 1 }} // Durata dell'animazione
 			className="hero min-h-screen bg-cover bg-center"

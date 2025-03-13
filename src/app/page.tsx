@@ -3,11 +3,11 @@ import * as React from "react";
 import Hero from "@/components/Hero";
 import CustomCard from "@/components/CustomCard";
 import { useEffect } from "react";
-import Lenis from "lenis"; // Corretto l'import di Lenis
+import Lenis from "lenis";
 import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger"; // Importa ScrollTrigger
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-gsap.registerPlugin(ScrollTrigger); // Registra ScrollTrigger
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
 	useEffect(() => {
@@ -48,7 +48,14 @@ export default function Home() {
 				id="cards"
 				className="card-container">
 				{Array.from({ length: 15 }).map((_, index) => (
-					<CustomCard key={index} title={""} image={""} imagealt={""} p={""} link={""} />
+					<CustomCard
+						key={index}
+						title={""}
+						image={""}
+						imagealt={""}
+						p={""}
+						link={""}
+					/>
 				))}
 			</div>
 		</>

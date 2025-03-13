@@ -10,5 +10,5 @@
   .hero-container{
     overflow: hidden;
     border-radius: 0% 0px 25% 25% / 0% 0px 5% 5%;
-    border-bottom: 15px solid #ff9000;
+    border-bottom: 15px solid rgba(243, 158, 45, 1);
   }
