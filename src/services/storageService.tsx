@@ -1,39 +1,55 @@
 // src/services/storageService.ts
-let ls: any = null;
 
-if (typeof window !== 'undefined') {
+let secureLSInstance: any = null;
+
+const isBrowser = typeof window !== 'undefined';
+
+if (isBrowser) {
 	const SecureLS = require('secure-ls');
-	ls = new SecureLS({ encodingType: 'aes', isCompression: false });
+	secureLSInstance = new SecureLS({
+		encodingType: 'aes',
+		isCompression: false,
+	});
 }
 
 export const storageService = {
 	set: (key: string, value: any) => {
-		if (!ls) return;
+		if (!isBrowser || !secureLSInstance) return;
 		try {
-			ls.set(key, JSON.stringify(value));
-		} catch (e) {
-			console.error('SecureLS set error:', e);
+			secureLSInstance.set(key, JSON.stringify(value));
+		} catch (error) {
+			console.error('storageService.set error:', error);
 		}
 	},
 
 	get: (key: string): any => {
-		if (!ls) return null;
+		if (!isBrowser || !secureLSInstance) return null;
 		try {
-			const data = ls.get(key);
+			const data = secureLSInstance.get(key);
 			return typeof data === 'string' ? JSON.parse(data) : data;
-		} catch (e) {
-			console.error('SecureLS get error:', e);
+		} catch (error) {
+			console.error('storageService.get error:', error);
 			return null;
 		}
 	},
 
 	remove: (key: string) => {
-		if (!ls) return;
-		ls.remove(key);
+		if (!isBrowser || !secureLSInstance) return;
+		try {
+			secureLSInstance.remove(key);
+		} catch (error) {
+			console.error('storageService.remove error:', error);
+		}
 	},
 
 	clearAll: () => {
-		if (!ls) return;
-		ls.removeAll();
+		if (!isBrowser || !secureLSInstance) return;
+		try {
+			secureLSInstance.removeAll();
+		} catch (error) {
+			console.error('storageService.clearAll error:', error);
+		}
 	},
 };
+
+export default storageService;
