@@ -1,9 +1,11 @@
 'use client';
 
-let ls: any = null;
+import SecureLS from 'secure-ls';
+
+let ls: SecureLS | null = null;
 
 if (typeof window !== 'undefined') {
-	ls = require('secure-ls');
+	ls = new SecureLS({ encodingType: 'aes' }); // puoi cambiare encodingType se vuoi
 }
 
 export const storageService = {
@@ -29,11 +31,19 @@ export const storageService = {
 
 	remove: (key: string) => {
 		if (!ls) return;
-		ls.remove(key);
+		try {
+			ls.remove(key);
+		} catch (e) {
+			console.error('storageService.remove error:', e);
+		}
 	},
 
 	clearAll: () => {
 		if (!ls) return;
-		ls.removeAll();
+		try {
+			ls.removeAll();
+		} catch (e) {
+			console.error('storageService.clearAll error:', e);
+		}
 	},
 };
