@@ -4,22 +4,34 @@ import { motion } from 'framer-motion';
 import './hero.css';
 import { TextFade } from './TextFade';
 import { downloadCV } from '@/services/fileService';
-import './ModalDownload.css'; // Importa il CSS del modale
+import ModalDownload from './ModalDownload'; // ✅ Usa il componente modale
 
 function Hero() {
 	const [animationCompleted, setAnimationCompleted] = useState(false);
 	const [isDownloading, setIsDownloading] = useState(false);
 	const [showModal, setShowModal] = useState(false);
+	const [downloadComplete, setDownloadComplete] = useState(false);
 
 	const handlePressCV = async () => {
-		setIsDownloading(true);
 		setShowModal(true);
+		setIsDownloading(true);
+		setDownloadComplete(false);
+
 		try {
 			await downloadCV();
+
+			// ✅ Download terminato, mostriamo stato completato
+			setIsDownloading(false);
+			setDownloadComplete(true);
+
+			// ✅ Lasciamo il modale visibile per altri 2 secondi
+			setTimeout(() => {
+				setShowModal(false);
+			}, 2000);
 		} catch (err) {
 			console.error('Errore durante il download', err);
-		} finally {
 			setIsDownloading(false);
+			setDownloadComplete(false);
 			setShowModal(false);
 		}
 	};
@@ -88,17 +100,12 @@ function Hero() {
 				</div>
 			</motion.div>
 
-			{/* MODALE */}
-			{showModal && (
-				<div className='modal-overlay'>
-					<div className='modal-content'>
-						<p className='modal-text'>
-							{isDownloading ? 'Download in corso...' : 'Download completato!'}
-						</p>
-						<div className='loader' />
-					</div>
-				</div>
-			)}
+			{/* ✅ Usa componente modale riutilizzabile */}
+			<ModalDownload
+				isOpen={showModal}
+				isDownloading={isDownloading}
+				downloadComplete={downloadComplete}
+			/>
 		</>
 	);
 }

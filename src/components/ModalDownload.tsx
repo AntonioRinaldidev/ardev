@@ -4,22 +4,32 @@ import './ModalDownload.css';
 
 interface ModalDownloadProps {
 	isOpen: boolean;
-	onClose: () => void;
+	isDownloading: boolean;
+	downloadComplete: boolean;
 }
 
-const ModalDownload: React.FC<ModalDownloadProps> = ({ isOpen, onClose }) => {
+const ModalDownload: React.FC<ModalDownloadProps> = ({
+	isOpen,
+	isDownloading,
+	downloadComplete,
+}) => {
 	if (!isOpen) return null;
 
 	return (
 		<div className='modal-overlay'>
 			<div className='modal-content'>
 				<p className='modal-text'>
-					Download in corso... Attendi qualche secondo.
+					{isDownloading
+						? 'Download in corso... Attendi qualche secondo.'
+						: downloadComplete
+						? '✓ Download completato!'
+						: ''}
 				</p>
-				<div className='loader' />
-				<button className='modal-close-btn' onClick={onClose}>
-					Chiudi
-				</button>
+				{isDownloading ? (
+					<div className='loader' />
+				) : (
+					<div className='success-icon'>✓</div>
+				)}
 			</div>
 		</div>
 	);
