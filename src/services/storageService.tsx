@@ -1,18 +1,18 @@
 'use client';
 
-import SecureLS from 'secure-ls';
-
-let ls: SecureLS | null = null;
+let ls: any = null;
 
 if (typeof window !== 'undefined') {
-	ls = new SecureLS({ encodingType: 'aes' }); // puoi cambiare encodingType se vuoi
+	const SecureLS = require('secure-ls');
+	ls = new SecureLS({ encodingType: 'aes' });
 }
 
 export const storageService = {
 	set: (key: string, value: any) => {
 		if (!ls) return;
 		try {
-			ls.set(key, JSON.stringify(value));
+			const serialized = JSON.stringify(value);
+			ls.set(key, serialized);
 		} catch (e) {
 			console.error('storageService.set error:', e);
 		}
@@ -21,8 +21,11 @@ export const storageService = {
 	get: (key: string): any => {
 		if (!ls) return null;
 		try {
-			const data = ls.get(key);
-			return typeof data === 'string' ? JSON.parse(data) : data;
+			const raw = ls.get(key);
+			if (typeof raw === 'string') {
+				return raw.trim() ? JSON.parse(raw) : null;
+			}
+			return raw;
 		} catch (e) {
 			console.error('storageService.get error:', e);
 			return null;
