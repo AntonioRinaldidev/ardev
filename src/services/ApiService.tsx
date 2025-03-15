@@ -1,51 +1,26 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import SecureLS from 'secure-ls';
-
-// Replace with your backend URL
-
-// ✅ Initialize SecureLS with AES encryption
-const ls = new SecureLS({ encodingType: 'aes', isCompression: false });
-
-// ✅ Helper functions to store and retrieve tokens securely
-const setTokens = (accessToken: string, refreshToken: string) => {
-	try {
-		ls.set('accessToken', JSON.stringify(accessToken)); // ✅ Ensure token is stored as a string
-		ls.set('refreshToken', JSON.stringify(refreshToken));
-	} catch (error) {
-		console.error('🚨 SecureLS Error: Failed to store token', error);
-	}
-};
-
-const getAccessToken = () => {
-	try {
-		const token = ls.get('accessToken');
-		if (typeof token === 'string') {
-			return token;
-		} else {
-			console.warn('❌ Corrupt accessToken detected, clearing storage...');
-			ls.remove('accessToken'); // ✅ Clear corrupted token
-			return null;
-		}
-	} catch (error) {
-		console.error('🚨 SecureLS Error: Malformed Token - Clearing Storage...');
-		ls.remove('accessToken');
-		return null;
-	}
-};
-
-const getRefreshToken = () => ls.get('refreshToken') || null;
-const clearTokens = () => {
-	ls.remove('accessToken');
-	ls.remove('refreshToken');
-};
+import { storageService } from './storageService';
 
 // ✅ Axios instance with credentials support for HTTP-only cookies
-export const ApiService = axios.create({
+const ApiService = axios.create({
 	baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
-	withCredentials: true, // Ensures cookies (refresh token) are sent automatically
+	withCredentials: true,
 });
 
-// ✅ Function to add Authorization header if available
+// ✅ Helper token handlers
+const setTokens = (accessToken: string, refreshToken: string) => {
+	storageService.set('accessToken', accessToken);
+	storageService.set('refreshToken', refreshToken);
+};
+
+const getAccessToken = () => storageService.get('accessToken');
+const getRefreshToken = () => storageService.get('refreshToken');
+const clearTokens = () => {
+	storageService.remove('accessToken');
+	storageService.remove('refreshToken');
+};
+
+// ✅ Add Authorization header
 const addAuthHeader = async (config: { headers?: any }) => {
 	const accessToken = getAccessToken();
 	if (accessToken) {
@@ -57,7 +32,7 @@ const addAuthHeader = async (config: { headers?: any }) => {
 	return config;
 };
 
-// ✅ Set default Content-Type to application/json
+// ✅ Configure JSON request headers
 const configureJsonRequest = async (config = {}) => {
 	const authHeaderConfig = await addAuthHeader(config);
 	authHeaderConfig.headers = {
@@ -67,52 +42,62 @@ const configureJsonRequest = async (config = {}) => {
 	return authHeaderConfig;
 };
 
-// ✅ Request interceptor for logging API calls
+// ✅ Request logging
 ApiService.interceptors.request.use(
 	(config) => {
-		console.log('🚀 Interceptor is executing...');
-		console.log('✅ BASE_URL:', process.env.NEXT_PUBLIC_API_BASE_URL);
-		console.log(
-			`API called: ${process.env.NEXT_PUBLIC_API_BASE_URL}${config.url}`,
-		);
+		console.log('🚀 API Request:', config.method?.toUpperCase(), config.url);
 		return config;
 	},
 	(error) => {
-		console.error('Error in request interceptor:', error);
+		console.error('Request interceptor error:', error);
 		return Promise.reject(error);
 	},
 );
 
-// ✅ GET request
+// ✅ Response interceptor with token refresh
+ApiService.interceptors.response.use(
+	(response) => response,
+	async (error) => {
+		if (error.response?.status === 401) {
+			try {
+				const originalRequest = error.config;
+				await refreshTokenHandler();
+				delete originalRequest.headers['Authorization'];
+				const newRequest = await addAuthHeader(originalRequest);
+				return axios(newRequest);
+			} catch (refreshError) {
+				await logout();
+				return Promise.reject(refreshError);
+			}
+		}
+		return Promise.reject(error);
+	},
+);
+
+// ✅ API methods
 const getRequest = async (url: string, params = {}, config = {}) => {
 	const requestConfig: AxiosRequestConfig = await configureJsonRequest(config);
 	requestConfig.params = params;
 	return ApiService.get(url, requestConfig);
 };
 
-// ✅ DELETE request
-const deleteRequest = async (url: string, data = {}, config = {}) => {
+const postRequest = async (url: string, data = {}, config = {}) => {
 	const requestConfig = await configureJsonRequest(config);
-	return ApiService.delete(url, { ...requestConfig, data });
+	return ApiService.post(url, data, requestConfig);
 };
 
-// ✅ PUT request
 const putRequest = async (url: string, data = {}, config = {}) => {
 	const requestConfig = await configureJsonRequest(config);
 	return ApiService.put(url, data, requestConfig);
 };
 
-// ✅ POST request with application/json
-const postRequest = async (url: string, data = {}, config = {}) => {
-	console.log(url);
+const deleteRequest = async (url: string, data = {}, config = {}) => {
 	const requestConfig = await configureJsonRequest(config);
-	return ApiService.post(url, data, requestConfig);
+	return ApiService.delete(url, { ...requestConfig, data });
 };
 
-// ✅ POST request with multipart/form-data
 const postFormRequest = async (url: string, data: FormData, config = {}) => {
 	const authHeaderConfig = await addAuthHeader(config);
-
 	authHeaderConfig.headers = {
 		...authHeaderConfig.headers,
 		'Content-Type': 'multipart/form-data',
@@ -120,81 +105,47 @@ const postFormRequest = async (url: string, data: FormData, config = {}) => {
 	return ApiService.post(url, data, authHeaderConfig);
 };
 
-// ✅ Refresh token handler (securely retrieves refresh token)
+// ✅ Refresh Token Handler
 const refreshTokenHandler = async () => {
-	const refreshToken = getRefreshToken(); // Securely fetch refresh token
-
+	const refreshToken = getRefreshToken();
 	if (!refreshToken) {
-		console.error('No refresh token found, logging out...');
 		await logout();
 		return;
 	}
 
 	const config = await configureJsonRequest();
-
 	try {
-		const refreshResponse = await ApiService.post(
-			process.env.API_BASE_URL + 'api/refresh',
+		const response = await ApiService.post(
+			`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/refresh`,
 			{},
 			config,
 		);
-
-		// ✅ Store new tokens securely
-		setTokens(
-			refreshResponse.data.accessToken,
-			refreshResponse.data.refreshToken,
-		);
+		setTokens(response.data.accessToken, response.data.refreshToken);
 	} catch (error) {
-		console.error('Error during token refresh:', error);
+		console.error('Token refresh failed:', error);
 		await logout();
 	}
 };
 
-// ✅ Logout function
+// ✅ Logout
 const logout = async () => {
 	try {
-		await ApiService.post(process.env.API_BASE_URL + 'api/logout'); // Clear refresh token in backend
-		clearTokens(); // Remove tokens from SecureLS
+		await ApiService.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/logout`);
+		clearTokens();
 		console.log('Logged out successfully');
 	} catch (error) {
-		console.error('Error during logout:', error);
+		console.error('Logout error:', error);
 	}
 };
 
-// ✅ Response interceptor to handle token expiration & refresh
-ApiService.interceptors.response.use(
-	(response) => response,
-	async (error) => {
-		if (error.response?.status === 401) {
-			try {
-				const originalRequest = error.config;
-
-				// ✅ Refresh the token (refresh token is automatically sent in the cookie)
-				await refreshTokenHandler();
-
-				// Remove old Authorization header
-				delete originalRequest.headers['Authorization'];
-
-				// ✅ Add new access token and retry request
-				const newRequest = await addAuthHeader(originalRequest);
-				return axios(newRequest);
-			} catch (innerError) {
-				console.error('Error during token refresh:', innerError);
-				await logout();
-				return Promise.reject(innerError);
-			}
-		}
-		return Promise.reject(error);
-	},
-);
-
-// ✅ Export API methods
+// ✅ Export all
 export {
-	postRequest,
-	postFormRequest,
+	ApiService,
 	getRequest,
-	deleteRequest,
+	postRequest,
 	putRequest,
+	deleteRequest,
+	postFormRequest,
 	refreshTokenHandler,
 	logout,
 };
