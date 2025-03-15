@@ -38,7 +38,7 @@ function NavBar() {
 							</Link>
 						</li>
 						<li>
-							<Link className='nav-link' href={'/'}>
+							<Link className='nav-link' href={'/contact'}>
 								Contact
 							</Link>
 						</li>
@@ -56,7 +56,7 @@ function NavBar() {
 				<Link className='nav-link' href={'/'}>
 					Projects
 				</Link>
-				<Link className='nav-link' href={'/'}>
+				<Link className='nav-link' href={'/contact'}>
 					Contact
 				</Link>
 			</div>

@@ -9,3 +9,17 @@ export const loginAsync = async (data: loginDTO): Promise<BaseResponseDTO> => {
 		)
 	).data;
 };
+
+export const sendContactFormAsync = async (data: {
+	name: string;
+	email: string;
+	subject: string;
+	message: string;
+}): Promise<BaseResponseDTO> => {
+	return (
+		await postRequest(
+			process.env.NEXT_PUBLIC_API_SEND_EMAIL_ENDPOINT || '',
+			JSON.stringify(data),
+		)
+	).data;
+};
