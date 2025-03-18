@@ -83,7 +83,7 @@ function Hero() {
 									Hi there!
 								</h2>
 								<div className="text-paragraph text-center md:text-lg max-w-lg mx-auto mb-5">
-									I'm a CS Major student and a{" "}
+									I&apos;m a CS Major student and a{" "}
 									<motion.span
 										key={devType}
 										className="highlight"
@@ -112,7 +112,6 @@ function Hero() {
 					</div>
 				</div>
 			</motion.div>
-
 
 			<ModalDownload
 				isOpen={showModal}

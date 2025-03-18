@@ -32,10 +32,10 @@ const AboutMe = () => {
 						transition={{ duration: 0.7, ease: "easeOut" }}>
 						<h2 className="heading">About Me</h2>
 						<p className="text-paragraph">
-							I’m a passionate Computer Engineering student with a Bachelor's
-							degree from the University of Salerno and currently pursuing a
-							Master's degree in Artificial Intelligence and Robotics at the
-							University of Padua. I have a strong interest in frontend
+							I&apos;m a passionate Computer Engineering student with a
+							Bachelor&apos;s degree from the University of Salerno and currently
+							pursuing a Master&apos;s degree in Artificial Intelligence and Robotics
+							at the University of Padua. I have a strong interest in frontend
 							development, combining technology with user-centric design.
 						</p>
 					</motion.div>
@@ -60,7 +60,7 @@ const AboutMe = () => {
 									</a>
 								</h3>
 								<p className="timeline-description">
-									Bachelor's Degree in Computer Engineering - Italy
+									Bachelor&apos;s Degree in Computer Engineering - Italy
 								</p>
 							</div>
 						</div>
@@ -78,7 +78,7 @@ const AboutMe = () => {
 									</a>
 								</h3>
 								<p className="timeline-description">
-									Master's Degree in Computer Engineering - AI & Robotics
+									Master&apos;s Degree in Computer Engineering - AI & Robotics
 								</p>
 							</div>
 						</div>
