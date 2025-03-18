@@ -11,7 +11,7 @@ import {
 } from "react-icons/si";
 import { FaJava } from "react-icons/fa";
 import TechStackCard from "./TechStackCard";
-import "./techstack.css";
+import "./TechStack.css";
 
 const techs = [
 	{ name: "JavaScript", icon: <SiJavascript />, tooltip: "JavaScript ES6+" },
