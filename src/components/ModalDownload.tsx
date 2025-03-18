@@ -1,6 +1,6 @@
 // components/ModalDownload.tsx
-import React from 'react';
-import './ModalDownload.css';
+import React from "react";
+import "@/styles/ModalDownload.css";
 
 interface ModalDownloadProps {
 	isOpen: boolean;
@@ -16,19 +16,19 @@ const ModalDownload: React.FC<ModalDownloadProps> = ({
 	if (!isOpen) return null;
 
 	return (
-		<div className='modal-overlay'>
-			<div className='modal-content'>
-				<p className='modal-text'>
+		<div className="modal-overlay">
+			<div className="modal-content">
+				<p className="modal-text">
 					{isDownloading
-						? 'Download in corso... Attendi qualche secondo.'
+						? "Download in corso... Attendi qualche secondo."
 						: downloadComplete
-						? '✓ Download completato!'
-						: ''}
+						? "✓ Download completato!"
+						: ""}
 				</p>
 				{isDownloading ? (
-					<div className='loader' />
+					<div className="loader" />
 				) : (
-					<div className='success-icon'>✓</div>
+					<div className="success-icon">✓</div>
 				)}
 			</div>
 		</div>

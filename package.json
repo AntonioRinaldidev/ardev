@@ -12,16 +12,17 @@
     "@krysondto/shared-dtos": "^1.1.2",
     "axios": "^1.8.3",
     "daisyui": "^4.12.10",
-    "framer-motion": "^11.5.2",
+    "framer-motion": "^11.18.2",
     "gsap": "^3.12.5",
     "lenis": "^1.1.13",
     "next": "^14.2.24",
-    "react": "^18",
-    "react-dom": "^18"
+    "react": "^18.3.1",
+    "react-dom": "^18",
+    "react-icons": "^5.5.0"
   },
   "devDependencies": {
     "@types/node": "^20",
-    "@types/react": "^18",
+    "@types/react": "^18.3.18",
     "@types/react-dom": "^18",
     "eslint": "^8",
     "eslint-config-next": "14.2.7",
