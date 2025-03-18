@@ -7,7 +7,9 @@
   position: relative;
   z-index: 2;
 }
-
+.btn-text {
+  color: var(--color-secondary);
+}
 .btn-icon {
   display: inline-flex;
   align-items: center;

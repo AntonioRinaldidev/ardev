@@ -1,0 +1,42 @@
+.social-stats {
+    background: var(--color-bg-secondary);
+    padding: 2rem;
+    border-radius: var(--radius-md);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
+    margin-top: 2rem;
+    text-align: center;
+    flex: 1;
+    min-width: 220px;
+    max-width: 300px;
+  }
+  
+  .social-heading {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--color-heading);
+    margin-bottom: 1rem;
+  }
+  
+  .commit-counter {
+    color: var(--color-text);
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.2rem;
+  }
+  
+  .social-icon {
+    font-size: 1.8rem;
+    color: var(--color-primary);
+    transition: transform 0.3s ease;
+  }
+  
+  .social-icon:hover {
+    transform: scale(1.2);
+    color: var(--color-secondary);
+  }
+  

@@ -1,13 +1,35 @@
 .hero {
   width: 100%;
+  background: var(--color-gradient);
 }
 
 .hero-container {
-  overflow: hidden;
-  border-radius: 0% 0px 25% 25% / 0% 0px 5% 5%;
-  border-bottom: 15px solid var(--accent-color);
+  
+  border-bottom: 5px solid var(--color-primary);
 }
 
+.heading {
+  color: var(--color-heading);
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
+}
+
+.text-paragraph {
+  color: var(--color-text-secondary);
+}
+.highlight {
+  color: var(--color-primary);
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+.location {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: var(--color-link);
+  justify-content: center;
+}
+
+/* Button override already present styles if needed */
 .animated-btn {
   position: relative;
   display: inline-flex;
@@ -16,13 +38,13 @@
   padding: 0.75rem 1.5rem;
   font-weight: 600;
   font-size: 1rem;
-  color: var(--accent-color);
+  color: var(--color-primary);
   background-color: transparent;
   border: none;
   cursor: pointer;
   overflow: hidden;
   z-index: 1;
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   transition: color 0.3s ease;
 }
 
@@ -47,7 +69,7 @@
 
 .animated-btn rect {
   fill: none;
-  stroke: var(--accent-color);
+  stroke: var(--color-primary);
   stroke-width: 2;
   stroke-dasharray: 400;
   stroke-dashoffset: 400;
@@ -58,4 +80,5 @@
 
 .animated-btn:hover rect {
   stroke-dashoffset: 0;
+  stroke: var(--color-primary-hover);
 }
