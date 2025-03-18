@@ -1,25 +1,61 @@
 .tech-stack-section {
-    background: #1c1c1c;
-    padding: 4rem 1.5rem;
-    text-align: center;
-    border: 2px solid rgba(255, 145, 77, 0.2);
-    
-  }
-  
-  .tech-stack-title {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #ffffff;
-    margin-bottom: 2rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-  
+  background: var(--color-bg-secondary);
+  padding: 4rem 1.5rem;
+  text-align: center;
+  border-top: 2px solid var(--color-accent-light);
+  border-radius: var(--radius-md);
+  flex: 1;
+  min-width: 280px;
+  max-width: 350px;
+}
+
+.tech-stack-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--color-heading);
+  margin-bottom: 2.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+}
+
+.tech-title-icon {
+  font-size: 2rem;
+  color: var(--color-primary);
+  vertical-align: middle;
+}
+
+/* ✅ NUOVA GRIGLIA COMPATTA */
+.tech-badges {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.2rem 2rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ✅ RESPONSIVE: torna su 1 colonna da mobile */
+@media (max-width: 640px) {
   .tech-badges {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 1.5rem;
-    max-width: 1000px;
-    margin: 0 auto;
+    grid-template-columns: 1fr;
   }
-  
+}
+
+.tech-toggle-button {
+  margin-top: 2rem;
+  font-size: 0.95rem;
+  background: transparent;
+  color: var(--color-primary);
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.tech-toggle-button:hover {
+  color: var(--color-accent-light);
+}

@@ -27,7 +27,7 @@ const AnimatedButton: React.FC<AnimatedButtonProps> = ({
 			} ${className}`}>
 			<span className="btn-content">
 				{icon && <span className="btn-icon">{icon}</span>}
-				<p className="text-orange-500">{text}</p>
+				<p className="btn-text">{text}</p>
 			</span>
 			<svg
 				className="btn-border-svg"

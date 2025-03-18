@@ -4,19 +4,33 @@
 
 /* Default Theme Variables */
 :root {
-  --card-bg: #5b59c5 ;
-  --color-primary: #ff914d;
-  --color-primary-dark: #764301;
-  --color-secondary: #00bfff;
-  --color-bg: #1c1c1c;
-  --color-bg-dark: #111;
-  --color-text: #ffffff;
-  --color-text-accent: var(--color-primary);
-  --color-gradient: linear-gradient(145deg, var(--color-bg), var(--color-bg-dark));
-  --radius-md: 12px;
-  --hero-bg-initial: radial-gradient(circle, #5b59c5 0%, rgba(35, 37, 40, 1) 0%);
-  --hero-bg-final: radial-gradient(circle, rgba(58, 56, 125, 1) 20%, rgba(35, 37, 40, 1) 35%);
+  /* Backgrounds */
+  --color-bg: #0F111A;
+  --color-bg-secondary: #1B1E2C;
+  --card-bg: #171A26;
 
+  /* Text */
+  --color-text: #F1F2F6;
+  --color-text-secondary: #A4A6B3;
+
+  /* Headings */
+  --color-heading: #FFD580;
+
+  /* Links */
+  --color-link: #00B9FF;
+  --color-link-hover: #7FDBFF;
+
+  /* Accent / Primary */
+  --color-primary: #FF6A3D;
+  --color-primary-hover: #D1542E;
+
+  /* Gradients */
+  --color-gradient: linear-gradient(145deg, var(--color-bg), var(--color-bg-secondary));
+  --hero-bg-initial: radial-gradient(circle, #1B1E2C 0%, #0F111A 50%);
+  --hero-bg-final: radial-gradient(circle, #2A2E45 20%, #0F111A 60%);
+
+  /* Border Radius */
+  --radius-md: 12px;
 }
 
 .hero-container{
@@ -26,5 +40,5 @@
 
 body {
   color: var(--foreground-color);
-  background: rgba(35, 37, 40, 1);
+  background: var(--color-bg);
 }

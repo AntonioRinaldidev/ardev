@@ -1,12 +1,12 @@
-'use client';
-import * as React from 'react';
-import Hero from '@/components/Hero';
-import CustomCard from '@/components/CustomCard';
-import { useEffect } from 'react';
-import Lenis from 'lenis';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import styles from './page.module.css';
+"use client";
+import * as React from "react";
+import Hero from "@/components/Hero";
+import CustomCard from "@/components/CustomCard";
+import { useEffect } from "react";
+import Lenis from "lenis";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import styles from "./page.module.css";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
@@ -15,12 +15,12 @@ export default function Home() {
 		const lenis = new Lenis();
 
 		// Aggiungi listener per l'evento di scroll
-		lenis.on('scroll', (e) => {
+		lenis.on("scroll", (e) => {
 			console.log(e);
 		});
 
 		// Aggiorna ScrollTrigger ad ogni evento di scroll
-		lenis.on('scroll', ScrollTrigger.update);
+		lenis.on("scroll", ScrollTrigger.update);
 
 		// Aggiungi una funzione al ticker di GSAP per aggiornare Lenis
 		gsap.ticker.add((time) => {
@@ -41,20 +41,8 @@ export default function Home() {
 
 	return (
 		<>
-			<div className='hero-container'>
+			<div className="hero-container">
 				<Hero />
-			</div>
-			<div id='cards' className={styles.cardsContainer}>
-				{Array.from({ length: 15 }).map((_, index) => (
-					<CustomCard
-						key={index}
-						title={''}
-						image={''}
-						imagealt={''}
-						p={''}
-						link={''}
-					/>
-				))}
 			</div>
 		</>
 	);
