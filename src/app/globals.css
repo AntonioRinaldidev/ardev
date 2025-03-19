@@ -27,7 +27,7 @@
   /* Gradients */
   --color-gradient: linear-gradient(145deg, var(--color-bg), var(--color-bg-secondary));
   --hero-bg-initial: radial-gradient(circle, #1B1E2C 0%, #0F111A 50%);
-  --hero-bg-final: radial-gradient(circle, #2A2E45 20%, #0F111A 60%);
+  --hero-bg-final: radial-gradient(circle,#193ee4 0%, #2A2E45 100%);
 
   /* Border Radius */
   --radius-md: 12px;
