@@ -8,6 +8,8 @@ import {
 	SiReactrouter,
 	SiPython,
 	SiMysql,
+	SiMongodb,
+	SiNodedotjs,
 	SiGithub,
 } from "react-icons/si";
 import { FaJava, FaGitAlt } from "react-icons/fa";
@@ -19,6 +21,7 @@ import { motion, AnimatePresence } from "framer-motion";
 const techs = [
 	{ name: "JavaScript", icon: <SiJavascript />, tooltip: "JavaScript ES6+" },
 	{ name: "TypeScript", icon: <SiTypescript />, tooltip: "Typed JavaScript" },
+	{ name: "Node.js", icon: <SiNodedotjs />, tooltip: "JavaScript Runtime" },
 	{ name: "HTML", icon: <SiHtml5 />, tooltip: "HTML5 Semantics" },
 	{ name: "React", icon: <SiReact />, tooltip: "React UI Library" },
 	{
@@ -29,6 +32,7 @@ const techs = [
 	{ name: "Java", icon: <FaJava />, tooltip: "Java Backend" },
 	{ name: "Python", icon: <SiPython />, tooltip: "Scripting & Data" },
 	{ name: "SQL", icon: <SiMysql />, tooltip: "MySQL Database" },
+	{ name: "MongoDB", icon: <SiMongodb />, tooltip: "NoSQL Document Database" },
 	{ name: "Git", icon: <FaGitAlt />, tooltip: "Version Control" },
 ];
 
@@ -42,6 +46,7 @@ const TechStack: React.FC = () => {
 			<h2 className="tech-stack-title">
 				<FiCode className="tech-title-icon" />
 				Technologies I Work With
+				<hr className="hr-heading" />
 			</h2>
 
 			<div className="tech-badges">

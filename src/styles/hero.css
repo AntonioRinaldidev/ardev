@@ -3,9 +3,44 @@
   background: var(--color-gradient);
 }
 
-.hero-container {
-  
-  border-bottom: 5px solid var(--color-primary);
+.hero-section {
+  min-height: 100vh;
+  background: var(--color-gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 1.5rem;
+}
+.hero-svg-transition {
+  width: 100%;
+  line-height: 0;
+  margin-top: -1px;
+  z-index: 0;
+}
+
+.hero-svg-transition svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+
+.hero-container-centered {
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.hero-description {
+  margin-top: 1.5rem;
+}
+
+.hero-button-area {
+  margin-top: 2rem;
 }
 
 .heading {
