@@ -8,35 +8,18 @@ const SocialPresenceStats: React.FC = () => {
 
 	useEffect(() => {
 		const fetchCommits = async () => {
-			let totalCommits = 0;
 			try {
-				const reposRes = await fetch(
-					"https://api.github.com/users/AntonioRinaldidev/repos"
-				);
-				const repos = await reposRes.json();
+				const res = await fetch("/api/github-commits");
+				const data = await res.json();
 
-				for (const repo of repos) {
-					const statsRes = await fetch(
-						`https://api.github.com/repos/AntonioRinaldidev/${repo.name}/stats/contributors`
-					);
-					const stats = await statsRes.json();
-
-					if (!Array.isArray(stats)) {
-						console.warn(`Skipping repo ${repo.name}, stats not ready.`);
-						continue;
-					}
-
-					const userStats = stats.find(
-						(s: any) => s.author?.login === "AntonioRinaldidev"
-					);
-					if (userStats) {
-						totalCommits += userStats.total;
-					}
+				if (res.ok && typeof data.commits === "number") {
+					setCommitCount(data.commits);
+				} else {
+					console.warn("GitHub API response malformed:", data);
+					setCommitCount(0);
 				}
-
-				setCommitCount(totalCommits);
 			} catch (err) {
-				console.error("GitHub error:", err);
+				console.error("GitHub API error:", err);
 				setCommitCount(null);
 			}
 		};
