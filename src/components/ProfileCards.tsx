@@ -62,6 +62,10 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
 		router.push("/contact");
 	};
 
+	const handlePressTools = () => {
+		router.push("/tools");
+	};
+
 	return (
 		<>
 			<motion.div
@@ -136,7 +140,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
 							</p>
 						</TextFade>
 
-						<div>
+						<div className="actions">
 							<AnimatedButton
 								onClick={handlePressHire}
 								text="About me"
@@ -149,6 +153,11 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
 								text="Download CV"
 								variant="primary"
 								onClick={handlePressCV}
+							/>
+							<AnimatedButton
+								text="Tools"
+								variant="primary"
+								onClick={handlePressTools}
 							/>
 						</div>
 					</motion.div>

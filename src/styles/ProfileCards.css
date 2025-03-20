@@ -42,3 +42,31 @@
   display: inline-block;
    /* leggero spacing */
 }
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: center;
+  margin-top: 1.5rem;
+  background-color: var(--color-bg-secondary);
+  border-radius: var( --radius-md);
+  overflow: hidden;
+}
+
+.actions .animated-btn {
+  flex: 1 1 33%; /* distribuisce equamente in 3 colonne (auto-resize) */
+  min-width: 120px;
+  border-radius: 0;
+  border: 0;
+  padding: 0.8rem 1rem;
+  text-align: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+@media (max-width: 640px) {
+  .actions .animated-btn {
+    flex: 1 1 100%;
+  }
+}

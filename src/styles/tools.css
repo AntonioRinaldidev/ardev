@@ -1,0 +1,20 @@
+.tool {
+    display: block;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: left;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .tool:hover {
+    transform: translateY(10px);
+    border-color: transparent;
+    box-shadow: 0 0 0 2px var(--shadow-blu, var(--color-primary-hover)), 
+                0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+  .toolhub-intro {
+    text-align: center;
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 2rem;
+  }
+  

@@ -77,7 +77,7 @@ const AboutMe = () => {
 										icon: <FaCheck />,
 										title: "University of Salerno",
 										description:
-											"Bachelor\';s Degree in Computer Engineering - Italy",
+											"Bachelor's Degree in Computer Engineering - Italy",
 										link: {
 											url: "https://www.unisa.it/",
 											text: "University of Salerno",
@@ -87,7 +87,7 @@ const AboutMe = () => {
 										icon: <FaClock />,
 										title: "University of Padua",
 										description:
-											"Master\'s Degree in Computer Engineering - AI & Robotics",
+											"Master's Degree in Computer Engineering - AI & Robotics",
 										link: {
 											url: "https://www.unipd.it/",
 											text: "University of Padua",
