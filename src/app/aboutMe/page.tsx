@@ -51,10 +51,10 @@ const AboutMe = () => {
 							<hr className="hr-heading" />
 						</h2>
 						<p className="text-paragraph">
-							I'm a Computer Engineering student with a Bachelor's degree and
-							currently pursuing a Master's degree in Artificial Intelligence
-							and Robotics. I have a strong interest in frontend development,
-							combining technology with user-centered design.
+							I&apos;m a Computer Engineering student with a Bachelor&apos;s
+							degree and currently pursuing a Master&apos;s degree in Artificial
+							Intelligence and Robotics. I have a strong interest in frontend
+							development, combining technology with user-centered design.
 						</p>
 					</motion.div>
 
@@ -77,7 +77,7 @@ const AboutMe = () => {
 										icon: <FaCheck />,
 										title: "University of Salerno",
 										description:
-											"Bachelor's Degree in Computer Engineering - Italy",
+											"Bachelor&apos;s Degree in Computer Engineering - Italy",
 										link: {
 											url: "https://www.unisa.it/",
 											text: "University of Salerno",
@@ -87,7 +87,7 @@ const AboutMe = () => {
 										icon: <FaClock />,
 										title: "University of Padua",
 										description:
-											"Master's Degree in Computer Engineering - AI & Robotics",
+											"Master&apos;s Degree in Computer Engineering - AI & Robotics",
 										link: {
 											url: "https://www.unipd.it/",
 											text: "University of Padua",
