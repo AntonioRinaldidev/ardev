@@ -36,6 +36,13 @@
 
   /* Border Radius */
   --radius-md: 12px;
+  
+  /* Border */
+  --border: 2px solid var(var(--color-primary));
+
+  /* Warnings */
+  --warning-color: #ff4d4d;
+  --warning-text: #fff;
 }
 
 .hero-container{

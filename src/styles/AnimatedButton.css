@@ -1,67 +1,59 @@
+/* ✅ AnimatedButton.css - Rework elegante */
+.animated-btn {
+  padding: 0.65rem 1.4rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  border: 2px solid transparent;
+  background-color: transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  box-shadow: none;
+}
+
+.btn-primary {
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary);
+  color: var(--color-bg-secondary);
+  box-shadow: 0 0 10px var(--color-primary-hover);
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  color: var(--color-heading);
+  border-color: var(--color-heading);
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-heading);
+  color: var(--color-bg);
+  box-shadow: 0 0 10px var(--color-heading);
+  transform: translateY(-2px);
+}
 
 .btn-content {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  position: relative;
-  z-index: 2;
 }
+
 .btn-text {
-  color: var(--color-secondary);
+  font-size: 1rem;
+  font-weight: 600;
 }
+
 .btn-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  max-width: fit-content;
-}
-.animated-btn {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.75rem 1.5rem;
-  background-color: transparent;
-  cursor: pointer;
-  overflow: hidden;
-  border-radius: var(--radius-md);
-  z-index: 1;
-  transition: color 0.3s ease;
-  
-  /* border: 1px dashed red; */
-}
-
-.btn-border-svg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  z-index: 1;
-  pointer-events: none;
-  display: block;
-}
-
-.animated-btn rect {
-  fill: none;
-  stroke: transparent;
-  stroke-width: 2;
-  stroke-dasharray: 580;
-  stroke-dashoffset: 580;
-  rx: var(--radius-md);
-  ry: var(--radius-md);
-  transition: stroke-dashoffset 1s ease, stroke 0.5s ease;
-}
-
-.animated-btn:hover rect {
-  stroke-dashoffset: 0;
-}
-
-.animated-btn-primary:hover rect {
-  stroke: var(--color-primary);
-}
-
-.animated-btn-secondary:hover rect {
-  stroke: var(--color-secondary);
+  font-size: 1.2rem;
 }
