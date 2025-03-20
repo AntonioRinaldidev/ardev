@@ -5,9 +5,10 @@
 /* Default Theme Variables */
 :root {
   /* Backgrounds */
-  --color-bg: #0F111A;
+  --color-bg: transparent !important;
   --color-bg-secondary: #1B1E2C;
   --card-bg: #171A26;
+  --section-bg: #1b1e2cc1;
 
   /* Text */
   --color-text: #F1F2F6;
@@ -17,17 +18,21 @@
   --color-heading: #FFD580;
 
   /* Links */
-  --color-link: #00B9FF;
+  --color-link: #00b9ff;
   --color-link-hover: #7FDBFF;
 
   /* Accent / Primary */
-  --color-primary: #FF6A3D;
+  --color-primary: rgb(255, 106, 61);
   --color-primary-hover: #D1542E;
 
   /* Gradients */
   --color-gradient: linear-gradient(145deg, var(--color-bg), var(--color-bg-secondary));
-  --hero-bg-initial: radial-gradient(circle, #1B1E2C 0%, #0F111A 50%);
-  --hero-bg-final: radial-gradient(circle,#193ee4 0%, #2A2E45 100%);
+  --hero-bg-initial: radial-gradient(circle, #1B1E2C 0%, #0F111A 20%);
+  --hero-bg-final: radial-gradient(circle, #00b9ffb3, #1a1b1f 50%);
+
+  /* Shadows */
+  --shadow-blu: rgba(0, 185, 255,0.5);
+  --shadow-orange: rgba(255, 106, 61,0.5);
 
   /* Border Radius */
   --radius-md: 12px;
@@ -39,6 +44,20 @@
 
 
 body {
-  color: var(--foreground-color);
-  background: var(--color-bg);
+  background: var(--color-bg); /* fallback */
+  margin: 0;
+  padding: 0;
+  position: relative;
+  overflow-x: hidden;
+}
+
+main {
+  position: relative;
+  z-index: 1; /* tutto il contenuto sopra il background */
+}
+.hr-heading {
+  border: 0;
+  border-top: 1px solid var(--color-heading);
+  margin: 0;
+  width: 100%;
 }
