@@ -1,77 +1,100 @@
-.tool {
-    display: block;
-    flex-direction: column;
-    justify-content: space-between;
-    text-align: left;
-    transition: transform 0.1s ease, box-shadow 0.1s ease;
-  }
-  .tool:hover {
-    transform: translateY(10px);
-    border-color: transparent;
-    box-shadow: 0 0 0 2px var(--shadow-blu, var(--color-primary-hover)), 
-                0 4px 12px rgba(0, 0, 0, 0.2);
-  }
-  .toolhub-intro {
-    text-align: center;
-    font-size: 1rem;
-    color: var(--color-text-secondary);
-    margin-bottom: 2rem;
-  }
+.toolhub-container {
+	padding: 2rem;
+	min-height: 100vh;
+	background: var(--color-bg);
+	color: var(--color-text);
+}
 
-  .tool-icon {
-    font-size: 2rem;
-    color: var(--color-link);
-    margin-bottom: 0.5rem;
-  }
-  
-  .tool-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 0.5rem;
-  }
-  
-  .tool-title {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--color-heading);
-  }
-  
-  .tool-status-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 0.75rem;
-    font-weight: 500;
-    padding: 0.25rem 0.6rem;
-    margin-bottom: 0.25rem;
-    margin-top: 0.25rem;
-    border-radius: 9999px;
-    border: 1px solid transparent;
-    transition: background-color 0.2s ease;
-  }
-  
-  .badge-online {
-    background-color: rgba(34, 197, 94, 0.1);
-    color: #22c55e;
-    border-color: rgba(34, 197, 94, 0.3);
-  }
-  
-  .badge-development {
-    background-color: rgba(59, 130, 246, 0.1);
-    color: #3b82f6;
-    border-color: rgba(59, 130, 246, 0.3);
-  }
-  
-  .badge-construction {
-    background-color: rgba(234, 179, 8, 0.1);
-    color: #eab308;
-    border-color: rgba(234, 179, 8, 0.3);
-  }
-  .tool-disabled {
-    opacity: 0.1;
-    pointer-events: none;
-    cursor: not-allowed;
-    user-select: none;
-  }
-  
+.toolhub-title {
+	text-align: center;
+	font-size: 2.5rem;
+	color: var(--color-heading);
+	margin-bottom: 1rem;
+}
+
+.toolhub-intro {
+	text-align: center;
+	color: var(--color-text-secondary);
+	margin-bottom: 2.5rem;
+	font-size: 1rem;
+}
+
+.toolhub-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+	gap: 2rem;
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+.tool-card {
+	background-color: var(--card-bg);
+	border-radius: var(--radius-md);
+	padding: 1.5rem;
+	box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
+	cursor: pointer;
+}
+
+.tool-card:hover {
+	transform: translateY(-6px);
+	box-shadow: 0 0 0 2px var(--shadow-blu), 0 6px 20px rgba(0, 0, 0, 0.25);
+  border: #3b82f6;
+}
+
+.tool-disabled {
+	opacity: 0.3;
+	cursor: not-allowed;
+	pointer-events: none;
+}
+
+.tool-icon {
+	font-size: 2rem;
+	color: var(--color-link);
+	margin-bottom: 0.75rem;
+}
+
+.tool-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 0.5rem;
+}
+
+.tool-title {
+	font-size: 1.25rem;
+	color: var(--color-heading);
+	font-weight: bold;
+}
+
+.tool-description {
+	color: var(--color-text-secondary);
+	font-size: 0.95rem;
+}
+
+.tool-status-badge {
+	font-size: 0.7rem;
+	padding: 0.2rem 0.6rem;
+	border-radius: 9999px;
+	font-weight: 600;
+	border: 1px solid transparent;
+	text-transform: uppercase;
+}
+
+.badge-online {
+	background: rgba(34, 197, 94, 0.1);
+	color: #22c55e;
+	border-color: rgba(34, 197, 94, 0.3);
+}
+
+.badge-development {
+	background: rgba(59, 130, 246, 0.1);
+	color: #3b82f6;
+	border-color: rgba(59, 130, 246, 0.3);
+}
+
+.badge-construction {
+	background: rgba(234, 179, 8, 0.1);
+	color: #eab308;
+	border-color: rgba(234, 179, 8, 0.3);
+}

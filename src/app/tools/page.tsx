@@ -38,7 +38,7 @@ const tools = [
 	{
 		title: 'CV Generator',
 		description: 'Create a customized resume in just a few steps.',
-		status: 'Under Construction',
+		status: 'In Development',
 		path: '/tools/cv-generator',
 		icon: <FaProjectDiagram />,
 	},
@@ -48,43 +48,29 @@ export default function ToolHub() {
 	const router = useRouter();
 
 	return (
-		<div className="toolhub-container p-8 min-h-screen bg-[var(--color-bg)] text-[var(--color-text)]">
-			<div style={{ marginBottom: '1.5rem' }}>
-				<AnimatedButton
-					text="← Back to Home"
-					variant="primary"
-					onClick={() => router.push('/')}
-				/>
-			</div>
-			<h1 className="text-4xl font-bold mb-8 text-center text-[var(--color-heading)]">
-				Mini Tool Hub
-			</h1>
+		<div className="toolhub-container">
+			<AnimatedButton
+				text="← Back to Home"
+				variant="primary"
+				onClick={() => router.push('/')}
+			/>
+
+			<h1 className="toolhub-title">Mini Tool Hub</h1>
 			<p className="toolhub-intro">
 				Explore practical developer tools to boost your productivity.
 			</p>
-			<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 max-w-5xl mx-auto">
+
+			<div className="toolhub-grid">
 				{tools.map((tool) => {
 					const isDisabled = tool.status === 'Under Construction';
+
 					return (
 						<motion.div
 							key={tool.title}
-							initial={{ opacity: 0, x: -20 }}
-							animate={{ opacity: 1, x: 0 }}
-							transition={{ duration: 0.2 }}
-							whileTap={{ scale: 0.98 }}
-							whileHover={{
-								y: isDisabled ? 0 : -5,
-								scale: isDisabled ? 1 : 1.02,
-								boxShadow: isDisabled
-									? 'none'
-									: '0px 0px 2px var(--color-link)',
-								transition: { duration: 0.2, ease: 'easeOut' },
-							}}
-							className={`tool bg-[var(--color-bg-secondary)] p-6 rounded-2xl shadow-lg transition ${
-								isDisabled
-									? 'tool-disabled'
-									: 'cursor-pointer hover:scale-[1.02]'
-							}`}
+							initial={{ opacity: 0, y: 20 }}
+							whileInView={{ opacity: 1, y: 0 }}
+							transition={{ duration: 0.3 }}
+							className={`tool-card ${isDisabled ? 'tool-disabled' : ''}`}
 							onClick={() => {
 								if (!isDisabled) router.push(tool.path);
 							}}>
@@ -100,28 +86,11 @@ export default function ToolHub() {
 											? 'badge-development'
 											: 'badge-construction'
 									}`}>
-									{tool.status === 'Online' ? (
-										<>
-											<FaCheckCircle style={{ marginRight: '4px' }} />
-											Online
-										</>
-									) : tool.status === 'In Development' ? (
-										<>
-											<FaCode style={{ marginRight: '4px' }} />
-											In Development
-										</>
-									) : (
-										<>
-											<FaTools style={{ marginRight: '4px' }} />
-											Under Construction
-										</>
-									)}
+									{tool.status}
 								</span>
 							</div>
 
-							<p className="text-sm text-[var(--color-text-secondary)]">
-								{tool.description}
-							</p>
+							<p className="tool-description">{tool.description}</p>
 						</motion.div>
 					);
 				})}

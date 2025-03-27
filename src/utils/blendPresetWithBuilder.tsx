@@ -42,10 +42,11 @@ export function blendPresetWithBuilder(
 	console.log('isEmailPreset -', isEmailPreset);
 	// Email – modifica parte locale
 	if (isEmailPreset && startsWith) {
-		updatedPreset = preset.replace(
-			/^[^\s@]+@/,
-			`${startsWith}[a-zA-Z0-9._%+-]*@`
-		);
+		const match = preset.match(/^\^?([a-zA-Z0-9._%+-]+)@(.+)$/);
+		if (match) {
+			const [, , domain] = match;
+			updatedPreset = `^${startsWith}[a-zA-Z0-9._%+-]*@${domain}$`;
+		}
 	}
 
 	// URL – modifica dominio

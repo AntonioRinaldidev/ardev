@@ -1,0 +1,58 @@
+.cv-generator-container {
+  padding: 3rem 2rem;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100vh;
+}
+
+.cv-generator-title {
+  text-align: center;
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin: 2rem 0 3rem;
+  color: var(--color-heading);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.cv-generator-content {
+  display: flex;
+  gap: 2.5rem;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Form */
+.cv-form-wrapper {
+  background-color: var(--color-bg-secondary);
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  box-shadow: 0 0 10px var(--shadow-orange);
+  flex: 1 1 480px;
+}
+
+/* Preview */
+.cv-generator-preview {
+  background-color: var(--card-bg);
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-md);
+  padding: 2rem 1.8rem;
+  box-shadow: 0 0 10px var(--shadow-blu);
+  flex: 1 1 480px;
+  max-height: 100%;
+  overflow: auto;
+}
+
+/* Responsive */
+@media screen and (max-width: 1024px) {
+  .cv-generator-content {
+    flex-direction: column;
+  }
+
+  .cv-form-wrapper,
+  .cv-generator-preview {
+    flex: 1 1 100%;
+  }
+}

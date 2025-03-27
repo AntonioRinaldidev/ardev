@@ -110,7 +110,8 @@ HELLO again.`);
 					}
 				});
 				setResult(highlighted);
-				console.log('Match found: ' + matches[0]);
+				console.log('Final pattern used:', pattern);
+				console.log('Match found:', matches[0]);
 			}
 		} catch (err: any) {
 			setError('❌ Invalid Regular Expression: ' + err.message);

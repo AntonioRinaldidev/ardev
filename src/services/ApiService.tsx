@@ -1,8 +1,8 @@
-import axios, { AxiosRequestConfig } from "axios";
+import axios, { AxiosRequestConfig } from 'axios';
 
 // ✅ Axios instance with credentials support for HTTP-only cookies
 const ApiService = axios.create({
-	baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
+	baseURL: process.env.NEXT_PUBLIC_API_BASE_URL_LOCAL,
 	withCredentials: true,
 });
 
@@ -12,7 +12,7 @@ const configureJsonRequest = async (config = {}) => {
 		...config,
 		headers: {
 			...(config as any).headers,
-			"Content-Type": "application/json",
+			'Content-Type': 'application/json',
 		},
 	};
 };
@@ -20,11 +20,11 @@ const configureJsonRequest = async (config = {}) => {
 // ✅ Request logging
 ApiService.interceptors.request.use(
 	(config) => {
-		console.log("🚀 API Request:", config.method?.toUpperCase(), config.url);
+		console.log('🚀 API Request:', config.method?.toUpperCase(), config.url);
 		return config;
 	},
 	(error) => {
-		console.error("Request interceptor error:", error);
+		console.error('Request interceptor error:', error);
 		return Promise.reject(error);
 	}
 );
@@ -33,7 +33,7 @@ ApiService.interceptors.request.use(
 ApiService.interceptors.response.use(
 	(response) => response,
 	(error) => {
-		console.error("❌ API Response error:", error);
+		console.error('❌ API Response error:', error);
 		return Promise.reject(error);
 	}
 );
@@ -65,7 +65,7 @@ const postFormRequest = async (url: string, data: FormData, config = {}) => {
 		...config,
 		headers: {
 			...(config as any).headers,
-			"Content-Type": "multipart/form-data",
+			'Content-Type': 'multipart/form-data',
 		},
 	};
 	return ApiService.post(url, data, requestConfig);
