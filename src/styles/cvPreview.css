@@ -3,84 +3,116 @@
   padding: 2rem;
   border-radius: var(--radius-md);
   border: 0.125rem dashed var(--color-primary);
-  max-width: 49.625rem; /* 794px */
-  min-height: 70.1875rem; /* 1123px */
+  max-width: 794px;
+  min-height: 1123px;
   font-family: 'Arial', sans-serif;
-  line-height: 1.5;
   margin: 0 auto;
   box-sizing: border-box;
   width: 100%;
+  color: #F1F2F6;
+}
+
+.cv-preview-layout {
+  display: flex;
+  flex-direction: row;
+  background: #171A26;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: 0 0 1rem rgba(0, 185, 255, 0.1);
+}
+
+.cv-left {
+  width: 70%;
+  padding: 2rem;
+}
+
+.cv-right {
+  width: 30%;
+  padding: 2rem;
+  background-color: rgb(40, 45, 69);
+  border-left: 1px solid #2c2f3f;
 }
 
 .cv-header {
   text-align: center;
   margin-bottom: 2rem;
+  border-bottom: 1px solid #FF8C66;
+  padding-bottom: 1rem;
 }
 
 .cv-name {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: var(--color-heading);
+  font-size: 2rem;
+  font-weight: bold;
+  color: #FF8C66;
+  letter-spacing: 0.5px;
 }
 
 .cv-title {
   font-size: 1.1rem;
-  margin-top: 0.2rem;
+  margin-top: 0.3rem;
+  color: #F1F2F6;
 }
 
 .cv-contact {
-  font-size: 0.95rem;
-  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+  color: #A4A6B3;
   margin-top: 0.5rem;
 }
 
 .cv-section {
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
 }
 
-.cv-section h3 {
-  font-size: 1.1rem;
+.cv-section-title {
+  font-size: 1rem;
   font-weight: bold;
-  color: var(--color-primary);
-  margin-bottom: 0.5rem;
+  background-color: #FF6A3D;
+  color: #fff;
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  display: inline-block;
   text-transform: uppercase;
-}
-
-.cv-entry {
+  letter-spacing: 1px;
   margin-bottom: 1rem;
 }
 
-.cv-entry h4 {
+.timeline-box {
+  background-color: #1B1E2C;
+  padding: 1rem;
+  border-radius: 8px;
+  border-left: 3px solid #FF8C66;
+  margin-bottom: 1rem;
+}
+
+.cv-entry-title {
   font-size: 1rem;
   font-weight: 600;
+  color: #FF8C66;
+  margin-bottom: 0.3rem;
+}
+
+.cv-entry-text {
+  font-size: 0.95rem;
+  color: #F1F2F6;
   margin-bottom: 0.2rem;
 }
 
-.cv-entry p {
-  font-size: 0.95rem;
-  margin-bottom: 0.2rem;
-  color: var(--color-text);
+.cv-skill-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
 }
 
-.cv-list {
-  list-style: disc;
-  padding-left: 1.5rem;
-  color: var(--color-text);
-  font-size: 0.95rem;
+.cv-skill-pill {
+  background-color: #FF8C66;
+  color: #171A26;
+  font-size: 0.8rem;
+  font-weight: bold;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
 }
 
-/* ✅ Box di anteprima A4 */
-.cv-preview {
-  width: 49.625rem;
-  min-height: 70.1875rem;
-  background: var(--color-bg);
-  padding: 2rem;
-  box-sizing: border-box;
-  border-radius: var(--radius-md);
-  box-shadow: 0 0 1rem rgba(0, 185, 255, 0.1);
-}
-
-/* ✅ Bottone Export */
 .btn-export {
   margin: 1rem 0;
   background-color: var(--color-primary);
@@ -98,6 +130,7 @@
   background-color: var(--color-primary-hover);
   transform: translateY(-2px);
 }
+
 @media print {
   .cv-generator-preview {
     border: none;
@@ -106,8 +139,10 @@
     background: white !important;
   }
 
-  .cv-preview {
-    padding: 2rem;
+  .cv-preview-layout {
+    flex-direction: column;
+    box-shadow: none;
+    border: none;
   }
 
   .btn-export {

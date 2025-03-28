@@ -1,6 +1,5 @@
-// components/ToggleGroup.tsx
-import React from "react";
-import "../styles/ToggleGroup.css";
+import React from 'react';
+import '../styles/ToggleGroup.css';
 
 interface ToggleGroupProps {
 	selected: string;
@@ -14,17 +13,21 @@ const ToggleGroup: React.FC<ToggleGroupProps> = ({
 	onChange,
 }) => {
 	return (
-		<div className="timeline-toggle-group">
-			{options.map((option) => (
-				<button
-					key={option.value}
-					className={`timeline-toggle ${
-						selected === option.value ? "active" : ""
-					}`}
-					onClick={() => onChange(option.value)}>
-					{option.label}
-				</button>
-			))}
+		<div
+			className="timeline-toggle-group"
+			role="group">
+			{options.map(({ label, value }) => {
+				const isActive = selected === value;
+				return (
+					<button
+						key={value}
+						className={`timeline-toggle ${isActive ? 'active' : ''}`}
+						onClick={() => onChange(value)}
+						aria-pressed={isActive}>
+						{label}
+					</button>
+				);
+			})}
 		</div>
 	);
 };

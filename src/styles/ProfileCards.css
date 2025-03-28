@@ -50,12 +50,25 @@
   justify-content: center;
   margin-top: 1.5rem;
   background-color: var(--color-bg-secondary);
-  border-radius: var( --radius-md);
+  border-radius: var(--radius-md);
   overflow: hidden;
+  border: 1px solid var(--color-primary);
+  animation: breathe-shadow 3s ease-in-out infinite;
+ 
 }
 
+@keyframes breathe-shadow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(162, 0, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 10px 4px rgba(168, 49, 236, 0.578);
+  }
+}
+
+
 .actions .animated-btn {
-  flex: 1 1 33%; /* distribuisce equamente in 3 colonne (auto-resize) */
+  flex: 1 1 50%; /* distribuisce equamente in 3 colonne (auto-resize) */
   min-width: 120px;
   border-radius: 0;
   border: 0;

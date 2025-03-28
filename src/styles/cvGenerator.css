@@ -32,7 +32,10 @@
   box-shadow: 0 0 10px var(--shadow-orange);
   flex: 1 1 480px;
 }
-
+.cv-generator-preview,
+.cv-generator-preview * {
+  box-sizing: border-box;
+}
 /* Preview */
 .cv-generator-preview {
   background-color: var(--card-bg);

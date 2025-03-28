@@ -11,10 +11,12 @@
   margin: 0 auto;
   width: 100%;
 }
+
 .cv-form,
 .cv-form * {
   box-sizing: border-box;
 }
+
 .cv-form h2 {
   font-size: 1.4rem;
   font-weight: bold;
@@ -33,6 +35,66 @@
   background: var(--color-primary);
   border-radius: 0.125rem;
 }
+
+/* ✅ Header sezioni */
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.3rem;
+ 
+}
+
+/* ✅ Bottone mostra/nascondi */
+/* ✅ Bottone mostra/nascondi + animazione icona */
+.section-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  background: transparent;
+  color: var(--color-primary);
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.section-toggle-btn:hover {
+  color: var(--color-primary-hover);
+}
+
+.section-toggle-btn svg {
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.section-toggle-btn .rotate {
+  transform: rotate(180deg);
+  opacity: 0.7;
+}
+
+/* ✅ Animazione apertura/chiusura sezione */
+.section-content-wrapper {
+  overflow: hidden;
+  transition: max-height 0.5s ease, opacity 0.4s ease;
+}
+
+.section-content-wrapper.closed {
+  max-height: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+
+.section-content-wrapper.open {
+  max-height: 2000px; /* valore ampio sufficiente */
+  opacity: 1;
+  transform: scaleY(1);
+  transition: max-height 0.5s ease, opacity 0.4s ease, transform 0.4s ease;
+}
+
 
 .cv-form input,
 .cv-form textarea {
@@ -79,7 +141,51 @@
 .cv-form > div {
   display: flex;
   flex-direction: column;
+  
+}
+
+/* ✅ Animazione mostra/nascondi */
+.section-content {
+  overflow: hidden;
+  animation: fadeInSection 0.4s ease-in-out alternate;
+  display: flex;
   gap: 1rem;
+  flex-direction: column;
+}
+.section-content div {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  
+}
+
+@keyframes fadeInSection {
+  0% {
+    opacity: 0;
+    transform: scaleY(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+@keyframes fadeOutSection {
+  0% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scaleY(0.95);
+  }
+}
+
+.fade-in {
+  animation-name: fadeInSection;
+}
+
+.fade-out {
+  animation-name: fadeOutSection;
 }
 
 hr {

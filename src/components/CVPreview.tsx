@@ -7,77 +7,85 @@ import CVPdfDownload from './CVDownload';
 export default function CVPreview({ data }: { data: CvData }) {
 	return (
 		<div className="cv-generator-preview">
-			{/* Bottone per scaricare il PDF */}
-
 			<CVPdfDownload data={data} />
 
-			{/* Preview visiva sulla pagina */}
-			<div className="cv-preview">
-				<div className="cv-header">
-					<h2 className="cv-name">{data.personal.fullName}</h2>
-					<p className="cv-title">{data.personal.title}</p>
-					<p className="cv-contact">
-						📧 {data.personal.email} | 📍 {data.personal.location} | 🔗{' '}
-						{data.personal.github} | 💼 {data.personal.linkedin}
-					</p>
-				</div>
+			<div className="cv-preview-layout">
+				{/* Colonna sinistra */}
+				<div className="cv-left">
+					<div className="cv-header">
+						<h2 className="cv-name">{data.personal.fullName}</h2>
+						<p className="cv-title">{data.personal.title}</p>
+						<p className="cv-contact">
+							📧 {data.personal.email} | 📍 {data.personal.location} | 🔗{' '}
+							{data.personal.github} | 💼 {data.personal.linkedin}
+						</p>
+					</div>
 
-				<div className="cv-section">
-					<h3>Summary</h3>
-					<p>{data.summary}</p>
-				</div>
+					<div className="cv-section">
+						<h3 className="cv-section-title">Summary</h3>
+						<p className="cv-entry-text">{data.summary}</p>
+					</div>
 
-				<div className="cv-section">
-					<h3>Experience</h3>
-					{data.experience.map((exp, index) => (
-						<div
-							key={index}
-							className="cv-entry">
-							<h4>
-								{exp.role} @ {exp.company}
-							</h4>
-							<p>
-								{exp.location} | {exp.from} - {exp.to}
-							</p>
-							<p>{exp.description}</p>
-						</div>
-					))}
-				</div>
-
-				<div className="cv-section">
-					<h3>Education</h3>
-					{data.education.map((edu, index) => (
-						<div
-							key={index}
-							className="cv-entry">
-							<h4>
-								{edu.degree} @ {edu.school}
-							</h4>
-							<p>
-								{edu.location} | {edu.from} - {edu.to}
-							</p>
-						</div>
-					))}
-				</div>
-
-				<div className="cv-section">
-					<h3>Skills</h3>
-					<ul className="cv-list">
-						{data.skills.map((skill, index) => (
-							<li key={index}>{skill}</li>
+					<div className="cv-section">
+						<h3 className="cv-section-title">Experience</h3>
+						{data.experience.map((exp, i) => (
+							<div
+								key={i}
+								className="cv-entry timeline-box">
+								<h4 className="cv-entry-title">
+									{exp.role} @ {exp.company}
+								</h4>
+								<p className="cv-entry-text">
+									{exp.location} | {exp.from} - {exp.to}
+								</p>
+								<p className="cv-entry-text">{exp.description}</p>
+							</div>
 						))}
-					</ul>
+					</div>
+
+					<div className="cv-section">
+						<h3 className="cv-section-title">Education</h3>
+						{data.education.map((edu, i) => (
+							<div
+								key={i}
+								className="cv-entry timeline-box">
+								<h4 className="cv-entry-title">
+									{edu.degree} @ {edu.school}
+								</h4>
+								<p className="cv-entry-text">
+									{edu.location} | {edu.from} - {edu.to}
+								</p>
+							</div>
+						))}
+					</div>
 				</div>
 
-				<div className="cv-section">
-					<h3>Languages</h3>
-					<ul className="cv-list">
-						{data.languages.map((lang, index) => (
-							<li key={index}>
-								{lang.language} - {lang.level}
-							</li>
+				{/* Colonna destra */}
+				<div className="cv-right">
+					<div className="cv-section">
+						<h3 className="cv-section-title">Skills</h3>
+						<div className="cv-skill-group">
+							{data.skills.map((skill, i) => (
+								<span
+									key={i}
+									className="cv-skill-pill">
+									{skill}
+								</span>
+							))}
+						</div>
+					</div>
+
+					<div className="cv-section">
+						<h3 className="cv-section-title">Languages</h3>
+						{data.languages.map((lang, i) => (
+							<div
+								key={i}
+								className="cv-entry timeline-box">
+								<h4 className="cv-entry-title">{lang.language}</h4>
+								<p className="cv-entry-text">Level: {lang.level}</p>
+							</div>
 						))}
-					</ul>
+					</div>
 				</div>
 			</div>
 		</div>
