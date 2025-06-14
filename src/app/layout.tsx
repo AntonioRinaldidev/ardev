@@ -8,7 +8,42 @@ import ParticlesBackground from '@/components/ParticlesBackground';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-	title: 'AntonioRinaldiDev',
+	title: 'Antonio Rinaldi – Web & Mobile Developer',
+	description:
+		'Portfolio personale di Antonio Rinaldi, ingegnere informatico con focus su React, Next.js, AI e Computer Vision.',
+	keywords: [
+		'Antonio Rinaldi',
+		'Web Developer',
+		'React',
+		'Next.js',
+		'Frontend',
+		'Full Stack',
+		'Computer Vision',
+		'AI',
+		'Portfolio',
+		'Italy',
+		'Vallo Della Lucania',
+		'Padova',
+	],
+	authors: [{ name: 'Antonio Rinaldi', url: 'https://antoniorinaldidev.com' }],
+	creator: 'Antonio Rinaldi',
+	metadataBase: new URL('https://antoniorinaldidev.com'),
+	openGraph: {
+		title: 'Antonio Rinaldi – Portfolio',
+		description:
+			'Sviluppo web e mobile, AI & Robotics. Guarda i miei progetti e contattami per collaborazioni.',
+		url: 'https://antoniorinaldidev.com',
+		siteName: 'Antonio Rinaldi',
+		type: 'website',
+		locale: 'it_IT',
+		images: [
+			{
+				url: '/og-image.jpg',
+				width: 1200,
+				height: 630,
+			},
+		],
+	},
 };
 
 export default function RootLayout({
