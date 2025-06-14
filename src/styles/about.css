@@ -24,21 +24,9 @@
   min-width: 300px;
 }
 
-.about-sidebar {
-  flex: 1;
-  position: sticky;
-  top: 100px;
-  align-self: flex-start;
-}
 
-.sidebar-row {
-  display: flex;
-  flex-direction: row;
-  gap: 2rem;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: flex-start;
-}
+
+
 
 .heading {
   font-size: 2.5rem;
@@ -70,8 +58,5 @@
     flex-direction: column;
   }
 
-  .about-sidebar {
-    position: static;
-    top: auto;
-  }
+ 
 }

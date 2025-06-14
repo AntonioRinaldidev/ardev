@@ -1,6 +1,6 @@
-"use client";
-import React, { useState } from "react";
-import { motion } from "framer-motion";
+'use client';
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import {
 	FaGraduationCap,
 	FaBriefcase,
@@ -10,20 +10,20 @@ import {
 	FaMusic,
 	FaSnowflake,
 	FaTshirt,
-} from "react-icons/fa";
-import TechStack from "@/components/TechStack/TechStack";
-import AnimatedButton from "@/components/AnimatedButton";
-import "@/styles/about.css";
-import SocialStats from "@/components/SocialStats";
-import { useRouter } from "next/navigation";
-import ToggleGroup from "@/components/ToggleGroup";
-import Timeline from "@/components/Timeline";
+} from 'react-icons/fa';
+import TechStack from '@/components/TechStack/TechStack';
+import AnimatedButton from '@/components/AnimatedButton';
+import '@/styles/about.css';
+import SocialStats from '@/components/SocialStats';
+import { useRouter } from 'next/navigation';
+import ToggleGroup from '@/components/ToggleGroup';
+import Timeline from '@/components/Timeline';
 
 const AboutMe = () => {
 	const router = useRouter();
 	const [selectedTab, setSelectedTab] = useState<
-		"education" | "experience" | "hobbies"
-	>("education");
+		'education' | 'experience' | 'hobbies'
+	>('education');
 
 	return (
 		<section className="about-section">
@@ -31,7 +31,7 @@ const AboutMe = () => {
 				<AnimatedButton
 					variant="primary"
 					text="Back to Home"
-					onClick={() => router.push("/")}
+					onClick={() => router.push('/')}
 				/>
 			</div>
 
@@ -40,12 +40,12 @@ const AboutMe = () => {
 					className="about-main-content"
 					initial={{ opacity: 0, y: 30 }}
 					animate={{ opacity: 1, y: 0 }}
-					transition={{ duration: 0.7, ease: "easeOut" }}>
+					transition={{ duration: 0.7, ease: 'easeOut' }}>
 					<motion.div
 						className="intro"
 						initial={{ opacity: 0, y: 30 }}
 						animate={{ opacity: 1, y: 0 }}
-						transition={{ duration: 0.7, ease: "easeOut" }}>
+						transition={{ duration: 0.7, ease: 'easeOut' }}>
 						<h2 className="heading">
 							About Me
 							<hr className="hr-heading" />
@@ -58,85 +58,77 @@ const AboutMe = () => {
 						</p>
 					</motion.div>
 
+					<TechStack />
+
 					<ToggleGroup
 						selected={selectedTab}
 						onChange={(val) => setSelectedTab(val as any)}
 						options={[
-							{ label: "Education", value: "education" },
-							{ label: "Experience", value: "experience" },
-							{ label: "Hobbies", value: "hobbies" },
+							{ label: 'Education', value: 'education' },
+							{ label: 'Experience', value: 'experience' },
+							{ label: 'Hobbies', value: 'hobbies' },
 						]}
 					/>
 
 					<div className="timeline-content-wrapper">
-						{selectedTab === "education" && (
+						{selectedTab === 'education' && (
 							<Timeline
 								heading="Education"
 								items={[
 									{
 										icon: <FaCheck />,
-										title: "University of Salerno",
+										title: 'University of Salerno',
 										description:
 											"Bachelor's Degree in Computer Engineering - Italy",
 										link: {
-											url: "https://www.unisa.it/",
-											text: "University of Salerno",
+											url: 'https://www.unisa.it/',
+											text: 'University of Salerno',
 										},
 									},
 									{
 										icon: <FaClock />,
-										title: "University of Padua",
+										title: 'University of Padua',
 										description:
 											"Master's Degree in Computer Engineering - AI & Robotics",
 										link: {
-											url: "https://www.unipd.it/",
-											text: "University of Padua",
+											url: 'https://www.unipd.it/',
+											text: 'University of Padua',
 										},
 									},
 								]}
 							/>
 						)}
 
-						{selectedTab === "experience" && (
+						{selectedTab === 'experience' && (
 							<Timeline
 								heading="Experience"
 								items={[
 									{
 										icon: <FaBriefcase />,
-										title: "Centro Wellness Morra",
+										title: 'Centro Wellness Morra',
 										description:
-											"Freelance Frontend Developer - Creating responsive user interfaces",
+											'Freelance Frontend Developer - Creating responsive user interfaces',
 									},
 								]}
 							/>
 						)}
 
-						{selectedTab === "hobbies" && (
+						{selectedTab === 'hobbies' && (
 							<Timeline
 								heading="Hobbies"
 								items={[
 									{
 										icon: <FaGamepad />,
-										title: "Gaming (Trackmania enthusiast)",
+										title: 'Gaming (Trackmania enthusiast)',
 									},
-									{ icon: <FaSnowflake />, title: "Snowboarding" },
-									{ icon: <FaTshirt />, title: "Fashion & Streetwear" },
-									{ icon: <FaMusic />, title: "Music" },
+									{ icon: <FaSnowflake />, title: 'Snowboarding' },
+									{ icon: <FaTshirt />, title: 'Fashion & Streetwear' },
+									{ icon: <FaMusic />, title: 'Music' },
 								]}
 							/>
 						)}
 					</div>
 					<SocialStats />
-				</motion.div>
-
-				<motion.div
-					className="about-sidebar"
-					initial={{ opacity: 0, y: 30 }}
-					animate={{ opacity: 1, y: 0 }}
-					transition={{ duration: 0.7, ease: "easeOut", delay: 0.5 }}>
-					<div className="sidebar-row">
-						<TechStack />
-					</div>
 				</motion.div>
 			</div>
 		</section>
