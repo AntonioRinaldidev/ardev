@@ -1,13 +1,14 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import "@/styles/ProfileCards.css";
-import { TextFade } from "./TextFade";
-import { useRouter } from "next/navigation";
-import { FaMapPin } from "react-icons/fa";
-import AnimatedButton from "./AnimatedButton";
-import { downloadCV } from "@/services/fileService";
-import ModalDownload from "./ModalDownload";
+'use client';
+import React, { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import '@/styles/ProfileCards.css';
+import { TextFade } from './TextFade';
+import { useRouter } from 'next/navigation';
+import { FaMapPin } from 'react-icons/fa';
+import AnimatedButton from './AnimatedButton';
+import { downloadCV } from '@/services/fileService';
+import ModalDownload from './ModalDownload';
+import ThemeSwitcher from './ThemeSwitcher';
 
 interface ProfileCardProps {
 	imageUrl: string;
@@ -22,7 +23,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
 	title,
 	description,
 }) => {
-	const [devType, setDevType] = useState("Web");
+	const [devType, setDevType] = useState('Web');
 	const [isDownloading, setIsDownloading] = useState(false);
 	const [showModal, setShowModal] = useState(false);
 	const [downloadComplete, setDownloadComplete] = useState(false);
@@ -40,7 +41,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
 			setDownloadComplete(true);
 			setTimeout(() => setShowModal(false), 2000);
 		} catch (err) {
-			console.error("Errore durante il download", err);
+			console.error('Errore durante il download', err);
 			setIsDownloading(false);
 			setDownloadComplete(false);
 			setShowModal(false);
@@ -49,21 +50,21 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
 
 	useEffect(() => {
 		const interval = setInterval(() => {
-			setDevType((prev) => (prev === "Web" ? "Mobile" : "Web"));
+			setDevType((prev) => (prev === 'Web' ? 'Mobile' : 'Web'));
 		}, 3000);
 		return () => clearInterval(interval);
 	}, []);
 
 	const handlePressHire = () => {
-		router.push("/aboutMe");
+		router.push('/aboutMe');
 	};
 
 	const handleContact = () => {
-		router.push("/contact");
+		router.push('/contact');
 	};
 
 	const handlePressTools = () => {
-		router.push("/tools");
+		router.push('/tools');
 	};
 
 	return (
@@ -72,7 +73,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
 				className="profile-card"
 				initial={{ opacity: 0 }}
 				animate={{ opacity: 1 }}
-				transition={{ duration: 0.6, ease: "easeOut" }}>
+				transition={{ duration: 0.6, ease: 'easeOut' }}>
 				<TextFade
 					direction="down"
 					className="pt-0 pb-5 flex-col flex justify-center items-center space-y-0">
@@ -81,12 +82,12 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
 						className="profile-card-top"
 						initial={{ opacity: 0, y: 0 }}
 						animate={{ opacity: 1, y: -30 }}
-						transition={{ duration: 0.6, ease: "easeOut" }}>
+						transition={{ duration: 0.6, ease: 'easeOut' }}>
 						<motion.h1
 							className="heading profile-wave-title"
 							initial={{ opacity: 0, y: 20 }}
 							animate={{ opacity: 1, y: 0 }}
-							transition={{ duration: 0.3, ease: "easeOut" }}>
+							transition={{ duration: 0.3, ease: 'easeOut' }}>
 							Hi there
 							<motion.span
 								className="profile-wave-letter"
@@ -96,7 +97,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
 									delay: 0.5,
 									duration: 1,
 									repeat: Infinity,
-									ease: "easeInOut",
+									ease: 'easeInOut',
 								}}>
 								!
 							</motion.span>
@@ -107,7 +108,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
 						</div>
 
 						<div className="text-paragraph text-center md:text-lg max-w-lg mx-auto mb-5">
-							I&apos;m a CS Major student and a{" "}
+							I&apos;m a CS Major student and a{' '}
 							<motion.span
 								key={devType}
 								className="highlight"
@@ -116,7 +117,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
 								exit={{ opacity: 0, y: -50 }}
 								transition={{ duration: 0.8 }}>
 								{devType}
-							</motion.span>{" "}
+							</motion.span>{' '}
 							Developer
 						</div>
 					</motion.div>
@@ -126,7 +127,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
 						className="profile-card-bottom"
 						initial={{ opacity: 0, y: 0 }}
 						animate={{ opacity: 1, y: 30 }}
-						transition={{ duration: 0.6, ease: "easeOut" }}>
+						transition={{ duration: 0.6, ease: 'easeOut' }}>
 						<div className="location text-center md:text-lg max-w-lg mx-auto mb-5">
 							<FaMapPin /> Based In Italy
 						</div>

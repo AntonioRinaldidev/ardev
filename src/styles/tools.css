@@ -3,6 +3,8 @@
 	min-height: 100vh;
 	background: var(--color-bg);
 	color: var(--color-text);
+	justify-content: center;
+	align-items: center;
 }
 
 .toolhub-title {
@@ -20,26 +22,40 @@
 }
 
 .toolhub-grid {
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+	display: flex;
+	padding-top: 3rem;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
 	gap: 2rem;
 	max-width: 1200px;
 	margin: 0 auto;
 }
 
 .tool-card {
+	display: flex;
+	flex-direction: column;
+	max-width: 15rem;
+	min-height: 20rem;
 	background-color: var(--card-bg);
 	border-radius: var(--radius-md);
 	padding: 1.5rem;
+	justify-content: center;
+	align-items: center;
 	box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
 	transition: transform 0.2s ease, box-shadow 0.2s ease;
 	cursor: pointer;
+	text-align: center;
 }
 
 .tool-card:hover {
 	transform: translateY(-6px);
 	box-shadow: 0 0 0 2px var(--shadow-blu), 0 6px 20px rgba(0, 0, 0, 0.25);
   border: #3b82f6;
+}
+
+.tool-card .animated-btn{
+	margin-top: 1rem;
 }
 
 .tool-disabled {
@@ -49,20 +65,23 @@
 }
 
 .tool-icon {
+	
 	font-size: 2rem;
 	color: var(--color-link);
-	margin-bottom: 0.75rem;
+	text-align: center;
 }
 
 .tool-header {
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
+	justify-content: center;
 	margin-bottom: 0.5rem;
+	text-align: center;
 }
 
 .tool-title {
 	font-size: 1.25rem;
+	text-align: center;
 	color: var(--color-heading);
 	font-weight: bold;
 }
@@ -70,6 +89,17 @@
 .tool-description {
 	color: var(--color-text-secondary);
 	font-size: 0.95rem;
+}
+.tool-icon-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 5rem;
+	height: 5rem;
+	border-radius: 9999px;
+	background-color: var(--color-bg-secondary);
+	margin: 0 auto;
+
 }
 
 .tool-status-badge {
@@ -97,4 +127,13 @@
 	background: rgba(234, 179, 8, 0.1);
 	color: #eab308;
 	border-color: rgba(234, 179, 8, 0.3);
+}
+
+.tool-disabled-text{
+	color: var(--warning-color);
+	font-size: 0.9rem;
+	text-align: center;
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+	font-weight: 600;
 }

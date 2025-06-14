@@ -1,12 +1,12 @@
-"use client";
-import * as React from "react";
-import Hero from "@/components/Hero";
-import CustomCard from "@/components/CustomCard";
-import { useEffect } from "react";
-import Lenis from "lenis";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import styles from "./page.module.css";
+'use client';
+import * as React from 'react';
+import Hero from '@/components/Hero';
+import CustomCard from '@/components/CustomCard';
+import { useEffect } from 'react';
+import Lenis from 'lenis';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import ThemeSwitcher from '@/components/ThemeSwitcher';
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
@@ -15,12 +15,12 @@ export default function Home() {
 		const lenis = new Lenis();
 
 		// Aggiungi listener per l'evento di scroll
-		lenis.on("scroll", (e) => {
+		lenis.on('scroll', (e) => {
 			console.log(e);
 		});
 
 		// Aggiorna ScrollTrigger ad ogni evento di scroll
-		lenis.on("scroll", ScrollTrigger.update);
+		lenis.on('scroll', ScrollTrigger.update);
 
 		// Aggiungi una funzione al ticker di GSAP per aggiornare Lenis
 		gsap.ticker.add((time) => {
@@ -42,6 +42,7 @@ export default function Home() {
 	return (
 		<>
 			<div className="hero-container">
+				<ThemeSwitcher />
 				<Hero />
 			</div>
 		</>

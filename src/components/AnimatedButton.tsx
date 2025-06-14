@@ -1,22 +1,22 @@
 // ✅ AnimatedButton.tsx REWORKED
-"use client";
-import React from "react";
-import "@/styles/AnimatedButton.css";
+'use client';
+import React from 'react';
+import '@/styles/AnimatedButton.css';
 
 interface AnimatedButtonProps {
 	onClick: () => void;
 	text: string;
 	icon?: React.ReactNode;
 	className?: string;
-	variant?: "primary" | "secondary";
+	variant?: 'primary' | 'secondary' | 'development' | 'construction';
 }
 
 const AnimatedButton: React.FC<AnimatedButtonProps> = ({
 	onClick,
 	text,
 	icon,
-	className = "",
-	variant = "primary",
+	className = '',
+	variant = 'primary',
 }) => {
 	return (
 		<button

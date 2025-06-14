@@ -22,6 +22,7 @@ export default function RootLayout({
 			className={inter.className}>
 			<body suppressHydrationWarning={true}>
 				<ParticlesBackground />
+
 				<main>{children}</main>
 			</body>
 		</html>

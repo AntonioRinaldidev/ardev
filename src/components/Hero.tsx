@@ -1,13 +1,8 @@
-"use client";
-import React, { useState } from "react";
-import { motion } from "framer-motion";
-import "@/styles/hero.css";
-import { TextFade } from "./TextFade";
-import { downloadCV } from "@/services/fileService";
-import ModalDownload from "./ModalDownload";
-import AnimatedButton from "./AnimatedButton";
-import ProfileCard from "@/components/ProfileCards";
-import Image from "next/image";
+'use client';
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import '@/styles/hero.css';
+import ProfileCard from '@/components/ProfileCards';
 
 function Hero() {
 	const [animationCompleted, setAnimationCompleted] = useState(false);

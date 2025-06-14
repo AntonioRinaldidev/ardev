@@ -5,6 +5,7 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
+
 }
 
 .contact-wrapper {
@@ -43,6 +44,7 @@
 }
 
 .contact-form {
+  align-items: center; 
   display: flex;
   flex-direction: column;
   gap: 1.2rem;

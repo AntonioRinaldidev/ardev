@@ -1,3 +1,4 @@
+/* 🌌 Particles container */
 .space-container {
 	position: fixed;
 	inset: 0;
@@ -10,7 +11,7 @@
 	z-index: -1;
 }
 
-/* 💥 Glow nebula più energici */
+/* 💥 Glow Nebula Base */
 .glow-circle {
 	position: absolute;
 	border-radius: 50%;
@@ -23,7 +24,6 @@
 .purple {
 	width: 400px;
 	height: 400px;
-	background: rgb(162, 0, 255);
 	top: 20%;
 	left: 10%;
 }
@@ -31,29 +31,20 @@
 .blue {
 	width: 300px;
 	height: 300px;
-	background: #00e1ff;
 	bottom: 15%;
 	right: 10%;
 }
 
-.animate-pulse {
-	animation: pulse 4s ease-in-out infinite;
-}
-.delay {
-	animation-delay: 2s;
-}
-
-/* 🌊 Plasma wave */
+/* 🌊 Plasma Wave Base */
 .energy-wave {
 	position: absolute;
 	inset: 0;
-	background: radial-gradient(circle at center, rgba(255, 0, 255, 0.05), transparent 70%);
 	animation: wavePulse 10s ease-in-out infinite;
 	mix-blend-mode: screen;
 	z-index: 0;
 }
 
-/* 🌘 Vignetta */
+/* 🌘 Vignetta Overlay */
 .space-overlay {
 	position: absolute;
 	inset: 0;
@@ -62,7 +53,7 @@
 	z-index: 1;
 }
 
-/* 🔁 Animazioni */
+/* 🌀 Animazioni */
 @keyframes gradientShift {
 	0% { background-position: 0% 50%; }
 	50% { background-position: 100% 50%; }
@@ -77,4 +68,54 @@
 @keyframes wavePulse {
 	0%, 100% { opacity: 0.05; transform: scale(1); }
 	50% { opacity: 0.1; transform: scale(1.1); }
+}
+
+.animate-pulse {
+	animation: pulse 4s ease-in-out infinite;
+}
+.delay {
+	animation-delay: 2s;
+}
+
+/* 🎨 THEME VARIATIONS via <html class="theme"> */
+
+/* 🎨 GLOW CIRCLE COLOR PER THEME */
+
+:root.cyber .glow-circle.purple {
+	background: #8c5eff;
+	box-shadow: 0 0 60px #8c5eff;
+}
+:root.cyber .glow-circle.blue {
+	background: #00b9ff;
+	box-shadow: 0 0 60px #00b9ff;
+}
+
+:root.mint .glow-circle.purple {
+	background: #4f46e5;
+	box-shadow: 0 0 60px #4f46e5;
+}
+:root.mint .glow-circle.blue {
+	background: #20dfc1;
+	box-shadow: 0 0 60px #20dfc1;
+}
+
+:root.neon .glow-circle.purple {
+	background: #ffe600;
+	box-shadow: 0 0 60px #ffe600;
+}
+:root.neon .glow-circle.blue {
+	background: #ff4d6d;
+	box-shadow: 0 0 60px #ff4d6d;
+}
+
+:root.cyber .energy-wave {
+	background: radial-gradient(circle at center, rgba(140, 94, 255, 0.08), transparent 70%);
+}
+
+:root.mint .energy-wave {
+	background: radial-gradient(circle at center, rgba(32, 223, 193, 0.08), transparent 70%);
+}
+
+:root.neon .energy-wave {
+	background: radial-gradient(circle at center, rgba(255, 230, 0, 0.08), transparent 70%);
 }

@@ -28,17 +28,28 @@
 }
 
 .btn-secondary {
-  color: var(--color-heading);
-  border-color: var(--color-heading);
+  color: var(--color-link);
+  border-color: var(--color-link);
 }
 
 .btn-secondary:hover {
-  background-color: var(--color-heading);
-  color: var(--color-bg);
+  background-color: var(--color-link-hover);
+  color: var(--color-bg-secondary);
   box-shadow: 0 0 10px var(--color-heading);
   transform: translateY(-2px);
 }
 
+.btn-development {
+  color: var(--color-third);
+  background-color: var(--color-bg);
+  border-color: var(--color-third);
+}
+.btn-development:hover {
+  background-color: var(--color-third-hover);
+  color: var(--color-bg-secondary);
+  box-shadow: 0 0 10px var(--color-third-hover);
+  transform: translateY(-2px);
+}
 .btn-content {
   display: inline-flex;
   align-items: center;

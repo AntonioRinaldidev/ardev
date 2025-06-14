@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import { motion } from 'framer-motion';
+
 import AnimatedButton from '@/components/AnimatedButton';
 import '@/styles/tools.css';
 import {
@@ -12,8 +12,15 @@ import {
 	FaFileCsv,
 	FaProjectDiagram,
 } from 'react-icons/fa';
+import ToolCard from '@/components/ToolCard';
 
-const tools = [
+const tools: {
+	title: string;
+	description: string;
+	status: 'Online' | 'In Development' | 'Under Construction';
+	path: string;
+	icon: JSX.Element;
+}[] = [
 	{
 		title: 'JSON Formatter',
 		description: 'Easily format and validate your JSON files.',
@@ -61,39 +68,29 @@ export default function ToolHub() {
 			</p>
 
 			<div className="toolhub-grid">
-				{tools.map((tool) => {
-					const isDisabled = tool.status === 'Under Construction';
+				{[...tools]
+					.sort((a, b) => {
+						const statusOrder = {
+							Online: 0,
+							'In Development': 1,
+							'Under Construction': 2,
+						};
+						return (
+							statusOrder[a.status as keyof typeof statusOrder] -
+							statusOrder[b.status as keyof typeof statusOrder]
+						);
+					})
+					.map((tool) => {
+						const isDisabled = tool.status === 'Under Construction';
 
-					return (
-						<motion.div
-							key={tool.title}
-							initial={{ opacity: 0, y: 20 }}
-							whileInView={{ opacity: 1, y: 0 }}
-							transition={{ duration: 0.3 }}
-							className={`tool-card ${isDisabled ? 'tool-disabled' : ''}`}
-							onClick={() => {
-								if (!isDisabled) router.push(tool.path);
-							}}>
-							<div className="tool-icon">{tool.icon}</div>
-
-							<div className="tool-header">
-								<h2 className="tool-title">{tool.title}</h2>
-								<span
-									className={`tool-status-badge ${
-										tool.status === 'Online'
-											? 'badge-online'
-											: tool.status === 'In Development'
-											? 'badge-development'
-											: 'badge-construction'
-									}`}>
-									{tool.status}
-								</span>
-							</div>
-
-							<p className="tool-description">{tool.description}</p>
-						</motion.div>
-					);
-				})}
+						return (
+							<ToolCard
+								tool={tool}
+								key={tool.title}
+								isDisabled={isDisabled}
+							/>
+						);
+					})}
 			</div>
 		</div>
 	);
