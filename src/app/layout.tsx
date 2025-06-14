@@ -8,7 +8,7 @@ import ParticlesBackground from '@/components/ParticlesBackground';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-	title: 'JKryson',
+	title: 'AntonioRinaldiDev',
 };
 
 export default function RootLayout({
