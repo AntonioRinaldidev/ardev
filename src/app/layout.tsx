@@ -6,6 +6,7 @@ export const dynamic = 'force-dynamic';
 import ParticlesBackground from '@/components/ParticlesBackground';
 import { ThemeInitWrapper } from '@/components/ThemeInitWrapper';
 import Footer from '@/components/Footer';
+import { useEffect } from 'react';
 
 const inter = Inter({ subsets: ['latin'] });
 

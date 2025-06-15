@@ -15,9 +15,6 @@ function Hero() {
 				animate={{ opacity: 1, y: 0 }}
 				transition={{ duration: 0.6 }}
 				onAnimationComplete={() => setAnimationCompleted(true)}>
-				<div
-					className="hero-svg-bg"
-					aria-hidden="true"></div>
 				<div className="hero-container-centered">
 					{animationCompleted && (
 						<>

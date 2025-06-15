@@ -1,11 +1,13 @@
 .profile-card {
   background: transparent;
   padding-top: 4rem;
-
   text-align: center;
-  
-  max-width: 320px;
+  display: flex;
+  max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
+  min-height: 600px;
+  flex-wrap: wrap;
 }
 
 
@@ -43,23 +45,60 @@
    /* leggero spacing */
 }
 .actions {
+  flex:1;
   display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
+  flex-direction: column;
+  gap: 0.5rem;
   align-items: stretch;
   justify-content: center;
-  margin-top: 1.5rem;
-  background-color: var(--color-bg-secondary);
-  border-radius: var(--radius-md);
-  overflow: hidden;
+  
+}
+.col1{
+  background-color: var(--card-bg);
+  flex:6;
+  padding: 2rem;
+  border-radius: 20px 0 20px 20px ;
+  box-shadow:
+    -1px 0 0 var(--shadow-orange), /* sinistra */
+    0 -1px 0 var(--shadow-orange), /* top */
+    1px 0 0 var(--shadow-orange),  /* destra */
+    0 1px 0 var(--shadow-orange);  /* bottom */
+}
+.col2{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  
+  gap: 2rem;
+}
+.col1, .col2 {
+  box-sizing: border-box;
+}
 
+.profile-card-actions{
+  display: flex;
+  min-height: 50%;
+  flex-direction: column;
+  justify-content: center;
+  padding:0.1rem;
+  gap:0.1rem;
+  background-color: var(--card-bg);
+  border-radius: 0 20px 20px 0px ;
+  max-height: 400px;
+    box-shadow:
+    0 -1px 0 var(--shadow-orange),  /* top */
+    1px 0 0 var(--shadow-orange),   /* right */
+    0 1px 0 var(--shadow-orange);   /* bottom */
+
+   /* per contenere lo pseudo-elemento */
  
 }
 
 
 
+
 .actions .animated-btn {
-  flex: 1 1 50%; /* distribuisce equamente in 3 colonne (auto-resize) */
+  flex: 1 1 ; 
   min-width: 120px;
   border-radius: 0;
   border: 0;
@@ -67,10 +106,31 @@
   text-align: center;
   justify-content: center;
   transition: all 0.3s ease;
+  border-radius: var(--radius-md);
 }
+
 
 @media (max-width: 640px) {
   .actions .animated-btn {
     flex: 1 1 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .profile-card {
+    flex-direction: column;
+  }
+
+  .col1, .col2 {
+    flex: 1 1 100%; /* 👈 prendono tutta la larghezza su mobile */
+  }
+
+  .col2 {
+    min-height: auto;
+    padding-top: 1rem;
+  }
+
+  .profile-card-actions {
+    max-height: none;
   }
 }

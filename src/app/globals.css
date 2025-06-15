@@ -28,7 +28,7 @@
   --shadow-blu: rgba(0, 185, 255, 0.5);
   --shadow-orange: rgba(255, 106, 61, 0.5);
 
-  --radius-md: 12px;
+  --radius-md: 20px;
   --border: 2px solid var(--color-primary);
   --warning-color: #ff4d4d;
   --warning-text: #fff;
@@ -79,7 +79,6 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-  position: absolute;
   top: 1rem;
   right: 1rem;
 }

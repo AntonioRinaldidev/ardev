@@ -9,6 +9,7 @@ import AnimatedButton from './AnimatedButton';
 import { downloadCV } from '@/services/fileService';
 import ModalDownload from './ModalDownload';
 import ThemeSwitcher from './ThemeSwitcher';
+import { FaUser, FaEnvelope, FaFileDownload, FaTools } from 'react-icons/fa';
 
 interface ProfileCardProps {
 	fullName: string;
@@ -19,8 +20,14 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ fullName }) => {
 	const [isDownloading, setIsDownloading] = useState(false);
 	const [showModal, setShowModal] = useState(false);
 	const [downloadComplete, setDownloadComplete] = useState(false);
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, []);
 
 	const router = useRouter();
+	useEffect(() => {
+		setShowModal(false); // forzato al mount
+	}, []);
 
 	const handlePressCV = async () => {
 		setShowModal(true);
@@ -68,7 +75,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ fullName }) => {
 				transition={{ duration: 0.6, ease: 'easeOut' }}>
 				<TextFade
 					direction="down"
-					className="pt-0 pb-5 flex-col flex justify-center items-center space-y-0">
+					className="col1 pt-0 pb-5 flex-col flex justify-center items-center space-y-0">
 					{/* SECTION: TOP - animazione verso l’alto */}
 					<motion.div
 						className="profile-card-top"
@@ -118,7 +125,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ fullName }) => {
 					<motion.div
 						className="profile-card-bottom"
 						initial={{ opacity: 0, y: 0 }}
-						animate={{ opacity: 1, y: 30 }}
+						animate={{ opacity: 1, y: 50 }}
 						transition={{ duration: 0.6, ease: 'easeOut' }}>
 						<div className="location text-center md:text-lg max-w-lg mx-auto mb-5">
 							<FaMapPin /> Based In Italy
@@ -132,36 +139,46 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ fullName }) => {
 								interfaces and pizza.
 							</p>
 						</TextFade>
-
+					</motion.div>
+				</TextFade>
+				<div className="col2">
+					<div className="profile-card-actions">
 						<div className="actions">
 							<AnimatedButton
+								text="About"
+								icon={<FaUser />}
 								onClick={handlePressHire}
-								text="About me"
 							/>
 							<AnimatedButton
-								text="Contact Me"
+								text="Contact"
+								icon={<FaEnvelope />}
 								onClick={handleContact}
 							/>
 							<AnimatedButton
-								text="Download CV"
+								text="Resume"
+								icon={<FaFileDownload />}
 								variant="primary"
 								onClick={handlePressCV}
 							/>
 							<AnimatedButton
 								text="Tools"
+								icon={<FaTools />}
 								variant="primary"
 								onClick={handlePressTools}
 							/>
 						</div>
-					</motion.div>
-				</TextFade>
+					</div>
+					<ThemeSwitcher />
+				</div>
 			</motion.div>
 
-			<ModalDownload
-				isOpen={showModal}
-				isDownloading={isDownloading}
-				downloadComplete={downloadComplete}
-			/>
+			{showModal && (
+				<ModalDownload
+					isOpen={showModal}
+					isDownloading={isDownloading}
+					downloadComplete={downloadComplete}
+				/>
+			)}
 		</>
 	);
 };

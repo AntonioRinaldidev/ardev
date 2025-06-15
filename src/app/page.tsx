@@ -1,7 +1,6 @@
 'use client';
 import * as React from 'react';
 import Hero from '@/components/Hero';
-import CustomCard from '@/components/CustomCard';
 import { useEffect } from 'react';
 import Lenis from 'lenis';
 import { gsap } from 'gsap';
@@ -42,7 +41,6 @@ export default function Home() {
 	return (
 		<>
 			<div className="hero-container">
-				<ThemeSwitcher />
 				<Hero />
 			</div>
 		</>
