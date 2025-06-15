@@ -38,9 +38,9 @@ export const metadata: Metadata = {
 		locale: 'it_IT',
 		images: [
 			{
-				url: 'https://antoniorinaldidev.com/og-image.jpg',
-				width: 1200,
-				height: 630,
+				url: 'https://antoniorinaldidev.com/og-image-v2.jpg',
+				width: 1024,
+				height: 1024,
 			},
 		],
 	},
