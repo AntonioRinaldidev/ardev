@@ -4,6 +4,7 @@ import './globals.css'; // deve essere qui, non dentro page.tsx
 
 export const dynamic = 'force-dynamic';
 import ParticlesBackground from '@/components/ParticlesBackground';
+import { ThemeInitWrapper } from '@/components/ThemeInitWrapper';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -56,6 +57,7 @@ export default function RootLayout({
 			lang="en"
 			className={inter.className}>
 			<body suppressHydrationWarning={true}>
+				<ThemeInitWrapper />
 				<ParticlesBackground />
 
 				<main>{children}</main>

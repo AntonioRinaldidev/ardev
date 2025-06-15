@@ -1,19 +1,21 @@
-"use client";
-import React, { useState } from "react";
-import "@/styles/jsonFormatter.css";
-import { AnimatePresence, motion } from "framer-motion";
-import { FaRegCopy, FaCheck } from "react-icons/fa";
-import { useRouter } from "next/navigation";
-import AnimatedButton from "@/components/AnimatedButton";
+'use client';
+import React, { useState } from 'react';
+import '@/styles/jsonFormatter.css';
+import { AnimatePresence, motion } from 'framer-motion';
+import { FaRegCopy, FaCheck } from 'react-icons/fa';
+import { useRouter } from 'next/navigation';
+import AnimatedButton from '@/components/AnimatedButton';
 
 export default function JsonFormatter() {
-	const [inputJson, setInputJson] = useState("");
-	const [formattedJson, setFormattedJson] = useState("");
-	const [error, setError] = useState("");
-	const [indentation, setIndentation] = useState("2");
+	const [inputJson, setInputJson] = useState('');
+	const [formattedJson, setFormattedJson] = useState('');
+	const [error, setError] = useState('');
+	const [indentation, setIndentation] = useState('2');
 	const [sortKeys, setSortKeys] = useState(false);
 	const [removeEmpty, setRemoveEmpty] = useState(false);
 	const [copied, setCopied] = useState(false);
+	const [jsObjectCode, setJsObjectCode] = useState('');
+
 	const router = useRouter();
 
 	const handleFormat = () => {
@@ -24,12 +26,12 @@ export default function JsonFormatter() {
 				const removeEmptyProps = (obj: any): any => {
 					if (Array.isArray(obj)) {
 						return obj.map(removeEmptyProps);
-					} else if (obj && typeof obj === "object") {
+					} else if (obj && typeof obj === 'object') {
 						return Object.entries(obj).reduce((acc, [key, value]) => {
 							if (
 								value !== null &&
-								value !== "" &&
-								!(typeof value === "object" && Object.keys(value).length === 0)
+								value !== '' &&
+								!(typeof value === 'object' && Object.keys(value).length === 0)
 							) {
 								acc[key] = removeEmptyProps(value);
 							}
@@ -44,7 +46,7 @@ export default function JsonFormatter() {
 			if (sortKeys) {
 				const sortObjectKeys = (obj: any): any => {
 					if (Array.isArray(obj)) return obj.map(sortObjectKeys);
-					if (obj !== null && typeof obj === "object") {
+					if (obj !== null && typeof obj === 'object') {
 						return Object.keys(obj)
 							.sort()
 							.reduce((acc: any, key: string) => {
@@ -57,13 +59,13 @@ export default function JsonFormatter() {
 				parsed = sortObjectKeys(parsed);
 			}
 
-			const indentValue = indentation === "tab" ? "\t" : parseInt(indentation);
+			const indentValue = indentation === 'tab' ? '\t' : parseInt(indentation);
 			const pretty = JSON.stringify(parsed, null, indentValue);
 			setFormattedJson(pretty);
-			setError("");
+			setError('');
 		} catch (err: any) {
-			setError("❌ Invalid JSON: " + err.message);
-			setFormattedJson("");
+			setError('❌ Invalid JSON: ' + err.message);
+			setFormattedJson('');
 		}
 	};
 
@@ -73,17 +75,68 @@ export default function JsonFormatter() {
 			setCopied(true);
 			setTimeout(() => setCopied(false), 2000);
 		} catch (err) {
-			console.error("Copy error:", err);
+			console.error('Copy error:', err);
+		}
+	};
+
+	const handleConvertObjectToJson = () => {
+		try {
+			let obj = new Function('return ' + inputJson)();
+
+			if (removeEmpty) {
+				const removeEmptyProps = (obj: any): any => {
+					if (Array.isArray(obj)) {
+						return obj.map(removeEmptyProps);
+					} else if (obj && typeof obj === 'object') {
+						return Object.entries(obj).reduce((acc, [key, value]) => {
+							if (
+								value !== null &&
+								value !== '' &&
+								!(typeof value === 'object' && Object.keys(value).length === 0)
+							) {
+								acc[key] = removeEmptyProps(value);
+							}
+							return acc;
+						}, {} as any);
+					}
+					return obj;
+				};
+				obj = removeEmptyProps(obj);
+			}
+
+			if (sortKeys) {
+				const sortObjectKeys = (obj: any): any => {
+					if (Array.isArray(obj)) return obj.map(sortObjectKeys);
+					if (obj !== null && typeof obj === 'object') {
+						return Object.keys(obj)
+							.sort()
+							.reduce((acc: any, key: string) => {
+								acc[key] = sortObjectKeys(obj[key]);
+								return acc;
+							}, {});
+					}
+					return obj;
+				};
+				obj = sortObjectKeys(obj);
+			}
+
+			const indentValue = indentation === 'tab' ? '\t' : parseInt(indentation);
+			const jsonString = JSON.stringify(obj, null, indentValue);
+			setFormattedJson(jsonString);
+			setError('');
+		} catch (err: any) {
+			setError('❌ Invalid JavaScript Object: ' + err.message);
+			setFormattedJson('');
 		}
 	};
 
 	return (
 		<div className="json-formatter-container">
-			<div style={{ marginBottom: "1.5rem" }}>
+			<div style={{ marginBottom: '1.5rem' }}>
 				<AnimatedButton
 					text="← Back to Tool Hub"
 					variant="primary"
-					onClick={() => router.push("/tools")}
+					onClick={() => router.push('/tools')}
 				/>
 			</div>
 			<h1 className="json-title">JSON Formatter</h1>
@@ -132,7 +185,13 @@ export default function JsonFormatter() {
 					className="animated-btn btn-primary btn-format">
 					Format JSON
 				</button>
+				<button
+					onClick={handleConvertObjectToJson}
+					className="animated-btn btn-primary btn-format">
+					Convert to JSON
+				</button>
 			</div>
+
 			<AnimatePresence>
 				{formattedJson && !error && (
 					<motion.div
@@ -140,7 +199,7 @@ export default function JsonFormatter() {
 						initial={{ opacity: 0, y: 20 }}
 						animate={{ opacity: 1, y: 0 }}
 						exit={{ opacity: 0, y: 20 }}
-						transition={{ duration: 0.5, ease: "easeOut" }}>
+						transition={{ duration: 0.5, ease: 'easeOut' }}>
 						<div className="json-preview-header">
 							<h3 className="json-preview-title">Formatted Preview</h3>
 							<button
@@ -150,7 +209,6 @@ export default function JsonFormatter() {
 								{copied ? <FaCheck /> : <FaRegCopy />}
 							</button>
 						</div>
-
 						<pre className="json-output">{formattedJson}</pre>
 					</motion.div>
 				)}

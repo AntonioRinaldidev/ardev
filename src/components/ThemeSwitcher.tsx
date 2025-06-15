@@ -1,6 +1,6 @@
 'use client';
-import { use, useEffect, useState } from 'react';
-import { useTheme } from '@/hooks/useTheme';
+import { useEffect, useState } from 'react';
+
 import { FaSun, FaLeaf, FaBolt } from 'react-icons/fa';
 import '@/app/globals.css';
 

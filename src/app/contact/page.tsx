@@ -1,21 +1,23 @@
-"use client";
-import React, { useState } from "react";
-import "./contact.css";
-import { sendContactFormAsync } from "@/services/userService";
-import AnimatedButton from "@/components/AnimatedButton";
-import { useRouter } from "next/navigation";
+'use client';
+import React, { useEffect, useState } from 'react';
+import './contact.css';
+import { sendContactFormAsync } from '@/services/userService';
+import AnimatedButton from '@/components/AnimatedButton';
+import { useRouter } from 'next/navigation';
+
+
 
 const ContactPage = () => {
 	const [formData, setFormData] = useState({
-		name: "",
-		email: "",
-		subject: "",
-		message: "",
+		name: '',
+		email: '',
+		subject: '',
+		message: '',
 	});
 
 	const [isSubmitting, setIsSubmitting] = useState(false);
-	const [successMessage, setSuccessMessage] = useState("");
-	const [errorMessage, setErrorMessage] = useState("");
+	const [successMessage, setSuccessMessage] = useState('');
+	const [errorMessage, setErrorMessage] = useState('');
 	const router = useRouter();
 
 	const handleChange = (
@@ -27,27 +29,28 @@ const ContactPage = () => {
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 		setIsSubmitting(true);
-		setSuccessMessage("");
-		setErrorMessage("");
+		setSuccessMessage('');
+		setErrorMessage('');
 
 		try {
 			const response = await sendContactFormAsync(formData);
 			if (!response.isSuccess) {
-				throw new Error("Failed to send email");
+				throw new Error('Failed to send email');
 			}
-			setSuccessMessage("Thank you! Your request has been sent.");
-			setFormData({ name: "", email: "", subject: "", message: "" });
+			setSuccessMessage('Thank you! Your request has been sent.');
+			setFormData({ name: '', email: '', subject: '', message: '' });
 		} catch (error) {
-			console.error("Failed to send email:", error);
-			setErrorMessage("Failed to send email. Please try again later.");
+			console.error('Failed to send email:', error);
+			setErrorMessage('Failed to send email. Please try again later.');
 		} finally {
 			setIsSubmitting(false);
 			setTimeout(() => {
-				setSuccessMessage("");
-				setErrorMessage("");
+				setSuccessMessage('');
+				setErrorMessage('');
 			}, 3000);
 		}
 	};
+
 
 	return (
 		<section className="contact-section">
@@ -55,7 +58,7 @@ const ContactPage = () => {
 				<AnimatedButton
 					variant="primary"
 					text="Back to Home"
-					onClick={() => router.push("/")}
+					onClick={() => router.push('/')}
 				/>
 			</div>
 
@@ -99,7 +102,7 @@ const ContactPage = () => {
 						<button
 							type="submit"
 							disabled={isSubmitting}>
-							{isSubmitting ? "Sending..." : "Send Request"}
+							{isSubmitting ? 'Sending...' : 'Send Request'}
 						</button>
 
 						{successMessage && (

@@ -11,12 +11,17 @@ const getTheme = () => {
 };
 
 const ParticlesBackground = () => {
-	const [hasMounted, setHasMounted] = useState(false);
+
 	const [engineLoaded, setEngineLoaded] = useState(false);
-	const [currentTheme, setCurrentTheme] = useState<string>('cyber');
+	const [currentTheme, setCurrentTheme] = useState<string>(() => {
+		if (typeof window !== 'undefined') {
+			return document.documentElement.classList[0] || 'cyber';
+		}
+		return 'cyber';
+	});
 
 	useEffect(() => {
-		setHasMounted(true);
+		
 		setCurrentTheme(getTheme());
 
 		// osserva i cambiamenti di tema
@@ -119,7 +124,7 @@ const ParticlesBackground = () => {
 		};
 	}, [currentTheme]);
 
-	if (!hasMounted) return null;
+	
 
 	return (
 		<div className="space-container">
