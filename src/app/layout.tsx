@@ -5,6 +5,7 @@ import './globals.css'; // deve essere qui, non dentro page.tsx
 export const dynamic = 'force-dynamic';
 import ParticlesBackground from '@/components/ParticlesBackground';
 import { ThemeInitWrapper } from '@/components/ThemeInitWrapper';
+import Footer from '@/components/Footer';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -61,6 +62,7 @@ export default function RootLayout({
 				<ParticlesBackground />
 
 				<main>{children}</main>
+				<Footer />
 			</body>
 		</html>
 	);
