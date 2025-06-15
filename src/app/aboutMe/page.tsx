@@ -76,23 +76,25 @@ const AboutMe = () => {
 								heading="Education"
 								items={[
 									{
-										icon: <FaCheck />,
-										title: 'University of Salerno',
-										description:
-											"Bachelor's Degree in Computer Engineering - Italy",
-										link: {
-											url: 'https://www.unisa.it/',
-											text: 'University of Salerno',
-										},
-									},
-									{
 										icon: <FaClock />,
 										title: 'University of Padua',
+										date: '2024 - Present',
 										description:
 											"Master's Degree in Computer Engineering - AI & Robotics",
 										link: {
 											url: 'https://www.unipd.it/',
 											text: 'University of Padua',
+										},
+									},
+									{
+										icon: <FaCheck />,
+										title: 'University of Salerno',
+										date: '2019 - 2024',
+										description:
+											"Bachelor's Degree in Computer Engineering - Italy",
+										link: {
+											url: 'https://www.unisa.it/',
+											text: 'University of Salerno',
 										},
 									},
 								]}

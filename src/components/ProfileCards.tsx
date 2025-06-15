@@ -11,18 +11,10 @@ import ModalDownload from './ModalDownload';
 import ThemeSwitcher from './ThemeSwitcher';
 
 interface ProfileCardProps {
-	imageUrl: string;
 	fullName: string;
-	title: string;
-	description?: string;
 }
 
-const ProfileCard: React.FC<ProfileCardProps> = ({
-	imageUrl,
-	fullName,
-	title,
-	description,
-}) => {
+const ProfileCard: React.FC<ProfileCardProps> = ({ fullName }) => {
 	const [devType, setDevType] = useState('Web');
 	const [isDownloading, setIsDownloading] = useState(false);
 	const [showModal, setShowModal] = useState(false);

@@ -1,9 +1,10 @@
 // components/Timeline.tsx
-import React from "react";
-import "../styles/Timeline.css";
+import React from 'react';
+import '../styles/Timeline.css';
 
 interface TimelineItem {
 	icon: React.ReactNode;
+	date?: string;
 	title: string;
 	description?: string;
 	link?: { url: string; text: string };
@@ -40,7 +41,10 @@ const Timeline: React.FC<TimelineProps> = ({ heading, items }) => {
 							<h3 className="timeline-title">{item.title}</h3>
 						)}
 						{item.description && (
-							<p className="timeline-description">{item.description}</p>
+							<>
+								<p className="timeline-description">{item.date}</p>
+								<p className="timeline-description">{item.description}</p>
+							</>
 						)}
 					</div>
 				</div>

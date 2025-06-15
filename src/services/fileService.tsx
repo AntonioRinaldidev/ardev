@@ -22,7 +22,7 @@ export const downloadCV = async (): Promise<void> => {
 		const downloadUrl = window.URL.createObjectURL(blob);
 		const a = document.createElement('a');
 		a.href = downloadUrl;
-		a.download = 'MyCV.pdf';
+		a.download = 'AntonioRinaldiCV.pdf';
 		document.body.appendChild(a);
 		a.click();
 		a.remove();
@@ -36,9 +36,7 @@ export const downloadCV = async (): Promise<void> => {
 };
 
 export const generateCV = async (cvData: CvData): Promise<void> => {
-	const url =
-		process.env.NEXT_PUBLIC_API_GENERATE_CV_ENDPOINT ||
-		'/api/cv/pdf';
+	const url = process.env.NEXT_PUBLIC_API_GENERATE_CV_ENDPOINT || '/api/cv/pdf';
 
 	try {
 		const response = await ApiService.post(url, cvData, {

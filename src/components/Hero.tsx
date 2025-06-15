@@ -21,12 +21,7 @@ function Hero() {
 				<div className="hero-container-centered">
 					{animationCompleted && (
 						<>
-							<ProfileCard
-								imageUrl="https://jkryson.com/public/photo.png"
-								fullName="Antonio Rinaldi"
-								title="Computer Engineering Student"
-								description="Currently pursuing a Master's degree in AI & Robotics. Passionate about building elegant UIs and clean code."
-							/>
+							<ProfileCard fullName="Antonio Rinaldi" />
 						</>
 					)}
 				</div>
