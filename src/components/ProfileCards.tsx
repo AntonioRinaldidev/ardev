@@ -20,9 +20,6 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ fullName }) => {
 	const [isDownloading, setIsDownloading] = useState(false);
 	const [showModal, setShowModal] = useState(false);
 	const [downloadComplete, setDownloadComplete] = useState(false);
-	useEffect(() => {
-		window.scrollTo(0, 0);
-	}, []);
 
 	const router = useRouter();
 	useEffect(() => {
@@ -150,24 +147,27 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ fullName }) => {
 							transition={{ duration: 0.6, ease: 'easeOut' }}>
 							<AnimatedButton
 								text="About"
+								variant="hub"
 								icon={<FaUser />}
 								onClick={handlePressHire}
 							/>
 							<AnimatedButton
 								text="Contact"
+								variant="hub"
 								icon={<FaEnvelope />}
 								onClick={handleContact}
 							/>
 							<AnimatedButton
 								text="Resume"
 								icon={<FaFileDownload />}
-								variant="primary"
+								variant="hub"
 								onClick={handlePressCV}
 							/>
+
 							<AnimatedButton
 								text="Tools"
 								icon={<FaTools />}
-								variant="primary"
+								variant="hub"
 								onClick={handlePressTools}
 							/>
 						</motion.div>

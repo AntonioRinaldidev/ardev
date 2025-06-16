@@ -8,7 +8,7 @@ interface AnimatedButtonProps {
 	text: string;
 	icon?: React.ReactNode;
 	className?: string;
-	variant?: 'primary' | 'secondary' | 'development' | 'construction';
+	variant?: 'primary' | 'secondary' | 'development' | 'construction' | 'hub';
 }
 
 const AnimatedButton: React.FC<AnimatedButtonProps> = ({
@@ -19,14 +19,16 @@ const AnimatedButton: React.FC<AnimatedButtonProps> = ({
 	variant = 'primary',
 }) => {
 	return (
-		<button
-			onClick={onClick}
-			className={`animated-btn btn-${variant} ${className}`}>
-			<span className="btn-content">
-				{icon && <span className="btn-icon">{icon}</span>}
-				<span className="btn-text">{text}</span>
-			</span>
-		</button>
+		<>
+			<button
+				onClick={onClick}
+				className={`animated-btn btn-${variant} ${className}`}>
+				<span className="btn-content">
+					{icon && <span className="btn-icon">{icon}</span>}
+					<span className="btn-text">{text}</span>
+				</span>
+			</button>
+		</>
 	);
 };
 

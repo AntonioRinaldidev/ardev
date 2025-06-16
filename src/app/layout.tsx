@@ -59,11 +59,10 @@ export default function RootLayout({
 			lang="en"
 			className={inter.className}>
 			<body suppressHydrationWarning={true}>
-				<ThemeInitWrapper />
 				<ParticlesBackground />
+				<ThemeInitWrapper />
 
 				<main>{children}</main>
-				<Footer />
 			</body>
 		</html>
 	);
