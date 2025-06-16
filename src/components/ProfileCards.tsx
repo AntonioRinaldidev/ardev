@@ -143,7 +143,11 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ fullName }) => {
 				</TextFade>
 				<div className="col2">
 					<div className="profile-card-actions">
-						<div className="actions">
+						<motion.div
+							className="actions"
+							initial={{ opacity: 0, x: 300 }}
+							animate={{ opacity: 1, x: 0 }}
+							transition={{ duration: 0.6, ease: 'easeOut' }}>
 							<AnimatedButton
 								text="About"
 								icon={<FaUser />}
@@ -166,7 +170,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ fullName }) => {
 								variant="primary"
 								onClick={handlePressTools}
 							/>
-						</div>
+						</motion.div>
 					</div>
 					<ThemeSwitcher />
 				</div>
