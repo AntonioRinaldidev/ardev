@@ -4,61 +4,37 @@
 	inset: 0;
 	width: 100vw;
 	height: 100vh;
-	background: linear-gradient(135deg, #05060f, #0c1320, #1a1d2e, #1f2344);
+	background: var(--theme-bg-gradient);
 	background-size: 600% 600%;
 	animation: gradientShift 12s ease infinite;
 	overflow: hidden;
 	z-index: -1;
 }
 
-/* 💥 Glow Nebula Base */
-.glow-circle {
-	position: absolute;
-	border-radius: 50%;
-	filter: blur(100px);
-	mix-blend-mode: screen;
-	opacity: 0.35;
-	animation: pulse 4s ease-in-out infinite;
+
+
+.overlay-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* o center se vuoi l'alone sempre centrato */
+  padding-top: 20vh; /* sposta verso il contenuto iniziale tipo Hero */
+  z-index: 1;
 }
 
-.purple {
-	width: 400px;
-	height: 400px;
-	top: 20%;
-	left: 10%;
-}
-
-.blue {
-	width: 300px;
-	height: 300px;
-	bottom: 15%;
-	right: 10%;
-}
-
-/* 🌊 Plasma Wave Base */
-.energy-wave {
-	position: absolute;
-	inset: 0;
-	animation: wavePulse 10s ease-in-out infinite;
-	mix-blend-mode: screen;
-	z-index: 0;
-}
-
-/* 🌘 Vignetta Overlay */
 .space-overlay {
-	position: absolute;
-	inset: 0;
-	background: radial-gradient(circle at center, transparent 60%, rgba(0, 0, 0, 0.8));
-	pointer-events: none;
-	z-index: 1;
+  width: 70vw;
+  height: 70vh;
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.4) 0%, transparent 70%);
+  border-radius: 9999px;
+  filter: blur(100px);
 }
 
-/* 🌀 Animazioni */
-@keyframes gradientShift {
-	0% { background-position: 0% 50%; }
-	50% { background-position: 100% 50%; }
-	100% { background-position: 0% 50%; }
-}
 
 @keyframes pulse {
 	0%, 100% { opacity: 0.25; transform: scale(1); }
@@ -77,45 +53,4 @@
 	animation-delay: 2s;
 }
 
-/* 🎨 THEME VARIATIONS via <html class="theme"> */
 
-/* 🎨 GLOW CIRCLE COLOR PER THEME */
-
-:root.cyber .glow-circle.purple {
-	background: #8c5eff;
-	box-shadow: 0 0 60px #8c5eff;
-}
-:root.cyber .glow-circle.blue {
-	background: #00b9ff;
-	box-shadow: 0 0 60px #00b9ff;
-}
-
-:root.mint .glow-circle.purple {
-	background: #4f46e5;
-	box-shadow: 0 0 60px #4f46e5;
-}
-:root.mint .glow-circle.blue {
-	background: #20dfc1;
-	box-shadow: 0 0 60px #20dfc1;
-}
-
-:root.neon .glow-circle.purple {
-	background: #ffe600;
-	box-shadow: 0 0 60px #ffe600;
-}
-:root.neon .glow-circle.blue {
-	background: #ff4d6d;
-	box-shadow: 0 0 60px #ff4d6d;
-}
-
-:root.cyber .energy-wave {
-	background: radial-gradient(circle at center, rgba(140, 94, 255, 0.08), transparent 70%);
-}
-
-:root.mint .energy-wave {
-	background: radial-gradient(circle at center, rgba(32, 223, 193, 0.08), transparent 70%);
-}
-
-:root.neon .energy-wave {
-	background: radial-gradient(circle at center, rgba(255, 230, 0, 0.08), transparent 70%);
-}

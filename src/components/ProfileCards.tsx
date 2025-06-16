@@ -158,17 +158,16 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ fullName }) => {
 								onClick={handleContact}
 							/>
 							<AnimatedButton
-								text="Resume"
-								icon={<FaFileDownload />}
-								variant="hub"
-								onClick={handlePressCV}
-							/>
-
-							<AnimatedButton
 								text="Tools"
 								icon={<FaTools />}
 								variant="hub"
 								onClick={handlePressTools}
+							/>
+							<AnimatedButton
+								text="Resume"
+								icon={<FaFileDownload />}
+								variant="hub"
+								onClick={handlePressCV}
 							/>
 						</motion.div>
 					</div>

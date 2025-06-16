@@ -1,27 +1,38 @@
 'use client';
 import { useEffect, useState } from 'react';
 
-import { FaSun, FaLeaf, FaBolt } from 'react-icons/fa';
+import { FaLeaf, FaBolt, FaRobot, FaGem, FaRegCircle } from 'react-icons/fa';
 import '@/app/globals.css';
 
-const themes = ['cyber', 'mint', 'neon'] as const;
+const themes = ['violet', 'cyber', 'mint', 'neon', 'minimal'] as const;
 type Theme = (typeof themes)[number];
 
 const themeIcons: Record<Theme, JSX.Element> = {
-	cyber: <FaSun />,
+	violet: <FaGem />,
+	cyber: <FaRobot />,
 	mint: <FaLeaf />,
 	neon: <FaBolt />,
+	minimal: <FaRegCircle />,
 };
 function applyTheme(theme: Theme) {
+	const themes = ['violet', 'cyber', 'mint', 'neon', 'minimal'];
 	const html = document.documentElement;
-	html.classList.remove('cyber', 'mint', 'neon');
+
+	// Rimuove tutte le possibili classi tema
+	themes.forEach((t) => html.classList.remove(t));
+
+	// Aggiunge quella attuale
 	html.classList.add(theme);
+
+	// Sincronizza localStorage + cookie
 	localStorage.setItem('theme', theme);
-	console.log(`Theme set to: ${theme}`);
+	document.cookie = `theme=${theme}; path=/; max-age=31536000`;
+
+	console.log(`✅ Theme set to: ${theme}`);
 }
 
 export default function ThemeSwitcher() {
-	const [theme, setTheme] = useState<Theme>('cyber');
+	const [theme, setTheme] = useState<Theme>('violet');
 	const [isReady, setIsReady] = useState(false);
 
 	useEffect(() => {

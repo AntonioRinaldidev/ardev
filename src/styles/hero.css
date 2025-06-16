@@ -1,11 +1,11 @@
 .hero {
   width: 100%;
-  background: var(--color-gradient);
+  
 }
 
 .hero-section {
   min-height: 100vh;
-  background: var(--color-gradient);
+  
   min-width: 100%;
   display: flex;
   align-items: center;

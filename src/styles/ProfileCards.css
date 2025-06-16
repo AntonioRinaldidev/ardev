@@ -1,5 +1,5 @@
 .profile-card {
-  background: transparent;
+  
   padding-top: 4rem;
   text-align: center;
   display: flex;
@@ -60,16 +60,16 @@
   padding: 2rem;
   border-radius: 20px 0 20px 20px ;
   box-shadow:
-    -2px 0 0 var(--shadow-orange), /* sinistra */
-    0 -2px 0 var(--shadow-orange), /* top */
-    2px 0 0 var(--shadow-orange),  /* destra */
-    0 2px 0 var(--shadow-orange);  /* bottom */
+    -2px 0 0 var(--shadow), /* sinistra */
+    0 -2px 0 var(--shadow), /* top */
+    2px 0 0 var(--shadow),  /* destra */
+    0 2px 0 var(--shadow);  /* bottom */
 }
 .col2{
   
   display: flex;
   flex-direction: column;
-  filter:drop-shadow(2px 2px var(--shadow-orange))drop-shadow(0px -1px var(--shadow-orange));
+  filter:drop-shadow(2px 2px var(--shadow))drop-shadow(0px -1px var(--shadow));
   gap: 2rem;
 }
 .col1, .col2 {
@@ -86,9 +86,9 @@
   border-radius: 0 20px 20px 0px ;
   max-height: 400px;
     box-shadow:
-    0 -2px 0 var(--shadow-orange),  /* top */
-    2px 0 0 var(--shadow-orange),   /* right */
-    0 1px 0 var(--shadow-orange);   /* bottom */
+    0 -2px 0 var(--shadow),  /* top */
+    2px 0 0 var(--shadow),   /* right */
+    0 1px 0 var(--shadow);   /* bottom */
   padding-bottom: 2rem;
   clip-path: polygon(0 0,100% 0,100% 85%,0 100%);
   overflow: hidden;
@@ -115,32 +115,37 @@
 
 
 
-@media (max-width: 640px) {
-  .actions .animated-btn {
-    flex: 1 1 100%;
-  }
-}
+
 
 @media (max-width: 768px) {
   .profile-card {
     flex-direction: column;
     overflow: visible;
-    padding: 1rem;
+    
   }
 
-  .col1, .col2 {
+
+  .col1{
     flex: 1 1 100%;
-    border-radius: var(--radius-md);
+    padding-bottom: 3rem;
+    border-bottom: none;
+    border-radius: 20px 20px 0 0;
+    box-shadow:   
+    -2px 0 0 var(--shadow), /* sinistra */
+    0 -2px 0 var(--shadow), /* top */
+    2px 0 0 var(--shadow);  /* destra */
   }
 
   .col2 {
+    flex: 1 1 100%;
     min-height: auto;
-    padding-top: 1rem;
-    border-radius: var(--radius-md);
+    
+    
     filter:none;
   }
   .actions {
-    display: inline;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
@@ -150,10 +155,13 @@
 
   .profile-card-actions {
     max-height: none;
-
-    /* 🔧 override clip-path su mobile */
     clip-path: none;
-    border-radius: var(--radius-md);
-    border: 1px solid var(--color-primary); /* opzionale: per dare forma regolare */
+    border-radius: 0px 0px 20px 20px;
+        box-shadow:   
+    -2px 0 0 var(--shadow), /* sinistra */
+    0 2px 0 var(--shadow), /* bottom */
+    0 -2px 0 var(--shadow), /* top */
+    2px 0 0 var(--shadow);  /* destra */
+    
   }
 }

@@ -3,12 +3,12 @@ import { Inter } from 'next/font/google';
 import './globals.css'; // deve essere qui, non dentro page.tsx
 
 export const dynamic = 'force-dynamic';
+import AppWrapper from '@/components/AppWrapper';
+import { cookies } from 'next/headers';
 import ParticlesBackground from '@/components/ParticlesBackground';
 import { ThemeInitWrapper } from '@/components/ThemeInitWrapper';
-import Footer from '@/components/Footer';
-import { useEffect } from 'react';
-
 const inter = Inter({ subsets: ['latin'] });
+const themes = ['violet', 'cyber', 'mint', 'neon', 'minimal'];
 
 export const metadata: Metadata = {
 	title: 'Antonio Rinaldi – Web & Mobile Developer',
@@ -49,20 +49,24 @@ export const metadata: Metadata = {
 	},
 };
 
-export default function RootLayout({
+export default async function RootLayout({
 	children,
-}: Readonly<{
+}: {
 	children: React.ReactNode;
-}>) {
+}) {
+	const cookieStore = cookies();
+	const cookieTheme = (await cookieStore).get('theme')?.value || 'violet';
+	const themeClass = themes.includes(cookieTheme) ? cookieTheme : 'violet';
+
 	return (
 		<html
 			lang="en"
-			className={inter.className}>
-			<body suppressHydrationWarning={true}>
+			className={`${themeClass}`}>
+			<body
+				className={inter.className}
+				suppressHydrationWarning>
 				<ParticlesBackground />
-				<ThemeInitWrapper />
-
-				<main>{children}</main>
+				<AppWrapper>{children}</AppWrapper>
 			</body>
 		</html>
 	);

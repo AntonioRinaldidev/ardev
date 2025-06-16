@@ -1,6 +1,6 @@
 .regex-tester-container {
     padding: 1rem;
-    max-width: 90vw;
+    min-height: 100vh;
     margin: 0 auto;
     background: var(--color-bg);
     color: var(--color-text);
@@ -32,7 +32,7 @@
   }
   
   .regex-textarea {
-    width: 100%;
+    width: 95%;
     min-height: 160px;
     padding: 1rem;
     background: var(--color-bg-secondary);

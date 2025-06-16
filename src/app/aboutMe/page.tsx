@@ -58,8 +58,6 @@ const AboutMe = () => {
 						</p>
 					</motion.div>
 
-					<TechStack />
-
 					<ToggleGroup
 						selected={selectedTab}
 						onChange={(val) => setSelectedTab(val as any)}
@@ -130,6 +128,9 @@ const AboutMe = () => {
 							/>
 						)}
 					</div>
+
+					<TechStack />
+
 					<SocialStats />
 				</motion.div>
 			</div>

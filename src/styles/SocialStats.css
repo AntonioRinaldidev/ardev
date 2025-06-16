@@ -3,7 +3,7 @@
     padding: 2rem;
     border: 2px solid var(--color-primary);
   border-radius: var(--radius-md);
-  box-shadow: 0 4px 12px rgba(255, 106, 61, 0.2);
+  box-shadow: 0 4px 12px var(--shadow);
     margin-top: 2rem;
     text-align: center;
     flex: 1;
