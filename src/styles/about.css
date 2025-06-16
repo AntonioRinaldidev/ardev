@@ -21,7 +21,7 @@
 
 .about-main-content {
   flex: 2;
-  min-width: 300px;
+  
 }
 
 .heading {
@@ -49,10 +49,29 @@
   margin-bottom: 2rem;
 }
 
-@media (max-width: 992px) {
-  .about-wrapper {
-    flex-direction: column;
+/* Mobile */
+@media (max-width: 576px) {
+  .about-section {
+    padding: 2rem 1rem;
   }
 
- 
+  .heading {
+    font-size: 1.6rem;
+    text-align: center;
+  }
+
+  .sub-heading {
+    font-size: 1.2rem;
+    padding-left: 0.75rem;
+  }
+
+  .text-paragraph {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  .about-wrapper {
+    gap: 1.5rem;
+  }
 }
+
