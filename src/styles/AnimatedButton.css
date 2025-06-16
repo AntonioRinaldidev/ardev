@@ -89,4 +89,10 @@
   transform: translateY(-2px);
 }
 
+@media (max-width: 768px) {
+  .animated-btn:hover .btn-icon {
+	transform: scale(1.2) rotate(360deg);
+}
+}
+
 
