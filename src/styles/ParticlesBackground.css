@@ -1,9 +1,13 @@
+/* ParticlesBackground.css aggiornato */
+
 /* 🌌 Particles container */
 .space-container {
 	position: fixed;
 	inset: 0;
 	width: 100vw;
 	height: 100vh;
+	min-height: 100vh;
+	min-height: -webkit-fill-available;
 	background: var(--theme-bg-gradient);
 	background-size: 600% 600%;
 	animation: gradientShift 12s ease infinite;
@@ -11,30 +15,96 @@
 	z-index: -1;
 }
 
+/* Safari iOS navigation bar fix - Force background color */
+.space-container::before {
+	content: '';
+	position: fixed;
+	bottom: -100px;
+	left: -100px;
+	right: -100px;
+	height: 200px;
+	background: var(--theme-bg-gradient);
+	background-size: 600% 600%;
+	animation: gradientShift 12s ease infinite;
+	z-index: -2;
+	pointer-events: none;
+}
 
+/* Alternative approach - use solid color fallback for navigation bar */
+.space-container::after {
+	content: '';
+	position: fixed;
+	bottom: -150px;
+	left: -150px;
+	right: -150px;
+	height: 300px;
+	background: var(--color-bg-secondary);
+	z-index: -3;
+	pointer-events: none;
+}
+
+/* Fix specifico per Safari iOS */
+@supports (-webkit-touch-callout: none) {
+	.space-container {
+		/* Estendi il container */
+		margin-bottom: -100px;
+		padding-bottom: 100px;
+		height: calc(100vh + 100px);
+		min-height: calc(100vh + 100px);
+		min-height: -webkit-fill-available;
+	}
+	
+	/* Force anche i pseudo-elements */
+	.space-container::before,
+	.space-container::after {
+		display: block;
+		bottom: -200px;
+		height: 400px;
+	}
+}
 
 .overlay-wrapper {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start; /* o center se vuoi l'alone sempre centrato */
-  padding-top: 20vh; /* sposta verso il contenuto iniziale tipo Hero */
-  z-index: 1;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+	padding-top: 20vh;
+	z-index: 1;
 }
 
 .space-overlay {
-  width: 70vw;
-  height: 70vh;
-  background: radial-gradient(circle, rgba(0, 0, 0, 0.4) 0%, transparent 70%);
-  border-radius: 9999px;
-  filter: blur(100px);
+	width: 70vw;
+	height: 70vh;
+	background: radial-gradient(circle, rgba(0, 0, 0, 0.4) 0%, transparent 70%);
+	border-radius: 9999px;
+	filter: blur(100px);
 }
 
+/* Fix per viewport dinamico mobile */
+@media (max-width: 768px) {
+	.space-container {
+		height: 100vh;
+		height: calc(var(--vh, 1vh) * 100);
+		min-height: -webkit-fill-available;
+	}
+	
+	@supports (-webkit-touch-callout: none) {
+		.space-container {
+			height: calc(var(--vh, 1vh) * 100 + 100px);
+			min-height: -webkit-fill-available;
+		}
+	}
+}
+
+@keyframes gradientShift {
+	0%, 100% { background-position: 0% 50%; }
+	50% { background-position: 100% 50%; }
+}
 
 @keyframes pulse {
 	0%, 100% { opacity: 0.25; transform: scale(1); }
@@ -49,8 +119,7 @@
 .animate-pulse {
 	animation: pulse 4s ease-in-out infinite;
 }
+
 .delay {
 	animation-delay: 2s;
 }
-
-

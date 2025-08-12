@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css'; // deve essere qui, non dentro page.tsx
 
@@ -10,6 +10,20 @@ import { ThemeInitWrapper } from '@/components/ThemeInitWrapper';
 const inter = Inter({ subsets: ['latin'] });
 const themes = ['violet', 'cyber', 'mint', 'neon', 'minimal'];
 
+// Esporta viewport separatamente
+export const viewport: Viewport = {
+	width: 'device-width',
+	initialScale: 1,
+	maximumScale: 1,
+	userScalable: false,
+	viewportFit: 'cover',
+	themeColor: [
+		{ media: '(prefers-color-scheme: light)', color: '#000000' },
+		{ media: '(prefers-color-scheme: dark)', color: '#000000' },
+	],
+};
+
+// Metadata senza viewport
 export const metadata: Metadata = {
 	title: 'Antonio Rinaldi – Web & Mobile Developer',
 	description:
@@ -31,6 +45,27 @@ export const metadata: Metadata = {
 	authors: [{ name: 'Antonio Rinaldi', url: 'https://antoniorinaldidev.com' }],
 	creator: 'Antonio Rinaldi',
 	metadataBase: new URL('https://antoniorinaldidev.com'),
+
+	appleWebApp: {
+		capable: true,
+		statusBarStyle: 'black-translucent',
+		title: 'Antonio Rinaldi Portfolio',
+		startupImage: [
+			{
+				url: '/apple-touch-startup-image-768x1004.png',
+				media: '(device-width: 768px) and (device-height: 1024px)',
+			},
+		],
+	},
+	formatDetection: {
+		telephone: false,
+	},
+	other: {
+		// Meta tags aggiuntivi per iOS 18+
+		'mobile-web-app-capable': 'yes',
+		'apple-mobile-web-app-capable': 'yes',
+		'apple-mobile-web-app-status-bar-style': 'black-translucent',
+	},
 	openGraph: {
 		title: 'Antonio Rinaldi – Portfolio',
 		description:
@@ -48,7 +83,6 @@ export const metadata: Metadata = {
 		],
 	},
 };
-
 export default async function RootLayout({
 	children,
 }: {
