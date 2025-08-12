@@ -65,11 +65,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ fullName }) => {
 
 	return (
 		<>
-			<motion.div
-				className="profile-card"
-				initial={{ opacity: 0 }}
-				animate={{ opacity: 1 }}
-				transition={{ duration: 0.6, ease: 'easeOut' }}>
+			<div className="profile-card">
 				<TextFade
 					direction="down"
 					className="col1 pt-0 pb-5 flex-col flex justify-center items-center space-y-0">
@@ -78,12 +74,12 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ fullName }) => {
 						className="profile-card-top"
 						initial={{ opacity: 0, y: 0 }}
 						animate={{ opacity: 1, y: -30 }}
-						transition={{ duration: 0.6, ease: 'easeOut' }}>
+						transition={{ duration: 1, ease: 'easeOut' }}>
 						<motion.h1
 							className="heading profile-wave-title"
 							initial={{ opacity: 0, y: 20 }}
 							animate={{ opacity: 1, y: 0 }}
-							transition={{ duration: 0.3, ease: 'easeOut' }}>
+							transition={{ duration: 1, ease: 'easeOut' }}>
 							Hi there
 							<motion.span
 								className="profile-wave-letter"
@@ -111,7 +107,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ fullName }) => {
 								initial={{ opacity: 0, y: 50 }}
 								animate={{ opacity: 1, y: 0 }}
 								exit={{ opacity: 0, y: -50 }}
-								transition={{ duration: 0.8 }}>
+								transition={{ duration: 1 }}>
 								{devType}
 							</motion.span>{' '}
 							Developer
@@ -123,7 +119,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ fullName }) => {
 						className="profile-card-bottom"
 						initial={{ opacity: 0, y: 0 }}
 						animate={{ opacity: 1, y: 50 }}
-						transition={{ duration: 0.6, ease: 'easeOut' }}>
+						transition={{ duration: 1, ease: 'easeOut' }}>
 						<div className="location text-center md:text-lg max-w-lg mx-auto mb-5">
 							<FaMapPin /> Based In Italy
 						</div>
@@ -144,7 +140,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ fullName }) => {
 							className="actions"
 							initial={{ opacity: 0, x: 300 }}
 							animate={{ opacity: 1, x: 0 }}
-							transition={{ duration: 0.6, ease: 'easeOut' }}>
+							transition={{ duration: 1, ease: 'easeOut' }}>
 							<AnimatedButton
 								text="About"
 								variant="hub"
@@ -173,7 +169,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ fullName }) => {
 					</div>
 					<ThemeSwitcher />
 				</div>
-			</motion.div>
+			</div>
 
 			{showModal && (
 				<ModalDownload

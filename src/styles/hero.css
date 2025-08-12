@@ -1,22 +1,22 @@
+/* Aggiungi questo al tuo CSS - è il container principale della home page */
+
+
+/* I tuoi CSS esistenti rimangono uguali */
 .hero {
   width: 100%;
-  
 }
 
 .hero-section {
   min-height: 100vh;
-  
   min-width: 100%;
   display: flex;
-  align-items: center;
+  align-items: center; /* Corretto: era align-item */
   justify-content: center;
   opacity: 1 !important;
   transform: none !important;
+   position: relative;
+  z-index: 20 !important;
 }
-
-
-
-
 
 .hero-container-centered {
   width: 100%;
@@ -46,11 +46,13 @@
 .text-paragraph {
   color: var(--color-text-secondary);
 }
+
 .highlight {
   color: var(--color-primary);
   font-weight: 600;
   transition: all 0.3s ease;
 }
+
 .location {
   display: flex;
   align-items: center;

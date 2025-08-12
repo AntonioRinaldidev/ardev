@@ -1,0 +1,295 @@
+/* CSS per Welcome con scroll - sostituisce il welcome.css precedente */
+
+.welcome-container-scroll {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+
+  transition: height 0.5s ease;
+  overflow-x: hidden; /* Previeni scroll orizzontale */
+}
+
+.welcome-container-scroll.scrollable {
+  cursor: grab;
+  /* Nascondi la scrollbar */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  /* Migliora il touch scrolling su mobile */
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y; /* Permette solo scroll verticale */
+}
+
+.welcome-container-scroll.scrollable::-webkit-scrollbar {
+  width: 0; /* Chrome, Safari, Edge */
+  background: transparent;
+}
+
+.welcome-container-scroll.scrollable:active {
+  cursor: grabbing;
+}
+
+/* Mobile specific improvements */
+@media (max-width: 768px) {
+  .welcome-container-scroll.scrollable {
+    cursor: default; /* Rimuovi il cursor grab su mobile */
+  }
+  
+  .scroll-indicator span {
+    font-size: 1rem; /* Testo più grande su mobile */
+  }
+  
+  .scroll-arrow {
+    font-size: 2rem; /* Freccia più grande su mobile */
+  }
+}
+
+.welcome-content {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.left-side {
+  flex: 1;
+  height: 100%;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid rgba(255, 255, 255, 0.5);
+  background-color: rgba(0, 0, 0, 1);
+  position: relative;
+  z-index: 10;
+}
+
+.right-side {
+  flex: 1;
+  height: 100%;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-left: 1px solid rgba(255, 255, 255, 0.5);
+  background-color: rgba(0, 0, 0, 1);
+  position: relative;
+  z-index: 10;
+}
+
+/* Scroll progress indicator - orizzontale in basso */
+.scroll-progress {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  width: 100vw; /* Era 100vh, dovrebbe essere 100vw per la larghezza */
+  background: linear-gradient(to right, var(--color-primary), var(--color-primary-hover)); /* to right invece di to bottom */
+  transform-origin: left;
+  z-index: 50;
+}
+
+/* Avatar/Logo */
+.welcome-avatar {
+  margin-bottom: 2rem;
+}
+
+.avatar-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-hover));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.avatar-initials {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: white;
+}
+
+/* Titoli */
+.welcome-title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--color-heading);
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.welcome-subtitle {
+  font-size: 1.2rem;
+  color: var(--color-text-secondary);
+  text-align: center;
+  margin-top: 1rem;
+  opacity: 0.8;
+}
+
+/* Descrizioni */
+.welcome-descriptions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  max-width: 400px;
+}
+
+.welcome-description {
+  font-size: 1.3rem;
+  color: var(--color-text);
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* Call to Action */
+.welcome-cta {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.scroll-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+}
+
+.scroll-arrow {
+  font-size: 1.5rem;
+  color: var(--color-primary);
+}
+
+/* Statistiche */
+.quick-stats {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.stat {
+  text-align: center;
+  padding: 0.5rem;
+}
+
+.stat-number {
+  display: block;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  line-height: 1;
+}
+
+.stat-label {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  margin-top: 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Layout mobile - singola colonna centrata */
+.mobile-single-column {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  height: 100vh;
+}
+
+/* Layout desktop - due colonne */
+.desktop-only {
+  display: flex;
+}
+
+/* Responsive - Mobile */
+@media (max-width: 768px) {
+  /* Nascondi layout desktop */
+  .desktop-only {
+    display: none !important;
+  }
+  
+  /* Mostra layout mobile */
+  .mobile-single-column {
+    display: flex !important;
+  }
+  
+  .welcome-content {
+    justify-content: center;
+    align-items: center;
+  }
+
+  .welcome-title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .welcome-subtitle {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .welcome-description {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    max-width: 90%;
+  }
+  
+  .quick-stats {
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 2rem;
+  }
+  
+  .stat-number {
+    font-size: 1.6rem;
+  }
+  
+  .welcome-container-scroll.scrollable {
+    cursor: default;
+  }
+  
+  .scroll-indicator span {
+    font-size: 1rem;
+  }
+  
+  .scroll-arrow {
+    font-size: 2rem;
+  }
+
+  .avatar-circle {
+    width: 70px;
+    height: 70px;
+    margin-bottom: 1.5rem;
+  }
+
+  .avatar-initials {
+    font-size: 1.6rem;
+  }
+
+  .welcome-descriptions {
+    max-width: 100%;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .welcome-cta {
+    margin: 2rem 0;
+  }
+}
