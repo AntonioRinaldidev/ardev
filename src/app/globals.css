@@ -209,7 +209,9 @@
 
 
 body {
-  background: var(--color-bg); /* fallback */
+  
+ min-height: 100vh;
+  min-height: -webkit-fill-available;
   margin: 0;
   padding: 0;
   position: relative;
@@ -230,3 +232,25 @@ main {
   margin: 0;
   width: 100%;
 }
+@supports (-webkit-touch-callout: none) {
+  html {
+    
+    -webkit-text-size-adjust: 100%;
+  }
+  
+
+  
+  /* Meta theme-color fallback CSS per Safari */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #000000;
+    z-index: -999;
+    pointer-events: none;
+  }
+}
+

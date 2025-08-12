@@ -1,27 +1,22 @@
 /* CSS per Welcome con scroll - sostituisce il welcome.css precedente */
 
+/* Container per scroll (desktop) */
 .welcome-container-scroll {
   position: relative;
-  top: 0;
-  left: 0;
   width: 100%;
-
-  transition: height 0.5s ease;
-  overflow-x: hidden; /* Previeni scroll orizzontale */
+  background-color: rgba(0, 0, 0, 1);
+  overflow-x: hidden;
 }
 
 .welcome-container-scroll.scrollable {
   cursor: grab;
-  /* Nascondi la scrollbar */
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* Internet Explorer 10+ */
-  /* Migliora il touch scrolling su mobile */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
   -webkit-overflow-scrolling: touch;
-  touch-action: pan-y; /* Permette solo scroll verticale */
 }
 
 .welcome-container-scroll.scrollable::-webkit-scrollbar {
-  width: 0; /* Chrome, Safari, Edge */
+  width: 0;
   background: transparent;
 }
 
@@ -29,30 +24,34 @@
   cursor: grabbing;
 }
 
-/* Mobile specific improvements */
-@media (max-width: 768px) {
-  .welcome-container-scroll.scrollable {
-    cursor: default; /* Rimuovi il cursor grab su mobile */
-  }
-  
-  .scroll-indicator span {
-    font-size: 1rem; /* Testo più grande su mobile */
-  }
-  
-  .scroll-arrow {
-    font-size: 2rem; /* Freccia più grande su mobile */
-  }
+/* Container per drag (mobile) */
+.welcome-container-drag {
+  position: relative;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 1);
+  overflow: hidden;
+  user-select: none;
+  touch-action: none;
 }
 
 .welcome-content {
-  position: sticky;
-  top: 0;
   width: 100%;
   height: 100vh;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
+}
+
+/* Desktop specific */
+@media (min-width: 769px) {
+  .welcome-content {
+    cursor: grab;
+  }
+  
+  .welcome-content:active {
+    cursor: grabbing;
+  }
 }
 
 .left-side {
@@ -285,7 +284,7 @@
 
   .welcome-descriptions {
     max-width: 100%;
-    gap: 1.5rem;
+    gap: 1rem;
     margin-bottom: 2rem;
   }
 
