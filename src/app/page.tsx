@@ -16,33 +16,12 @@ export default function Home() {
 	);
 	console.log('isWelcomeVisible:', isWelcomeVisible);
 
-	useEffect(() => {
-		const lenis = new Lenis();
-
-		lenis.on('scroll', (e) => {
-			console.log(e);
-		});
-		lenis.on('scroll', ScrollTrigger.update);
-
-		gsap.ticker.add((time) => {
-			lenis.raf(time * 1000);
-		});
-		gsap.ticker.lagSmoothing(0);
-
-		return () => {
-			gsap.ticker.remove((time) => {
-				lenis.raf(time * 1000);
-			});
-			lenis.destroy();
-		};
-	}, []);
-
 	if (!isInitialized) {
 		return;
 	}
 	return (
 		<>
-			<div className="hero-container">
+			<div className="hero-container-page">
 				<WelcomeHeroUnified />
 			</div>
 		</>

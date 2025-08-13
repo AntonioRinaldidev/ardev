@@ -75,7 +75,7 @@ const WelcomeHeroUnified: React.FC = () => {
 
 				// Smooth scroll manuale
 				const currentScroll = containerRef.current.scrollTop;
-				const newScroll = currentScroll + delta * 15; // Velocità ottimizzata
+				const newScroll = currentScroll + delta * 50; // Velocità ottimizzata
 
 				containerRef.current.scrollTo({
 					top: newScroll,
@@ -118,8 +118,8 @@ const WelcomeHeroUnified: React.FC = () => {
 	}, [isMobile, dragScrollProgress, updateProgress]);
 
 	const descriptions = [
-		'Innovative solutions through modern web technologies',
-		'Seamlessly blending creativity with functionality',
+		'Innovative solutions for your digital needs',
+		'Blending creativity with functionality',
 		'Building the future, one project at a time',
 		"Let's create something extraordinary together",
 	];
@@ -158,7 +158,6 @@ const WelcomeHeroUnified: React.FC = () => {
 
 	return (
 		<div className="hero-container">
-			{/* Hero sempre sotto */}
 			<motion.div
 				className="hero-layer"
 				style={{
@@ -291,11 +290,11 @@ const WelcomeHeroUnified: React.FC = () => {
 											ease: 'easeOut',
 										}}>
 										<div className="stat">
-											<span className="stat-number">3+</span>
+											<span className="stat-number">1+</span>
 											<span className="stat-label">Years Experience</span>
 										</div>
 										<div className="stat">
-											<span className="stat-number">25+</span>
+											<span className="stat-number">2+</span>
 											<span className="stat-label">Projects</span>
 										</div>
 										<div className="stat">

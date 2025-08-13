@@ -78,7 +78,7 @@
 }
 
 .btn-hub{
-  border-radius: 0 !important ;
+  border-radius: var(--radius-md) !important ;
   
 }
 .btn-hub:hover {

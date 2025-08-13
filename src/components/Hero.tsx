@@ -11,7 +11,7 @@ function Hero() {
 
 	return (
 		<motion.section
-			className="hero-section" // COMMENTA QUESTA
+			className="hero-section" 
 			initial={isWelcomeVisible ? false : { opacity: 0 }}
 			animate={isWelcomeVisible ? false : { opacity: 1 }}
 			transition={
@@ -23,9 +23,7 @@ function Hero() {
 					  }
 			}
 			onAnimationComplete={() => setAnimationCompleted(true)}>
-			<div
-				className="hero-container-centered" // COMMENTA ANCHE QUESTA
-			>
+			<div className="hero-container-centered">
 				<motion.div
 					initial={isWelcomeVisible ? false : { opacity: 0, y: 20 }}
 					animate={

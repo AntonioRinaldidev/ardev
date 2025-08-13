@@ -174,47 +174,8 @@
   z-index: 100;
 }
 
-/* Cosmic atmosphere around switcher */
-.theme-switcher::before {
-  content: '';
-  position: absolute;
-  top: -25px;
-  left: -25px;
-  right: -25px;
-  bottom: -25px;
-  background: 
-    radial-gradient(circle at 50% 50%, var(--shadow-blu) 0%, transparent 60%),
-    radial-gradient(circle at 30% 70%, var(--shadow) 0%, transparent 40%);
-  opacity: 0;
-  transition: all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
-  border-radius: 50%;
-  z-index: -2;
-  animation: cosmicPulse 4s ease-in-out infinite alternate;
-}
-
-@keyframes cosmicPulse {
-  0% { 
-    transform: scale(0.8) rotate(0deg);
-    opacity: 0.02;
-  }
-  100% { 
-    transform: scale(1.2) rotate(5deg);
-    opacity: 0.08;
-  }
-}
-
-.theme-switcher:hover::before {
-  opacity: 0.15;
-  transform: scale(1.4) rotate(10deg);
-}
 
 
-
-.theme-switcher:hover::after {
-  opacity: 0.4;
-  transform: scale(1.1);
-  animation-duration: 3s;
-}
 
 /* Main button - crystalline perfection */
 .theme-button {
@@ -503,7 +464,7 @@
   will-change: transform, opacity;
 }
 
-.hero-container {
+.hero-container-page {
   position: relative;
   width: 100%;
   height: 100vh;
@@ -528,7 +489,7 @@ html {
 
 main {
   position: relative;
-  z-index: 1; /* tutto il contenuto sopra il background */
+  z-index: 1; 
 }
 .hr-heading {
   border: 0;
