@@ -7,10 +7,8 @@ import { useViewportHeight, useSafeArea } from '@/hooks/useViewportHeight';
 import { useAppSelector, useAppDispatch } from '@/store/hooks';
 import { hideWelcome } from '@/store/welcomeSlice';
 import Hero from '@/components/Hero';
-import { useLenis } from '@/providers/LenisProvider';
 
 const WelcomeHeroUnified: React.FC = () => {
-	const { lenis } = useLenis();
 	const containerRef = useRef<HTMLDivElement>(null);
 	const [isScrollable, setIsScrollable] = useState(false);
 	const [scrollProgress, setScrollProgress] = useState(0);
@@ -77,7 +75,7 @@ const WelcomeHeroUnified: React.FC = () => {
 
 				// Smooth scroll manuale
 				const currentScroll = containerRef.current.scrollTop;
-				const newScroll = currentScroll + delta * 15; // Moltiplicatore per smooth
+				const newScroll = currentScroll + delta * 15; // Velocità ottimizzata
 
 				containerRef.current.scrollTo({
 					top: newScroll,
@@ -120,16 +118,16 @@ const WelcomeHeroUnified: React.FC = () => {
 	}, [isMobile, dragScrollProgress, updateProgress]);
 
 	const descriptions = [
-		'Explore my projects, skills, and experiences',
-		'in web development, AI, and more.',
-		"Let's build something amazing together!",
-		"Ready to scroll? Let's begin!",
+		'Innovative solutions through modern web technologies',
+		'Seamlessly blending creativity with functionality',
+		'Building the future, one project at a time',
+		"Let's create something extraordinary together",
 	];
 
 	useEffect(() => {
 		const timer = setTimeout(() => {
 			setIsScrollable(true);
-		}, 4000);
+		}, 3500); // Ridotto da 4000ms
 
 		return () => clearTimeout(timer);
 	}, []);
@@ -159,17 +157,16 @@ const WelcomeHeroUnified: React.FC = () => {
 	const progressScale = isMobile ? dragProgressScale : scrollProgressScale;
 
 	return (
-		<div style={{ position: 'relative', height: '100vh', overflow: 'hidden' }}>
+		<div className="hero-container">
+			{/* Hero sempre sotto */}
 			<motion.div
+				className="hero-layer"
 				style={{
-					position: 'absolute',
-					inset: 0,
-					zIndex: 1,
 					opacity: heroOpacity,
 					y: heroY,
 					scale: heroScale,
 				}}
-				transition={{ type: 'spring', duration: 0.1 }}>
+				transition={{ type: 'spring', stiffness: 400, damping: 40 }}>
 				<Hero />
 			</motion.div>
 
@@ -177,68 +174,61 @@ const WelcomeHeroUnified: React.FC = () => {
 			{isWelcomeVisible && (
 				<div
 					ref={containerRef}
-					className={
+					className={`welcome-overlay ${
 						isMobile
 							? 'welcome-container-drag'
 							: `welcome-container-scroll ${isScrollable ? 'scrollable' : ''}`
-					}
-					style={{
-						height: '100vh',
-						overflow: isMobile ? 'hidden' : isScrollable ? 'auto' : 'hidden',
-						position: 'absolute',
-						inset: 0,
-						zIndex: 10,
-						pointerEvents: 'auto',
-					}}>
+					}`}>
 					{/* Container diverso per desktop (con scroll) */}
 					{!isMobile && (
-						<div style={{ height: isScrollable ? '300vh' : '100vh' }}>
+						<div className="desktop-scroll-container">
 							<motion.div
 								className="welcome-content"
 								style={{
 									opacity: containerOpacity,
-									position: 'sticky',
-									top: 0,
-									background: 'transparent',
 								}}>
 								<motion.div
 									className="left-side"
 									style={{
 										transform: `translateX(${leftSideX}%)`,
-										backgroundColor: `rgba(0, 0, 0, ${Math.max(
-											0.7 - scrollProgress * 0.5,
-											0.1
-										)})`,
 									}}>
 									{/* Desktop content left */}
-									<motion.div
-										className="welcome-avatar"
-										initial={{ scale: 0, rotate: -180 }}
-										animate={{ scale: 1, rotate: 0 }}
-										transition={{
-											duration: 1,
-											delay: 0.5,
-											type: 'spring',
-											stiffness: 100,
-										}}>
-										<div className="avatar-circle">
+									<div className="welcome-avatar">
+										<motion.div
+											className="avatar-circle"
+											initial={{ scale: 0, rotate: -180 }}
+											animate={{ scale: 1, rotate: 0 }}
+											transition={{
+												duration: 1.2,
+												delay: 0.4,
+												type: 'spring',
+												stiffness: 120,
+											}}>
 											<span className="avatar-initials">AR</span>
-										</div>
-									</motion.div>
+										</motion.div>
+									</div>
 
 									<motion.h1
 										className="welcome-title"
-										initial={{ opacity: 0, y: 20 }}
+										initial={{ opacity: 0, y: 30 }}
 										animate={{ opacity: 1, y: 0 }}
-										transition={{ duration: 0.8, delay: 0.8 }}>
+										transition={{
+											duration: 1,
+											delay: 0.8,
+											ease: [0.25, 0.46, 0.45, 0.94],
+										}}>
 										Welcome to My Portfolio
 									</motion.h1>
 
 									<motion.p
 										className="welcome-subtitle"
-										initial={{ opacity: 0 }}
-										animate={{ opacity: 1 }}
-										transition={{ delay: 1.5, duration: 0.8 }}>
+										initial={{ opacity: 0, x: -30 }}
+										animate={{ opacity: 1, x: 0 }}
+										transition={{
+											delay: 1.2,
+											duration: 0.8,
+											ease: 'easeOut',
+										}}>
 										Antonio Rinaldi • Full Stack Developer
 									</motion.p>
 								</motion.div>
@@ -247,10 +237,6 @@ const WelcomeHeroUnified: React.FC = () => {
 									className="right-side"
 									style={{
 										transform: `translateX(${rightSideX}%)`,
-										backgroundColor: `rgba(0, 0, 0, ${Math.max(
-											0.7 - scrollProgress * 0.5,
-											0.1
-										)})`,
 									}}>
 									{/* Desktop content right */}
 									<div className="welcome-descriptions">
@@ -258,31 +244,37 @@ const WelcomeHeroUnified: React.FC = () => {
 											<motion.p
 												key={index}
 												className="welcome-description"
-												initial={{ opacity: 0, x: 50 }}
+												initial={{ opacity: 0, x: 40 }}
 												animate={{ opacity: 1, x: 0 }}
 												transition={{
-													delay: 2 + index * 0.3,
-													duration: 0.8,
+													delay: 1.6 + index * 0.2,
+													duration: 0.7,
 													ease: 'easeOut',
 												}}>
 												{desc}
 											</motion.p>
 										))}
+
 										<motion.div
 											className="welcome-cta"
-											initial={{ opacity: 0, scale: 0.8 }}
+											initial={{ opacity: 0, scale: 0.9 }}
 											animate={{ opacity: 1, scale: 1 }}
 											transition={{
-												delay: 3.6,
+												delay: 2.8,
 												duration: 0.6,
 												type: 'spring',
+												stiffness: 200,
 											}}>
 											<div className="scroll-indicator">
-												<span>Scroll to continue</span>
+												<span>Continue Journey</span>
 												<motion.div
 													className="scroll-arrow"
-													animate={{ y: [0, 10, 0] }}
-													transition={{ duration: 1.5, repeat: Infinity }}>
+													animate={{ y: [0, 8, 0] }}
+													transition={{
+														duration: 1.8,
+														repeat: Infinity,
+														ease: 'easeInOut',
+													}}>
 													↓
 												</motion.div>
 											</div>
@@ -291,19 +283,23 @@ const WelcomeHeroUnified: React.FC = () => {
 
 									<motion.div
 										className="quick-stats"
-										initial={{ opacity: 0 }}
-										animate={{ opacity: 1 }}
-										transition={{ delay: 3, duration: 1 }}>
+										initial={{ opacity: 0, y: 20 }}
+										animate={{ opacity: 1, y: 0 }}
+										transition={{
+											delay: 2.4,
+											duration: 1,
+											ease: 'easeOut',
+										}}>
 										<div className="stat">
-											<span className="stat-number">2+</span>
+											<span className="stat-number">3+</span>
 											<span className="stat-label">Years Experience</span>
 										</div>
 										<div className="stat">
-											<span className="stat-number">15+</span>
+											<span className="stat-number">25+</span>
 											<span className="stat-label">Projects</span>
 										</div>
 										<div className="stat">
-											<span className="stat-number">5+</span>
+											<span className="stat-number">10+</span>
 											<span className="stat-label">Technologies</span>
 										</div>
 									</motion.div>
@@ -315,52 +311,41 @@ const WelcomeHeroUnified: React.FC = () => {
 					{/* Container diverso per mobile (con drag) */}
 					{isMobile && (
 						<motion.div
-							className="welcome-content"
+							className="welcome-content mobile-welcome"
 							drag={isScrollable ? 'y' : false}
 							dragConstraints={{ top: -maxDrag, bottom: 0 }}
 							dragElastic={0.1}
 							onDragEnd={handleDragEnd}
 							style={{
 								opacity: containerOpacity,
-								height: '100vh',
-								display: 'flex',
-								alignItems: 'center',
-								justifyContent: 'center',
-								position: 'relative',
 								y: dragY,
-								background: 'transparent',
 							}}>
 							{/* Layout Mobile - Colonna singola */}
-							<div
-								className="mobile-single-column"
-								style={{
-									backgroundColor: `rgba(0, 0, 0, ${Math.max(
-										0.8 - scrollProgress * 0.6,
-										0.1
-									)})`,
-									borderRadius: '20px',
-									padding: '2rem',
-								}}>
-								<motion.div
-									className="welcome-avatar"
-									initial={{ scale: 0, rotate: -180 }}
-									animate={{ scale: 1, rotate: 0 }}
-									transition={{
-										duration: 1,
-										delay: 0.5,
-										type: 'spring',
-										stiffness: 100,
-									}}>
-									<div className="avatar-circle">
+							<div className="mobile-single-column">
+								<div className="welcome-avatar">
+									<motion.div
+										className="avatar-circle"
+										initial={{ scale: 0, rotate: -180 }}
+										animate={{ scale: 1, rotate: 0 }}
+										transition={{
+											duration: 1.2,
+											delay: 0.4,
+											type: 'spring',
+											stiffness: 120,
+										}}>
 										<span className="avatar-initials">AR</span>
-									</div>
-								</motion.div>
+									</motion.div>
+								</div>
 
 								<motion.h1
 									className="welcome-title"
-									initial={{ opacity: 0, y: 20 }}
+									initial={{ opacity: 0, y: 30 }}
 									animate={{ opacity: 1, y: 0 }}
-									transition={{ duration: 0.8, delay: 0.8 }}>
+									transition={{
+										duration: 1,
+										delay: 0.8,
+										ease: [0.25, 0.46, 0.45, 0.94],
+									}}>
 									Welcome to My Portfolio
 								</motion.h1>
 
@@ -368,7 +353,10 @@ const WelcomeHeroUnified: React.FC = () => {
 									className="welcome-subtitle"
 									initial={{ opacity: 0 }}
 									animate={{ opacity: 1 }}
-									transition={{ delay: 1.5, duration: 0.8 }}>
+									transition={{
+										delay: 1.2,
+										duration: 0.8,
+									}}>
 									Antonio Rinaldi • Full Stack Developer
 								</motion.p>
 
@@ -380,44 +368,58 @@ const WelcomeHeroUnified: React.FC = () => {
 											initial={{ opacity: 0, y: 20 }}
 											animate={{ opacity: 1, y: 0 }}
 											transition={{
-												delay: 2 + index * 0.3,
-												duration: 0.8,
+												delay: 1.6 + index * 0.2,
+												duration: 0.7,
 												ease: 'easeOut',
 											}}>
 											{desc}
 										</motion.p>
 									))}
+
 									<motion.div
 										className="welcome-cta"
-										initial={{ opacity: 0, scale: 0.8 }}
+										initial={{ opacity: 0, scale: 0.9 }}
 										animate={{ opacity: 1, scale: 1 }}
-										transition={{ delay: 3.6, duration: 0.6, type: 'spring' }}>
+										transition={{
+											delay: 2.8,
+											duration: 0.6,
+											type: 'spring',
+										}}>
 										<div className="scroll-indicator">
-											<span>Swipe up to continue</span>
+											<span>Swipe to Continue</span>
 											<motion.div
 												className="scroll-arrow"
-												animate={{ y: [0, -10, 0] }}
-												transition={{ duration: 1.5, repeat: Infinity }}>
+												animate={{ y: [0, -8, 0] }}
+												transition={{
+													duration: 1.8,
+													repeat: Infinity,
+													ease: 'easeInOut',
+												}}>
 												↑
 											</motion.div>
 										</div>
 									</motion.div>
 								</div>
+
 								<motion.div
 									className="quick-stats"
-									initial={{ opacity: 0 }}
-									animate={{ opacity: 1 }}
-									transition={{ delay: 3, duration: 1 }}>
+									initial={{ opacity: 0, y: 20 }}
+									animate={{ opacity: 1, y: 0 }}
+									transition={{
+										delay: 2.4,
+										duration: 1,
+										ease: 'easeOut',
+									}}>
 									<div className="stat">
-										<span className="stat-number">2+</span>
+										<span className="stat-number">3+</span>
 										<span className="stat-label">Years Experience</span>
 									</div>
 									<div className="stat">
-										<span className="stat-number">15+</span>
+										<span className="stat-number">25+</span>
 										<span className="stat-label">Projects</span>
 									</div>
 									<div className="stat">
-										<span className="stat-number">5+</span>
+										<span className="stat-number">10+</span>
 										<span className="stat-label">Technologies</span>
 									</div>
 								</motion.div>
@@ -427,12 +429,14 @@ const WelcomeHeroUnified: React.FC = () => {
 
 					{/* Progress indicator */}
 					{isScrollable && (
-						<motion.div
-							className="scroll-progress"
-							style={{
-								scaleX: progressScale,
-							}}
-						/>
+						<div className="progress-container">
+							<motion.div
+								className="scroll-progress"
+								style={{
+									scaleX: progressScale,
+								}}
+							/>
+						</div>
 					)}
 				</div>
 			)}
