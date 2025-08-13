@@ -275,7 +275,7 @@ const WelcomeHeroUnified: React.FC = () => {
 														repeat: Infinity,
 														ease: 'easeInOut',
 													}}>
-													↓
+													↓ {isMobile ? 'Swipe' : 'Scroll'}
 												</motion.div>
 											</div>
 										</motion.div>
