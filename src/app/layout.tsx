@@ -3,10 +3,11 @@ import { Inter } from 'next/font/google';
 import './globals.css'; // deve essere qui, non dentro page.tsx
 
 export const dynamic = 'force-dynamic';
+import ReduxProvider from '@/components/ReduxProvider';
+import { LenisProvider } from '@/providers/LenisProvider';
 import AppWrapper from '@/components/AppWrapper';
-import { cookies } from 'next/headers';
 import ParticlesBackground from '@/components/ParticlesBackground';
-import { ThemeInitWrapper } from '@/components/ThemeInitWrapper';
+
 const inter = Inter({ subsets: ['latin'] });
 const themes = ['violet', 'cyber', 'mint', 'neon', 'minimal'];
 
@@ -83,24 +84,22 @@ export const metadata: Metadata = {
 		],
 	},
 };
-export default async function RootLayout({
+export default function RootLayout({
 	children,
 }: {
 	children: React.ReactNode;
 }) {
-	const cookieStore = cookies();
-	const cookieTheme = (await cookieStore).get('theme')?.value || 'violet';
-	const themeClass = themes.includes(cookieTheme) ? cookieTheme : 'violet';
-
 	return (
-		<html
-			lang="en"
-			className={`${themeClass}`}>
+		<html lang="en">
 			<body
 				className={inter.className}
 				suppressHydrationWarning>
-				<ParticlesBackground />
-				<AppWrapper>{children}</AppWrapper>
+				<ReduxProvider>
+					<LenisProvider>
+						<ParticlesBackground />
+						<AppWrapper>{children}</AppWrapper>
+					</LenisProvider>
+				</ReduxProvider>
 			</body>
 		</html>
 	);

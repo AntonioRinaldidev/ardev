@@ -4,6 +4,7 @@
 /* I tuoi CSS esistenti rimangono uguali */
 .hero {
   width: 100%;
+  background-color: transparent;
 }
 
 .hero-section {
@@ -15,7 +16,8 @@
   opacity: 1 !important;
   transform: none !important;
    position: relative;
-  z-index: 20 !important;
+  
+  background-color: transparent;
 }
 
 .hero-container-centered {

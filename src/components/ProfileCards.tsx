@@ -10,6 +10,7 @@ import { downloadCV } from '@/services/fileService';
 import ModalDownload from './ModalDownload';
 import ThemeSwitcher from './ThemeSwitcher';
 import { FaUser, FaEnvelope, FaFileDownload, FaTools } from 'react-icons/fa';
+import { useAppSelector } from '@/store/hooks';
 
 interface ProfileCardProps {
 	fullName: string;
@@ -20,6 +21,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ fullName }) => {
 	const [isDownloading, setIsDownloading] = useState(false);
 	const [showModal, setShowModal] = useState(false);
 	const [downloadComplete, setDownloadComplete] = useState(false);
+	const { isWelcomeVisible } = useAppSelector((state) => state.welcome);
 
 	const router = useRouter();
 	useEffect(() => {
@@ -74,7 +76,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ fullName }) => {
 						className="profile-card-top"
 						initial={{ opacity: 0, y: 0 }}
 						animate={{ opacity: 1, y: -30 }}
-						transition={{ duration: 1, ease: 'easeOut' }}>
+						transition={{ duration: 0.6, ease: 'easeOut' }}>
 						<motion.h1
 							className="heading profile-wave-title"
 							initial={{ opacity: 0, y: 20 }}

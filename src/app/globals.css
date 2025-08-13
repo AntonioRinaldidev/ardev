@@ -234,23 +234,32 @@ main {
 }
 @supports (-webkit-touch-callout: none) {
   html {
-    
     -webkit-text-size-adjust: 100%;
+    /* HTML prende il colore del tema per Safari */
+    background: var(--color-bg-secondary) !important;
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
   }
   
-
+  body {
+    /* Body rimane trasparente per ParticlesBackground */
+    background: transparent !important;
+    -webkit-appearance: none;
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+  }
   
-  /* Meta theme-color fallback CSS per Safari */
-  body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: #000000;
-    z-index: -999;
-    pointer-events: none;
+  /* Layer specifico SOLO per la barra di navigazione Safari */
+
+}
+
+/* Su desktop nascondi il fix */
+@media (min-width: 769px) {
+  @supports (-webkit-touch-callout: none) {
+    body::after {
+      display: none !important;
+    }
   }
 }
+
 

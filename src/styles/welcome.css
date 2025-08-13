@@ -4,12 +4,11 @@
 .welcome-container-scroll {
   position: relative;
   width: 100%;
-  background-color: rgba(0, 0, 0, 1);
+  background-color: transparent !important;
   overflow-x: hidden;
 }
 
 .welcome-container-scroll.scrollable {
-  cursor: grab;
   scrollbar-width: none;
   -ms-overflow-style: none;
   -webkit-overflow-scrolling: touch;
@@ -20,15 +19,13 @@
   background: transparent;
 }
 
-.welcome-container-scroll.scrollable:active {
-  cursor: grabbing;
-}
+
 
 /* Container per drag (mobile) */
 .welcome-container-drag {
   position: relative;
   width: 100%;
-  background-color: rgba(0, 0, 0, 1);
+ background-color: transparent !important;
   overflow: hidden;
   user-select: none;
   touch-action: none;
@@ -41,18 +38,10 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  
 }
 
-/* Desktop specific */
-@media (min-width: 769px) {
-  .welcome-content {
-    cursor: grab;
-  }
-  
-  .welcome-content:active {
-    cursor: grabbing;
-  }
-}
+
 
 .left-side {
   flex: 1;
@@ -63,9 +52,9 @@
   align-items: center;
   justify-content: center;
   border-right: 1px solid rgba(255, 255, 255, 0.5);
-  background-color: rgba(0, 0, 0, 1);
+
   position: relative;
-  z-index: 10;
+  z-index: 1;
 }
 
 .right-side {
@@ -77,11 +66,16 @@
   align-items: center;
   justify-content: center;
   border-left: 1px solid rgba(255, 255, 255, 0.5);
-  background-color: rgba(0, 0, 0, 1);
+
   position: relative;
-  z-index: 10;
+  z-index: 1;
 }
 
+.left-side,
+.right-side {
+  background-color: rgba(0, 0, 0, 0.5) !important; /* Molto più trasparente */
+  backdrop-filter: blur(10px); /* Effetto sfocato invece di opaco */
+}
 /* Scroll progress indicator - orizzontale in basso */
 .scroll-progress {
   position: fixed;
@@ -290,5 +284,9 @@
 
   .welcome-cta {
     margin: 2rem 0;
+  }
+  .left-side,
+  .right-side {
+    border: none;
   }
 }

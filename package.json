@@ -12,6 +12,7 @@
     "@krysondto/shared-dtos": "^1.1.2",
     "@react-pdf/render": "^4.3.0",
     "@react-pdf/renderer": "^4.3.0",
+    "@reduxjs/toolkit": "^2.8.2",
     "@tsparticles/engine": "^3.8.1",
     "@tsparticles/preset-links": "^3.2.0",
     "@tsparticles/preset-stars": "^3.2.0",
@@ -28,12 +29,15 @@
     "next": "^15.2.4",
     "react": "^18.3.1",
     "react-dom": "^18",
-    "react-icons": "^5.5.0"
+    "react-icons": "^5.5.0",
+    "react-redux": "^9.2.0",
+    "redux": "^5.0.1"
   },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18",
+    "@types/react-redux": "^7.1.34",
     "eslint": "^8",
     "eslint-config-next": "14.2.7",
     "postcss": "^8",
