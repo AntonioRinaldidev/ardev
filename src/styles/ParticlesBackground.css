@@ -1,4 +1,4 @@
-/* ParticlesBackground.css aggiornato */
+/* ParticlesBackground.css con fix Safari definitivo */
 
 /* 🌌 Particles container */
 .space-container {
@@ -15,52 +15,34 @@
 	z-index: -1;
 }
 
-/* Safari iOS navigation bar fix - Force background color */
-.space-container::before {
-	content: '';
-	position: fixed;
-	bottom: -100px;
-	left: -100px;
-	right: -100px;
-	height: 200px;
-	background: var(--theme-bg-gradient);
-	background-size: 600% 600%;
-	animation: gradientShift 12s ease infinite;
-	z-index: -2;
-	pointer-events: none;
-}
-
-/* Alternative approach - use solid color fallback for navigation bar */
-.space-container::after {
-	content: '';
-	position: fixed;
-	bottom: -150px;
-	left: -150px;
-	right: -150px;
-	height: 300px;
-	background: var(--color-bg-secondary);
-	z-index: -3;
-	pointer-events: none;
-}
-
-/* Fix specifico per Safari iOS */
+/* Safari iOS navigation bar fix - Estendi il background sotto la barra */
 @supports (-webkit-touch-callout: none) {
 	.space-container {
-		/* Estendi il container */
-		margin-bottom: -100px;
-		padding-bottom: 100px;
+		/* Estendi il container oltre i bordi */
+		top: -50px;
+		bottom: -50px;
+		left: -50px;
+		right: -50px;
+		width: calc(100vw + 100px);
 		height: calc(100vh + 100px);
 		min-height: calc(100vh + 100px);
 		min-height: -webkit-fill-available;
 	}
-	
-	/* Force anche i pseudo-elements */
-	.space-container::before,
-	.space-container::after {
-		display: block;
-		bottom: -200px;
-		height: 400px;
-	}
+}
+
+/* Pseudo-element per forzare il background sotto la barra Safari */
+.space-container::after {
+	content: '';
+	position: fixed;
+	bottom: -200px;
+	left: -200px;
+	right: -200px;
+	height: 400px;
+
+	background-size: 600% 600%;
+
+	z-index: -1;
+	pointer-events: none;
 }
 
 .overlay-wrapper {
@@ -75,6 +57,16 @@
 	align-items: flex-start;
 	padding-top: 20vh;
 	z-index: 1;
+}
+
+/* Compensa l'offset del container su Safari */
+@supports (-webkit-touch-callout: none) {
+	.overlay-wrapper {
+		top: 50px;
+		left: 50px;
+		width: calc(100% - 100px);
+		height: calc(100% - 100px);
+	}
 }
 
 .space-overlay {
@@ -101,10 +93,7 @@
 	}
 }
 
-@keyframes gradientShift {
-	0%, 100% { background-position: 0% 50%; }
-	50% { background-position: 100% 50%; }
-}
+
 
 @keyframes pulse {
 	0%, 100% { opacity: 0.25; transform: scale(1); }

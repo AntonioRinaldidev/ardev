@@ -1,52 +1,66 @@
+/* Clean ToggleGroup Component - Minimal glassmorphism */
+
 .timeline-toggle-group {
   display: flex;
-  
-  border: 2px solid var(--color-primary);
-  margin-top: 2.5rem;
+  background: 
+    linear-gradient(145deg, 
+      rgba(255, 255, 255, 0.03) 0%, 
+      var(--card-bg) 30%, 
+      var(--section-bg) 100%
+    );
+  backdrop-filter: blur(15px) saturate(110%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin: 2rem 0;
   justify-content: center;
   flex-wrap: wrap;
-  border-radius: 20px 20px 0px 0px;
+  border-radius: 16px 16px 0px 0px;
   overflow: hidden;
-  background-color: var(--color-bg-secondary);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
+
 .timeline-toggle {
-  position: relative;
   flex: 1;
-  padding: 0.5rem 1.2rem;
+  padding: 1rem 1.5rem;
   font-size: 1rem;
   font-weight: 600;
   background: transparent;
-  color: var(--color-primary);
+  color: var(--color-text);
   cursor: pointer;
-  overflow: hidden;
-  transition: color 0.3s ease, background-color 0.3s ease;
   border: none;
-  z-index: 1;
-}
-
-.timeline-toggle::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  height: 3px;
-  width: 100%;
-  background-color: var(--color-bg);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.3s ease;
-}
-
-.timeline-toggle:hover::after {
-  transform: scaleX(1);
+  position: relative;
+  transition: all 0.3s ease;
+  min-width: 120px;
 }
 
 .timeline-toggle:hover {
-  background-color: var(--color-primary);
-  color: var(--color-bg-secondary);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--color-heading);
 }
 
 .timeline-toggle.active {
-  background-color: var(--color-primary);
-  color: var(--color-bg-secondary);
+  background: var(--color-primary);
+  color: white;
+}
+
+.timeline-toggle.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: white;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .timeline-toggle-group {
+    border-radius: 12px 12px 0 0;
+  }
+
+  .timeline-toggle {
+    padding: 0.8rem 1rem;
+    font-size: 0.9rem;
+    min-width: 100px;
+  }
 }

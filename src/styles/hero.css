@@ -1,32 +1,23 @@
-/* Aggiungi questo al tuo CSS - è il container principale della home page */
-
-
-/* I tuoi CSS esistenti rimangono uguali */
-.hero {
-  width: 100%;
-}
 
 .hero-section {
-  min-height: 100vh;
+  min-height: 100%;
   min-width: 100%;
   display: flex;
-  align-items: center; /* Corretto: era align-item */
+  align-items: center;
   justify-content: center;
   opacity: 1 !important;
-  transform: none !important;
-   position: relative;
-  z-index: 20 !important;
+  position: relative;
+  background-color: transparent;
+  padding: auto;
 }
 
 .hero-container-centered {
   width: 100%;
-  max-width: 1800px;
-  margin: 0 auto;
-  padding: 0 2rem;
-  display: flex;
+  min-width: 1800px;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
+  justify-content: center;
+  gap: 1rem;
 }
 
 .hero-description {
@@ -113,4 +104,32 @@
 .animated-btn:hover rect {
   stroke-dashoffset: 0;
   stroke: var(--color-primary-hover);
+}
+
+@media (max-width: 768px) {
+  .hero-container-centered {
+    min-width: 100%;
+    padding: 1rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .hero-description {
+    text-align: center;
+    margin-top: 1rem;
+  }
+
+  .heading {
+    font-size: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .text-paragraph {
+    font-size: 0.9rem;
+  }
+
+  .highlight {
+    font-size: 1.1rem;
+  }
+  
 }

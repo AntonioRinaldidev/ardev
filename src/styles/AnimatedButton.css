@@ -22,7 +22,7 @@
 
 .btn-primary:hover {
   background-color: var(--color-primary);
-  color: var(--color-bg-secondary);
+  color: var(--color-link-hover);
   box-shadow: 0 0 5px var(--color-primary-hover);
   transform: translateY(-2px);
 }
@@ -78,7 +78,7 @@
 }
 
 .btn-hub{
-  border-radius: 0 !important ;
+  border-radius: var(--radius-md) !important ;
   
 }
 .btn-hub:hover {
