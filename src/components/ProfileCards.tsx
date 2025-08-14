@@ -230,12 +230,6 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ fullName }) => {
 
 							<div className="secondary-actions-redesign">
 								<AnimatedButton
-									text="Tools"
-									icon={<FaTools />}
-									variant="hub"
-									onClick={handlePressTools}
-								/>
-								<AnimatedButton
 									text="Resume"
 									icon={<FaFileDownload />}
 									variant="hub"

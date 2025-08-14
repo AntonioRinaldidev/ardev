@@ -18,7 +18,37 @@ import SocialStats from '@/components/SocialStats';
 import { useRouter } from 'next/navigation';
 import ToggleGroup from '@/components/ToggleGroup';
 import Timeline from '@/components/Timeline';
-
+import ExperienceDropdown from '@/components/ExperienceDropdown';
+const experienceData = {
+	centroWellness: {
+		title: 'Frontend React Native & React Developer',
+		company: 'Centro Wellness Morra',
+		location: 'Italy',
+		period: 'Jun 2024 - Present',
+		description:
+			'Developed responsive web application for medical center employees and employer. Developed mobile application for patients and specialists for iOS and Android using React Native.',
+		technologies: ['React', 'React Native', 'TypeScript'],
+		achievements: [
+			'Built dual mobile apps ecosystem for patients and specialists communication',
+			'Implemented real-time chat system connecting patients with medical specialists',
+			'Created in-app purchase system for medical consultations and appointments',
+			'Built comprehensive web dashboard for specialists with full mobile app parity',
+			'Built admin panel for center management and  specialist oversight',
+			'Successfully launched on iOS App Store and Android Play Store',
+			'Integrated secure payment processing for medical consultation purchases',
+		],
+		projectLinks: [
+			{
+				url: 'https://apps.apple.com/it/app/centro-morra/id6738307134',
+				type: 'app-store' as 'app-store',
+			},
+			{
+				url: 'https://play.google.com/store/apps/details?id=com.medimatemorra.patient',
+				type: 'google-play' as 'google-play',
+			},
+		],
+	},
+};
 const AboutMe = () => {
 	const router = useRouter();
 	const [selectedTab, setSelectedTab] = useState<
@@ -100,17 +130,21 @@ const AboutMe = () => {
 						)}
 
 						{selectedTab === 'experience' && (
-							<Timeline
-								heading="Experience"
-								items={[
-									{
-										icon: <FaBriefcase />,
-										title: 'Centro Wellness Morra',
-										description:
-											'Freelance Frontend Developer - Creating responsive user interfaces',
-									},
-								]}
-							/>
+							<>
+								<ExperienceDropdown details={experienceData.centroWellness}>
+									<Timeline
+										heading="Experience"
+										items={[
+											{
+												icon: <FaBriefcase />,
+												title: 'Centro Wellness Morra',
+												description:
+													'Freelance Frontend Developer - Creating responsive user interfaces',
+											},
+										]}
+									/>
+								</ExperienceDropdown>
+							</>
 						)}
 
 						{selectedTab === 'hobbies' && (

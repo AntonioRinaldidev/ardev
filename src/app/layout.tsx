@@ -9,7 +9,6 @@ import AppWrapper from '@/components/AppWrapper';
 import ParticlesBackground from '@/components/ParticlesBackground';
 
 const inter = Inter({ subsets: ['latin'] });
-const themes = ['violet', 'cyber', 'mint', 'neon', 'minimal'];
 
 // Esporta viewport separatamente
 export const viewport: Viewport = {
