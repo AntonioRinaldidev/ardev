@@ -18,7 +18,6 @@ import SocialStats from '@/components/SocialStats';
 import { useRouter } from 'next/navigation';
 import ToggleGroup from '@/components/ToggleGroup';
 import Timeline from '@/components/Timeline';
-import ExperienceDropdown from '@/components/ExperienceDropdown';
 const experienceData = {
 	centroWellness: {
 		title: 'Frontend React Native & React Developer',
@@ -26,7 +25,7 @@ const experienceData = {
 		location: 'Italy',
 		period: 'Jun 2024 - Present',
 		description:
-			'Developed responsive web application for medical center employees and employer. Developed mobile application for patients and specialists for iOS and Android using React Native.',
+			'Developed React web application and React Native mobile apps for healthcare ecosystem.',
 		technologies: ['React', 'React Native', 'TypeScript'],
 		achievements: [
 			'Built dual mobile apps ecosystem for patients and specialists communication',
@@ -131,19 +130,18 @@ const AboutMe = () => {
 
 						{selectedTab === 'experience' && (
 							<>
-								<ExperienceDropdown details={experienceData.centroWellness}>
-									<Timeline
-										heading="Experience"
-										items={[
-											{
-												icon: <FaBriefcase />,
-												title: 'Centro Wellness Morra',
-												description:
-													'Freelance Frontend Developer - Creating responsive user interfaces',
-											},
-										]}
-									/>
-								</ExperienceDropdown>
+								<Timeline
+									heading="Experience"
+									items={[
+										{
+											icon: <FaBriefcase />,
+											title: 'Centro Wellness Morra',
+											description:
+												'Freelance Frontend Developer - Creating responsive user interfaces',
+											experienceDetails: experienceData.centroWellness,
+										},
+									]}
+								/>
 							</>
 						)}
 

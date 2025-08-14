@@ -243,7 +243,9 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ fullName }) => {
 									<span>Crafted with passion and pizza</span>
 								</div>
 							</div>
-							<ThemeSwitcher />
+							<div className="theme-switcher-container">
+								<ThemeSwitcher />
+							</div>
 						</motion.div>
 					</div>
 				</div>

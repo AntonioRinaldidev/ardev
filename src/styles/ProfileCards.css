@@ -818,6 +818,7 @@
   .profile-avatar-redesign {
     width: 80px;
     height: 80px;
+    overflow-y: auto;
   }
 
   /* Rimuovi effetti complessi dall'avatar */
@@ -956,6 +957,7 @@
   .col1 {
     padding: 1.5rem 1.2rem;
     border-radius: 12px;
+    
   }
 
   .profile-card-actions-redesign {
@@ -993,6 +995,15 @@
 
   .actions-subtitle {
     font-size: 0.8rem;
+  }
+  .profile-card-bottom{
+    margin-bottom: 3rem;
+  }
+  .theme-switcher-container{
+    position: absolute;
+    top: 0.1rem;
+    right: 0.1rem;
+    z-index: 10;
   }
 }
 

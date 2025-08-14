@@ -34,11 +34,11 @@ const WelcomeHeroUnified: React.FC = () => {
 
 	// Spring configuration - costante
 	const springConfig = {
-		stiffness: 400,
-		damping: 40,
-		mass: 0.6,
-		restDelta: 0.01,
-		restSpeed: 0.01,
+		stiffness: 300,
+		damping: 35,
+		mass: 0.8,
+		restDelta: 0.005,
+		restSpeed: 0.005,
 	};
 
 	const springY = useSpring(dragY, springConfig);
@@ -358,7 +358,7 @@ const WelcomeHeroUnified: React.FC = () => {
 							drag={isScrollable ? 'y' : false}
 							dragConstraints={{ top: -maxDrag, bottom: 0 }}
 							dragElastic={0.05}
-							dragMomentum={false}
+							dragMomentum={true}
 							onDragEnd={handleDragEnd}
 							style={{
 								opacity: containerOpacity,
@@ -459,11 +459,11 @@ const WelcomeHeroUnified: React.FC = () => {
 										ease: 'easeOut',
 									}}>
 									<div className="stat">
-										<span className="stat-number">3+</span>
+										<span className="stat-number">1+</span>
 										<span className="stat-label">Years Experience</span>
 									</div>
 									<div className="stat">
-										<span className="stat-number">25+</span>
+										<span className="stat-number">2+</span>
 										<span className="stat-label">Projects</span>
 									</div>
 									<div className="stat">

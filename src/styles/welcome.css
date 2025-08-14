@@ -787,10 +787,7 @@
 
 /* Extra small mobile devices */
 @media (max-width: 480px) {
-  .mobile-single-column {
-    padding: 1.5rem 1rem;
-    margin: 0.5rem;
-  }
+
   
   .avatar-circle {
     width: 60px;
@@ -843,6 +840,10 @@
   
   .stat-label {
     font-size: 0.65rem;
+  }
+  .mobile-welcome{
+    padding: 3.5rem 0rem;
+    
   }
 }
 

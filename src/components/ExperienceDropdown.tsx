@@ -20,7 +20,7 @@ interface ProjectLink {
 	label?: string; // Optional custom label
 }
 
-interface ExperienceDetails {
+export interface ExperienceDetails {
 	title: string;
 	company: string;
 	location: string;
@@ -34,7 +34,7 @@ interface ExperienceDetails {
 
 interface ExperienceDropdownProps {
 	details: ExperienceDetails;
-	children: React.ReactNode;
+	children?: React.ReactNode; // Optional children for additional content
 }
 
 const ExperienceDropdown: React.FC<ExperienceDropdownProps> = ({
@@ -127,7 +127,6 @@ const ExperienceDropdown: React.FC<ExperienceDropdownProps> = ({
 			onMouseEnter={handleMouseEnter}
 			onMouseLeave={handleMouseLeave}>
 			{children}
-
 			<AnimatePresence>
 				{isOpen && (
 					<motion.div
