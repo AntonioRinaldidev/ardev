@@ -207,7 +207,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ fullName }) => {
 							animate={{ opacity: 1, x: 0 }}
 							transition={{ duration: 1, ease: 'easeOut' }}>
 							<div className="actions-header">
-								<h3 className="actions-title">Let's Connect</h3>
+								<h3 className="actions-title">Let&apos;s Connect</h3>
 								<p className="actions-subtitle">
 									Ready to build something amazing?
 								</p>
