@@ -39,7 +39,6 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ fullName }) => {
 
 	const router = useRouter();
 
-	const devTypes = ['Frontend', 'Backend', 'Mobile', 'Full-Stack'];
 	const skills = ['React', 'Node.js', 'TypeScript', 'Next.js', 'React Native'];
 
 	useEffect(() => {
@@ -65,13 +64,6 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ fullName }) => {
 	};
 
 	useEffect(() => {
-		const devInterval = setInterval(() => {
-			setDevType((prev) => {
-				const currentIndex = devTypes.indexOf(prev);
-				return devTypes[(currentIndex + 1) % devTypes.length];
-			});
-		}, 2500);
-
 		const skillInterval = setInterval(() => {
 			setCurrentSkill((prev) => {
 				const currentIndex = skills.indexOf(prev);
@@ -80,7 +72,6 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ fullName }) => {
 		}, 3500);
 
 		return () => {
-			clearInterval(devInterval);
 			clearInterval(skillInterval);
 		};
 	}, []);
@@ -153,15 +144,16 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ fullName }) => {
 						<div className="profile-info-redesign">
 							<h2 className="profile-name-redesign">{fullName}</h2>
 							<div className="profile-role-redesign">
-								<span className="role-static">CS Student & </span>
+								<span className="role-static">
+									Computer Engineering Student &{' '}
+								</span>
 								<motion.span
-									key={devType}
 									className="role-dynamic"
 									initial={{ opacity: 0, y: 20, scale: 0.8 }}
 									animate={{ opacity: 1, y: 0, scale: 1 }}
 									exit={{ opacity: 0, y: -20, scale: 0.8 }}
 									transition={{ duration: 0.6 }}>
-									{devType}
+									Frontend
 								</motion.span>
 								<span className="role-static"> Developer</span>
 							</div>
@@ -192,7 +184,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ fullName }) => {
 							<FaMapPin className="location-icon" />
 							<span>Based In Italy</span>
 							<div className="status-indicator-redesign"></div>
-							<span className="status-text">Available</span>
+							<span className="status-text">Available for projects</span>
 						</div>
 
 						<TextFade
@@ -200,8 +192,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ fullName }) => {
 							className="hero-description">
 							<p className="text-paragraph-redesign">
 								Welcome to my portfolio! Crafting elegant interfaces with clean
-								code, modern technologies, and a passion for exceptional user
-								experiences.
+								code and exceptional user experiences.
 							</p>
 						</TextFade>
 					</motion.div>

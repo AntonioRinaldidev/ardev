@@ -372,6 +372,11 @@
 
 /* Responsive refinements */
 @media (max-width: 768px) {
+  html {
+    margin: 1rem;
+    
+
+  }
   .theme-button {
     width: 3rem;
     height: 3rem;

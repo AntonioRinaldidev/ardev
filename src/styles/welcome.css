@@ -686,39 +686,231 @@
 }
 
 
+/* Mobile-First Responsive Improvements for Welcome Component */
+
+/* Base mobile styles */
 @media (max-width: 768px) {
   .welcome-content {
     min-height: 100vh;
+    min-height: calc(var(--vh, 1vh) * 100);
+    padding: 1rem;
   }
   
-  .quick-stats {
-    gap: 1.2rem;
-    flex-wrap: wrap;
+  .mobile-single-column {
+    padding: 2rem 1.5rem;
+    margin: 1rem;
+    border-radius: calc(var(--radius-md) + 4px);
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
   }
   
-  .stat {
-    min-width: 95px;
-    padding: 1.5rem 1.2rem;
-  }
-  
-  .welcome-title {
-    font-size: clamp(2.2rem, 9vw, 4rem);
+  .welcome-avatar {
     margin-bottom: 1.5rem;
   }
   
+  .avatar-circle {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .avatar-initials {
+    font-size: 1.4rem;
+    letter-spacing: 2px;
+  }
+  
+  .welcome-title {
+    font-size: clamp(1.8rem, 8vw, 2.8rem);
+    margin-bottom: 1rem;
+    line-height: 1.1;
+  }
+  
+  .welcome-subtitle {
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    margin-top: 1rem;
+  }
+  
+  .welcome-descriptions {
+    margin: 1.5rem 0;
+  }
+  
   .welcome-description {
-    font-size: 1.15rem;
-    padding-left: 24px;
-    margin-bottom: 1.2rem;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    padding-left: 20px;
+  }
+  
+  .welcome-cta {
+    margin: 2rem 0 1.5rem 0;
   }
   
   .scroll-indicator {
-    padding: 1.5rem 2.2rem;
+    padding: 1.2rem 2rem;
+    border-radius: calc(var(--radius-md) - 2px);
+  }
+  
+  .scroll-indicator span {
+    font-size: 0.9rem;
+  }
+  
+  .scroll-arrow {
+    font-size: 1.2rem;
+    margin-top: 0.5rem;
+  }
+  
+  .quick-stats {
+    gap: 1rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .stat {
+    min-width: 80px;
+    padding: 1.2rem 1rem;
+    flex: 1;
+    max-width: 120px;
+  }
+  
+  .stat-number {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .stat-label {
+    font-size: 0.7rem;
+    line-height: 1.2;
+  }
+}
+
+/* Extra small mobile devices */
+@media (max-width: 480px) {
+  .mobile-single-column {
+    padding: 1.5rem 1rem;
+    margin: 0.5rem;
   }
   
   .avatar-circle {
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
+  }
+  
+  .avatar-initials {
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+  }
+  
+  .welcome-title {
+    font-size: clamp(1.5rem, 10vw, 2.2rem);
+    margin-bottom: 0.8rem;
+  }
+  
+  .welcome-subtitle {
+    font-size: 0.8rem;
+    text-align: center;
+  }
+  
+  .welcome-description {
+    font-size: 0.9rem;
+    padding-left: 16px;
+    margin-bottom: 0.8rem;
+  }
+  
+  .scroll-indicator {
+    padding: 1rem 1.5rem;
+  }
+  
+  .scroll-indicator span {
+    font-size: 0.8rem;
+  }
+  
+  .quick-stats {
+    gap: 0.8rem;
+    margin-top: 1.5rem;
+  }
+  
+  .stat {
+    min-width: 70px;
+    padding: 1rem 0.8rem;
+    max-width: 100px;
+  }
+  
+  .stat-number {
+    font-size: 1.5rem;
+  }
+  
+  .stat-label {
+    font-size: 0.65rem;
+  }
+}
+
+/* Desktop layout improvements */
+@media (min-width: 769px) {
+  .left-side, .right-side {
+    padding: 3rem 2.5rem;
+  }
+  
+  .welcome-title {
+    font-size: clamp(3rem, 6vw, 5rem);
+  }
+  
+  .welcome-description {
+    font-size: 1.2rem;
+    max-width: 400px;
+  }
+}
+
+/* Landscape mobile devices */
+@media (max-width: 768px) and (orientation: landscape) {
+  .mobile-single-column {
+    padding: 1.5rem 1rem;
+    margin: 0.5rem;
+  }
+  
+  .welcome-title {
+    font-size: clamp(1.6rem, 6vw, 2.4rem);
+    margin-bottom: 0.8rem;
+  }
+  
+  .quick-stats {
+    margin-top: 1rem;
+  }
+  
+  .stat {
+    padding: 0.8rem 0.6rem;
+  }
+}
+
+/* Fix for very small screens */
+@media (max-width: 320px) {
+  .mobile-single-column {
+    padding: 1rem 0.8rem;
+    margin: 0.25rem;
+  }
+  
+  .welcome-title {
+    font-size: clamp(1.3rem, 12vw, 1.8rem);
+  }
+  
+  .welcome-description {
+    font-size: 0.85rem;
+    padding-left: 12px;
+  }
+  
+  .stat {
+    min-width: 60px;
+    max-width: 85px;
+    padding: 0.8rem 0.5rem;
+  }
+  
+  .stat-number {
+    font-size: 1.3rem;
+  }
+  
+  .stat-label {
+    font-size: 0.6rem;
   }
 }
 
