@@ -2,7 +2,7 @@
 
 import { ReactNode, useEffect } from 'react';
 import ThemeInitializer from './Initializers/ThemeInitializer';
-import Welcome from './Welcome';
+
 import WelcomeInitializer from './Initializers/WelcomeInitializer';
 import { useAppDispatch } from '@/store/hooks';
 import { initializeWelcome } from '@/store/welcomeSlice';

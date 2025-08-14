@@ -685,92 +685,181 @@
   }
 }
 /* Tablet adjustments */
-@media (max-width: 1024px) and (min-width: 769px) {
-  .profile-card {
-    max-width: 900px;
-    padding: 1.5rem;
-  }
-  
-  .col1 {
-    padding: 2rem;
-  }
-  
-  .actions-redesign {
-    padding: 2rem 1.2rem;
-  }
-  
-  .profile-avatar-redesign {
-    width: 100px;
-    height: 100px;
-  }
-  
-  .avatar-initials-redesign {
-    font-size: 1.7rem;
-  }
-}
-/* Responsive design - mantiene compatibilità mobile */
+/* ProfileCard Mobile - Design Leggero e Pulito */
+
+/* Mobile Layout - Solo le modifiche necessarie */
 @media (max-width: 768px) {
   .profile-card {
     flex-direction: column;
-    gap: 0.8rem;
-    padding: 0.5rem;
+    gap: 1rem;
+    padding: 1rem;
     min-height: auto;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
+  /* Col1 - Semplificato */
   .col1 {
     flex: 1 1 100%;
-    padding: 2rem 1.5rem 2.5rem 1.5rem;
-    border-radius: 20px 20px 8px 8px;
+    background: var(--card-bg); /* Background semplice */
+    backdrop-filter: none; /* Rimuovi blur */
+    padding: 2rem 1.5rem;
+    border-radius: 16px; /* Bordi più semplici */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Ombra leggera */
     margin-right: 0;
-    box-shadow:   
-      0 -10px 25px rgba(0, 0, 0, 0.15),
-      0 0 0 1px rgba(255, 255, 255, 0.05),
-      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Bordo sottile */
   }
 
+  /* Rimuovi effetti complessi da col1 */
+  .col1::before,
+  .col1::after {
+    display: none;
+  }
+
+  /* Col2 - Semplificato */
   .col2 {
     flex: 1 1 100%;
-    min-height: auto;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .profile-card-actions-redesign {
+    background: var(--card-bg); /* Background semplice */
+    backdrop-filter: none; /* Rimuovi blur */
+    border-radius: 16px; /* Bordi più semplici */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Ombra leggera */
+    padding: 0;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Bordo sottile */
     max-height: none;
     min-height: auto;
-    border-radius: 8px 8px 20px 20px;
-    box-shadow:   
-      0 10px 25px rgba(0, 0, 0, 0.15),
-      0 0 0 1px rgba(255, 255, 255, 0.05);
-    padding: 0.5rem 0;
-    ;
   }
 
+  /* Rimuovi effetti complessi da actions */
+  .profile-card-actions-redesign::before,
+  .profile-card-actions-redesign::after {
+    display: none;
+  }
+
+  /* Actions Layout - Griglia 2x2 semplice */
   .actions-redesign {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: auto auto 1fr;
+    grid-template-rows: auto auto auto auto;
+    gap: 1.5rem;
+    padding: 2rem 1.5rem;
+    box-sizing: border-box;
   }
 
-  /* Avatar adjustments */
+  .actions-header {
+    grid-row: 1;
+    text-align: center;
+  }
+
+  /* Griglia 2x2 per i bottoni */
+  .primary-actions-redesign {
+    grid-row: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .secondary-actions-redesign {
+    grid-row: 3;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .actions-footer {
+    grid-row: 4;
+    margin-top: 0.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Bottoni semplificati */
+  .actions-redesign .animated-btn {
+    background: var(--color-bg-secondary); /* Background semplice */
+    border: 1px solid var(--color-primary);
+    border-radius: 12px; /* Bordi più semplici */
+    box-shadow: none; /* Rimuovi ombra */
+    backdrop-filter: none; /* Rimuovi blur */
+    width: 100%;
+    padding: 1rem 0.8rem;
+    min-height: 48px; /* Touch target */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: all 0.2s ease; /* Transizione più veloce */
+  }
+
+  /* Hover semplificato */
+  .actions-redesign .animated-btn:hover {
+    background: var(--color-primary);
+    color: var(--color-bg-secondary);
+    transform: translateY(-1px); /* Movimento minimo */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Ombra leggera */
+  }
+
+  /* Rimuovi effetti complessi dai bottoni */
+  .actions-redesign .animated-btn::before,
+  .actions-redesign .animated-btn::after {
+    display: none;
+  }
+
+  /* Avatar semplificato */
   .profile-avatar-redesign {
-    width: 90px;
-    height: 90px;
-    margin-bottom: 1rem;
+    width: 80px;
+    height: 80px;
+  }
+
+  /* Rimuovi effetti complessi dall'avatar */
+  .avatar-ring-redesign,
+  .avatar-glow-redesign {
+    display: none;
+  }
+
+  .avatar-content-redesign {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-third)); /* Gradient semplice */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Ombra semplice */
+  }
+
+  .avatar-content-redesign::before {
+    display: none; /* Rimuovi animazione shimmer */
   }
 
   .avatar-initials-redesign {
-    font-size: 1.5rem;
-    letter-spacing: 1.5px;
+    font-size: 1.4rem;
+    letter-spacing: 1px;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); /* Ombra leggera */
   }
 
-  /* Typography adjustments */
+  /* Typography pulita */
   .profile-wave-title-redesign {
-    font-size: clamp(1.6rem, 8vw, 2.2rem);
-    margin-bottom: 1.2rem;
+    font-size: clamp(1.8rem, 6vw, 2.4rem);
+    margin-bottom: 1rem;
+    color: var(--color-heading);
+    text-shadow: none; /* Rimuovi text-shadow */
+    background: none; /* Rimuovi gradient text */
+    -webkit-text-fill-color: var(--color-heading);
+    animation: none; /* Rimuovi animazioni */
+  }
+
+  .profile-wave-title-redesign::after {
+    display: none; /* Rimuovi underline animato */
   }
 
   .profile-name-redesign {
-    font-size: 1.5rem;
-    margin-bottom: 0.8rem;
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+    text-shadow: none;
   }
 
   .profile-role-redesign {
@@ -778,148 +867,115 @@
     line-height: 1.4;
   }
 
-  .role-dynamic {
-    display: block;
-    margin-top: 0.2rem;
-  }
-
-  .skills-display {
-    font-size: 0.95rem;
-    flex-direction: column;
-    gap: 0.3rem;
-    text-align: center;
-  }
-
-  .current-skill-highlight {
-    font-size: 1.1rem;
-  }
-
-  .location-redesign {
-    flex-wrap: wrap;
-    gap: 0.4rem;
-    justify-content: center;
-    font-size: 0.9rem;
+  .role-dynamic::after {
+    display: none; /* Rimuovi underline animato */
   }
 
   .text-paragraph-redesign {
     font-size: 0.95rem;
     line-height: 1.6;
-    margin-bottom: 1.5rem;
-    max-width: 100%;
+    margin-bottom: 1rem;
+    color: var(--color-text-secondary);
   }
 
-  /* Action buttons */
+  /* Location semplificata */
+  .location-redesign {
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+
+  .location-icon {
+    animation: none; /* Rimuovi animazione pulse */
+    filter: none; /* Rimuovi drop-shadow */
+  }
+
+  .status-indicator-redesign {
+    animation: none; /* Rimuovi animazione pulse */
+    box-shadow: none; /* Rimuovi glow */
+  }
+
+  /* Skills display semplificato */
+  .skills-display {
+    font-size: 1rem;
+    margin: 1rem 0;
+  }
+
+  .current-skill-highlight {
+    color: var(--color-primary);
+    font-weight: 600;
+    text-shadow: none; /* Rimuovi glow */
+  }
+
+  /* Actions header pulito */
   .actions-title {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     margin-bottom: 0.3rem;
+    text-shadow: none;
+    color: var(--color-heading);
   }
 
   .actions-subtitle {
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+  }
+
+  /* Footer semplificato */
+  .footer-message {
     font-size: 0.8rem;
-    margin-bottom: 1rem;
+    color: var(--color-text-secondary);
+  }
+
+  .heart-icon {
+    animation: none; /* Rimuovi heartbeat */
+  }
+
+  /* Button text/icon sizing */
+  .actions-redesign .animated-btn .btn-text {
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .actions-redesign .animated-btn .btn-icon {
+    font-size: 1rem;
+  }
+
+  /* Rimuovi animazioni di hover complesse */
+  .actions-redesign .animated-btn:hover .btn-icon {
+    transform: none; /* Rimuovi rotazione/scala */
+  }
+}
+
+/* Small mobile - ancora più leggero */
+@media (max-width: 480px) {
+  .profile-card {
+    padding: 0.8rem;
+    gap: 0.8rem;
+  }
+
+  .col1 {
+    padding: 1.5rem 1.2rem;
+    border-radius: 12px;
+  }
+
+  .profile-card-actions-redesign {
+    border-radius: 12px;
+  }
+
+  .actions-redesign {
+    padding: 1.5rem 1.2rem;
+    gap: 1.2rem;
   }
 
   .primary-actions-redesign,
   .secondary-actions-redesign {
-    gap: 0.6rem;
-  }
-
-  .actions-redesign .animated-btn {
-    padding: 0.8rem 1rem;
-    min-width: 100px;
-    font-size: 0.9rem;
-  }
-
-  .footer-message {
-    font-size: 0.75rem;
-    margin-top: 0.8rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .profile-card {
-    padding: 1.5rem;
-    gap: 0.5rem;
-    
-  
-  }
-
-  .col1 {
-    padding: 1.5rem 1.5rem 2rem 1.5rem;
-  }  
-
-  .profile-avatar-redesign {
-    width: 80px;
-    height: 80px;
-  }
-
-  .avatar-initials-redesign {
-    font-size: 1.3rem;
-    letter-spacing: 1px;
-  }
-
-  .profile-wave-title-redesign {
-    font-size: clamp(1.4rem, 10vw, 1.8rem);
-    margin-bottom: 1rem;
-  }
-
-  .profile-name-redesign {
-    font-size: 1.3rem;
-  }
-
-  .profile-role-redesign {
-    font-size: 0.9rem;
-  }
-
-  .skills-display {
-    font-size: 0.85rem;
-  }
-
-  .current-skill-highlight {
-    font-size: 1rem;
-  }
-
-  .location-redesign {
-    font-size: 0.8rem;
-    gap: 0.3rem;
-  }
-
-  .text-paragraph-redesign {
-    font-size: 0.9rem;
-    line-height: 1.5;
-  }
-
-  .actions-redesign {
-    padding: 1.2rem 0.8rem;
     gap: 0.8rem;
   }
 
-  .actions-title {
-    font-size: 1.1rem;
-  }
-
-  .actions-subtitle {
-    font-size: 0.75rem;
-  }
-
   .actions-redesign .animated-btn {
-    padding: 0.7rem 0.8rem;
-    min-width: 90px;
+    padding: 0.9rem 0.6rem;
     font-size: 0.85rem;
-  }
-
-  .btn-icon {
-    font-size: 1rem;
-  }
-
-  .footer-message {
-    font-size: 0.7rem;
-  }
-}
-
-@media (max-width: 360px) {
-  .col1 {
-    padding: 1.2rem 0.8rem 1.5rem 0.8rem;
+    border-radius: 10px;
   }
 
   .profile-avatar-redesign {
@@ -928,33 +984,45 @@
   }
 
   .avatar-initials-redesign {
+    font-size: 1.2rem;
+  }
+
+  .actions-title {
     font-size: 1.1rem;
   }
 
-  .profile-wave-title-redesign {
-    font-size: clamp(1.2rem, 12vw, 1.6rem);
-  }
-
-  .profile-name-redesign {
-    font-size: 1.1rem;
-  }
-
-  .profile-role-redesign {
+  .actions-subtitle {
     font-size: 0.8rem;
   }
+}
 
-  .text-paragraph-redesign {
-    font-size: 0.85rem;
+/* Extra small mobile */
+@media (max-width: 360px) {
+  .profile-card {
+    padding: 0.6rem;
+  }
+
+  .col1 {
+    padding: 1.2rem 1rem;
   }
 
   .actions-redesign {
-    padding: 1rem 0.6rem;
+    padding: 1.2rem 1rem;
   }
 
   .actions-redesign .animated-btn {
-    padding: 0.6rem 0.7rem;
-    min-width: 80px;
+    padding: 0.8rem 0.5rem;
     font-size: 0.8rem;
+    min-height: 44px;
+  }
+
+  .profile-avatar-redesign {
+    width: 60px;
+    height: 60px;
+  }
+
+  .avatar-initials-redesign {
+    font-size: 1rem;
   }
 }
 

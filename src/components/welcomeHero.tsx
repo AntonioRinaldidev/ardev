@@ -1,6 +1,12 @@
 'use client';
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { motion, PanInfo, useMotionValue, useTransform } from 'framer-motion';
+import {
+	motion,
+	PanInfo,
+	useMotionValue,
+	useTransform,
+	useSpring,
+} from 'framer-motion';
 import '@/styles/welcome.css';
 import { useIsMobile } from '@/hooks/useIsMobile';
 import { useViewportHeight, useSafeArea } from '@/hooks/useViewportHeight';
@@ -17,23 +23,38 @@ const WelcomeHeroUnified: React.FC = () => {
 	const { isWelcomeVisible } = useAppSelector((state) => state.welcome);
 	const dispatch = useAppDispatch();
 
-	// Hooks per mobile optimization
+	// Hooks per mobile optimization - SEMPRE nello stesso ordine
 	const isMobile = useIsMobile(768);
-	useViewportHeight(); // Fix per address bar
-	useSafeArea(); // Fix per safe area iOS
+	useViewportHeight();
+	useSafeArea();
 
-	// Motion values per il drag (mobile)
+	// Motion values - configurazione semplificata
+	const maxDrag = 350;
 	const dragY = useMotionValue(0);
-	const maxDrag = 500;
 
-	// Transform basati su dragY per mobile
-	const dragScrollProgress = useTransform(dragY, [0, -maxDrag], [0, 1]);
-	const dragLeftSideX = useTransform(dragY, [0, -maxDrag], [0, -100]);
-	const dragRightSideX = useTransform(dragY, [0, -maxDrag], [0, 100]);
-	const dragContainerOpacity = useTransform(dragY, [0, -maxDrag / 0.9], [1, 0]);
-	const dragProgressScale = useTransform(dragY, [0, -maxDrag], [0, 1]);
+	// Spring configuration - costante
+	const springConfig = {
+		stiffness: 400,
+		damping: 40,
+		mass: 0.6,
+		restDelta: 0.01,
+		restSpeed: 0.01,
+	};
 
-	// Transform basati su scrollProgress per desktop
+	const springY = useSpring(dragY, springConfig);
+
+	// Transform per mobile - FUORI da useMemo per evitare hook calls
+	const dragScrollProgress = useTransform(springY, [0, -maxDrag], [0, 1]);
+	const dragLeftSideX = useTransform(springY, [0, -maxDrag], [0, -100]);
+	const dragRightSideX = useTransform(springY, [0, -maxDrag], [0, 100]);
+	const dragContainerOpacity = useTransform(
+		springY,
+		[0, -maxDrag * 0.85],
+		[1, 0]
+	);
+	const dragProgressScale = useTransform(springY, [0, -maxDrag], [0, 1]);
+
+	// Desktop transforms - calcolati direttamente
 	const scrollLeftSideX = scrollProgress * -100;
 	const scrollRightSideX = scrollProgress * 100;
 	const scrollContainerOpacity = Math.max(1 - scrollProgress * 0.9, 0);
@@ -51,15 +72,15 @@ const WelcomeHeroUnified: React.FC = () => {
 		? Math.min(0.8 + heroProgress * 0.2, 1)
 		: 1;
 
-	// Callback per aggiornare il progresso con requestAnimationFrame
+	// Callback ottimizzato
 	const updateProgress = useCallback(
 		(progress: number) => {
-			setScrollProgress(progress);
-
-			// Dispatch hideWelcome quando arriva al 95%
-			if (progress >= 0.95 && isWelcomeVisible) {
-				dispatch(hideWelcome());
-			}
+			requestAnimationFrame(() => {
+				setScrollProgress(progress);
+				if (progress >= 0.92 && isWelcomeVisible) {
+					dispatch(hideWelcome());
+				}
+			});
 		},
 		[dispatch, isWelcomeVisible]
 	);
@@ -68,40 +89,49 @@ const WelcomeHeroUnified: React.FC = () => {
 	useEffect(() => {
 		if (isMobile || !isScrollable) return;
 
+		let rafId: number | null = null;
+		let lastScrollTime = 0;
+
 		const handleWheel = (e: WheelEvent) => {
 			e.preventDefault();
+
+			const now = performance.now();
+			if (now - lastScrollTime < 16) return;
+			lastScrollTime = now;
+
 			if (containerRef.current) {
 				const delta = e.deltaY;
-
-				// Smooth scroll manuale
 				const currentScroll = containerRef.current.scrollTop;
-				const newScroll = currentScroll + delta * 50; // Velocità ottimizzata
-
-				containerRef.current.scrollTo({
-					top: newScroll,
-					behavior: 'smooth',
-				});
+				const newScroll = Math.max(0, currentScroll + delta * 25);
+				containerRef.current.scrollTop = newScroll;
 			}
 		};
 
 		const handleScroll = () => {
-			if (containerRef.current) {
-				const scrollTop = containerRef.current.scrollTop;
-				const scrollHeight =
-					containerRef.current.scrollHeight - containerRef.current.clientHeight;
-				const progress = Math.min(scrollTop / Math.max(scrollHeight, 1), 1);
-				updateProgress(progress);
-			}
+			if (rafId) return;
+
+			rafId = requestAnimationFrame(() => {
+				if (containerRef.current) {
+					const scrollTop = containerRef.current.scrollTop;
+					const scrollHeight =
+						containerRef.current.scrollHeight -
+						containerRef.current.clientHeight;
+					const progress = Math.min(scrollTop / Math.max(scrollHeight, 1), 1);
+					updateProgress(progress);
+				}
+				rafId = null;
+			});
 		};
 
 		const container = containerRef.current;
 		if (container) {
 			container.addEventListener('wheel', handleWheel, { passive: false });
-			container.addEventListener('scroll', handleScroll);
+			container.addEventListener('scroll', handleScroll, { passive: true });
 
 			return () => {
 				container.removeEventListener('wheel', handleWheel);
 				container.removeEventListener('scroll', handleScroll);
+				if (rafId) cancelAnimationFrame(rafId);
 			};
 		}
 	}, [isMobile, isScrollable, updateProgress]);
@@ -110,13 +140,29 @@ const WelcomeHeroUnified: React.FC = () => {
 	useEffect(() => {
 		if (!isMobile) return;
 
+		let rafId: number | null = null;
+		let lastUpdateTime = 0;
+
 		const unsubscribe = dragScrollProgress.on('change', (latest) => {
-			updateProgress(latest);
+			const now = performance.now();
+			if (now - lastUpdateTime < 16) return;
+			lastUpdateTime = now;
+
+			if (rafId) return;
+
+			rafId = requestAnimationFrame(() => {
+				updateProgress(latest);
+				rafId = null;
+			});
 		});
 
-		return () => unsubscribe();
+		return () => {
+			unsubscribe();
+			if (rafId) cancelAnimationFrame(rafId);
+		};
 	}, [isMobile, dragScrollProgress, updateProgress]);
 
+	// Descriptions - array statico
 	const descriptions = [
 		'Innovative solutions for your digital needs',
 		'Blending creativity with functionality',
@@ -127,28 +173,29 @@ const WelcomeHeroUnified: React.FC = () => {
 	useEffect(() => {
 		const timer = setTimeout(() => {
 			setIsScrollable(true);
-		}, 3500); // Ridotto da 4000ms
+		}, 3000);
 
 		return () => clearTimeout(timer);
 	}, []);
 
-	const handleDragEnd = (
-		event: MouseEvent | TouchEvent | PointerEvent,
-		info: PanInfo
-	) => {
-		if (!isMobile) return;
+	// Drag handler
+	const handleDragEnd = useCallback(
+		(event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+			if (!isMobile) return;
 
-		const dragDistance = -info.offset.y;
-		const velocity = -info.velocity.y;
+			const dragDistance = -info.offset.y;
+			const velocity = Math.min(Math.max(-info.velocity.y, -2000), 2000);
+			const finalPosition = Math.max(
+				0,
+				Math.min(dragDistance + velocity * 5, maxDrag)
+			);
 
-		const finalPosition = Math.max(
-			0,
-			Math.min(dragDistance + velocity * 0.1, maxDrag)
-		);
-		dragY.set(-finalPosition);
-	};
+			dragY.set(-finalPosition);
+		},
+		[isMobile, dragY, maxDrag]
+	);
 
-	// Scegli i valori giusti in base al dispositivo
+	// Determina i valori corretti in base al dispositivo - NON useMemo
 	const leftSideX = isMobile ? dragLeftSideX : scrollLeftSideX;
 	const rightSideX = isMobile ? dragRightSideX : scrollRightSideX;
 	const containerOpacity = isMobile
@@ -169,7 +216,6 @@ const WelcomeHeroUnified: React.FC = () => {
 				<Hero />
 			</motion.div>
 
-			{/* Welcome sopra */}
 			{isWelcomeVisible && (
 				<div
 					ref={containerRef}
@@ -178,7 +224,7 @@ const WelcomeHeroUnified: React.FC = () => {
 							? 'welcome-container-drag'
 							: `welcome-container-scroll ${isScrollable ? 'scrollable' : ''}`
 					}`}>
-					{/* Container diverso per desktop (con scroll) */}
+					{/* Desktop container */}
 					{!isMobile && (
 						<div className="desktop-scroll-container">
 							<motion.div
@@ -191,7 +237,6 @@ const WelcomeHeroUnified: React.FC = () => {
 									style={{
 										transform: `translateX(${leftSideX}%)`,
 									}}>
-									{/* Desktop content left */}
 									<div className="welcome-avatar">
 										<motion.div
 											className="avatar-circle"
@@ -237,7 +282,6 @@ const WelcomeHeroUnified: React.FC = () => {
 									style={{
 										transform: `translateX(${rightSideX}%)`,
 									}}>
-									{/* Desktop content right */}
 									<div className="welcome-descriptions">
 										{descriptions.map((desc, index) => (
 											<motion.p
@@ -274,7 +318,7 @@ const WelcomeHeroUnified: React.FC = () => {
 														repeat: Infinity,
 														ease: 'easeInOut',
 													}}>
-													↓ {isMobile ? 'Swipe' : 'Scroll'}
+													↓ Scroll
 												</motion.div>
 											</div>
 										</motion.div>
@@ -307,19 +351,24 @@ const WelcomeHeroUnified: React.FC = () => {
 						</div>
 					)}
 
-					{/* Container diverso per mobile (con drag) */}
+					{/* Mobile container */}
 					{isMobile && (
 						<motion.div
 							className="welcome-content mobile-welcome"
 							drag={isScrollable ? 'y' : false}
 							dragConstraints={{ top: -maxDrag, bottom: 0 }}
-							dragElastic={0.1}
+							dragElastic={0.05}
+							dragMomentum={false}
 							onDragEnd={handleDragEnd}
 							style={{
 								opacity: containerOpacity,
-								y: dragY,
+								y: springY,
+								willChange: 'transform',
+							}}
+							transition={{
+								type: 'spring',
+								...springConfig,
 							}}>
-							{/* Layout Mobile - Colonna singola */}
 							<div className="mobile-single-column">
 								<div className="welcome-avatar">
 									<motion.div

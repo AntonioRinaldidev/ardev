@@ -246,7 +246,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ fullName }) => {
 							<div className="actions-footer">
 								<div className="footer-message">
 									<FaHeart className="heart-icon" />
-									<span>Crafted with passion</span>
+									<span>Crafted with passion and pizza</span>
 								</div>
 							</div>
 							<ThemeSwitcher />
