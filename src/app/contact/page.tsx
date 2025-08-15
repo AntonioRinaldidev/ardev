@@ -99,8 +99,8 @@ const ContactPage = () => {
 							initial={{ opacity: 0, y: 20 }}
 							animate={{ opacity: 1, y: 0 }}
 							transition={{ duration: 0.6, delay: 0.3 }}>
-							Ready to bring your project to life? Let's discuss your ideas and
-							create something amazing together.
+							Ready to bring your project to life? Let&lsquo;s discuss your
+							ideas and create something amazing together.
 						</motion.p>
 					</div>
 
