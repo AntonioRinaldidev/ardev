@@ -1,11 +1,20 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './contact.css';
 import { sendContactFormAsync } from '@/services/userService';
 import AnimatedButton from '@/components/AnimatedButton';
 import { useRouter } from 'next/navigation';
-
-
+import { motion } from 'framer-motion';
+import {
+	FaUser,
+	FaEnvelope,
+	FaTag,
+	FaComment,
+	FaPaperPlane,
+	FaCheckCircle,
+	FaExclamationTriangle,
+	FaArrowLeft,
+} from 'react-icons/fa';
 
 const ContactPage = () => {
 	const [formData, setFormData] = useState({
@@ -51,9 +60,14 @@ const ContactPage = () => {
 		}
 	};
 
+	const inputVariants = {
+		hidden: { opacity: 0, y: 20 },
+		visible: { opacity: 1, y: 0 },
+	};
 
 	return (
 		<section className="contact-section">
+			{/* Header with back button */}
 			<div className="contact-header">
 				<AnimatedButton
 					variant="primary"
@@ -62,55 +76,166 @@ const ContactPage = () => {
 				/>
 			</div>
 
+			{/* Main content wrapper */}
 			<div className="contact-wrapper">
-				<div className="contact-main-content">
-					<h1 className="contact-title">Request a Quote</h1>
-					<form
-						onSubmit={handleSubmit}
-						className="contact-form">
-						<input
-							type="text"
-							name="name"
-							placeholder="Your Name"
-							value={formData.name}
-							onChange={handleChange}
-							required
-						/>
-						<input
-							type="email"
-							name="email"
-							placeholder="Your Email"
-							value={formData.email}
-							onChange={handleChange}
-							required
-						/>
-						<input
-							type="text"
-							name="subject"
-							placeholder="Subject"
-							value={formData.subject}
-							onChange={handleChange}
-							required
-						/>
-						<textarea
-							name="message"
-							placeholder="Write your message here..."
-							rows={6}
-							value={formData.message}
-							onChange={handleChange}
-							required></textarea>
-						<button
-							type="submit"
-							disabled={isSubmitting}>
-							{isSubmitting ? 'Sending...' : 'Send Request'}
-						</button>
+				<motion.div
+					className="contact-main-content"
+					initial={{ opacity: 0, y: 30 }}
+					animate={{ opacity: 1, y: 0 }}
+					transition={{ duration: 0.7, ease: 'easeOut' }}>
+					{/* Header section */}
+					<div className="contact-content-header">
+						<motion.h1
+							className="contact-title"
+							initial={{ opacity: 0, y: 20 }}
+							animate={{ opacity: 1, y: 0 }}
+							transition={{ duration: 0.6, delay: 0.2 }}>
+							Get In Touch
+							<div className="contact-title-underline"></div>
+						</motion.h1>
 
+						<motion.p
+							className="contact-subtitle"
+							initial={{ opacity: 0, y: 20 }}
+							animate={{ opacity: 1, y: 0 }}
+							transition={{ duration: 0.6, delay: 0.3 }}>
+							Ready to bring your project to life? Let's discuss your ideas and
+							create something amazing together.
+						</motion.p>
+					</div>
+
+					{/* Contact form */}
+					<motion.form
+						onSubmit={handleSubmit}
+						className="contact-form"
+						initial={{ opacity: 0 }}
+						animate={{ opacity: 1 }}
+						transition={{ duration: 0.6, delay: 0.4 }}>
+						{/* Name field */}
+						<motion.div
+							className="form-field"
+							variants={inputVariants}
+							initial="hidden"
+							animate="visible"
+							transition={{ duration: 0.5, delay: 0.5 }}>
+							<div className="field-icon">
+								<FaUser />
+							</div>
+							<input
+								type="text"
+								name="name"
+								placeholder="Your Name"
+								value={formData.name}
+								onChange={handleChange}
+								required
+								className="form-input"
+							/>
+						</motion.div>
+
+						{/* Email field */}
+						<motion.div
+							className="form-field"
+							variants={inputVariants}
+							initial="hidden"
+							animate="visible"
+							transition={{ duration: 0.5, delay: 0.6 }}>
+							<div className="field-icon">
+								<FaEnvelope />
+							</div>
+							<input
+								type="email"
+								name="email"
+								placeholder="Your Email"
+								value={formData.email}
+								onChange={handleChange}
+								required
+								className="form-input"
+							/>
+						</motion.div>
+
+						{/* Subject field */}
+						<motion.div
+							className="form-field"
+							variants={inputVariants}
+							initial="hidden"
+							animate="visible"
+							transition={{ duration: 0.5, delay: 0.7 }}>
+							<div className="field-icon">
+								<FaTag />
+							</div>
+							<input
+								type="text"
+								name="subject"
+								placeholder="Subject"
+								value={formData.subject}
+								onChange={handleChange}
+								required
+								className="form-input"
+							/>
+						</motion.div>
+
+						{/* Message field */}
+						<motion.div
+							className="form-field message-field"
+							variants={inputVariants}
+							initial="hidden"
+							animate="visible"
+							transition={{ duration: 0.5, delay: 0.8 }}>
+							<div className="field-icon">
+								<FaComment />
+							</div>
+							<textarea
+								name="message"
+								placeholder="Tell me about your project..."
+								rows={6}
+								value={formData.message}
+								onChange={handleChange}
+								required
+								className="form-textarea"
+							/>
+						</motion.div>
+
+						{/* Submit button */}
+						<motion.button
+							type="submit"
+							disabled={isSubmitting}
+							className="contact-submit-btn"
+							variants={inputVariants}
+							initial="hidden"
+							animate="visible"
+							transition={{ duration: 0.5, delay: 0.9 }}
+							whileHover={{ scale: 1.02 }}
+							whileTap={{ scale: 0.98 }}>
+							<span className="submit-btn-content">
+								<FaPaperPlane className="submit-btn-icon" />
+								{isSubmitting ? 'Sending...' : 'Send Message'}
+							</span>
+						</motion.button>
+
+						{/* Success/Error messages */}
 						{successMessage && (
-							<p className="success-message">{successMessage}</p>
+							<motion.div
+								className="message-alert success-message"
+								initial={{ opacity: 0, scale: 0.9 }}
+								animate={{ opacity: 1, scale: 1 }}
+								transition={{ duration: 0.4 }}>
+								<FaCheckCircle className="message-icon" />
+								{successMessage}
+							</motion.div>
 						)}
-						{errorMessage && <p className="error-message">{errorMessage}</p>}
-					</form>
-				</div>
+
+						{errorMessage && (
+							<motion.div
+								className="message-alert error-message"
+								initial={{ opacity: 0, scale: 0.9 }}
+								animate={{ opacity: 1, scale: 1 }}
+								transition={{ duration: 0.4 }}>
+								<FaExclamationTriangle className="message-icon" />
+								{errorMessage}
+							</motion.div>
+						)}
+					</motion.form>
+				</motion.div>
 			</div>
 		</section>
 	);
