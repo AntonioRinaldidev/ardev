@@ -4,23 +4,16 @@ import { motion } from 'framer-motion';
 import '@/styles/ProfileCards.css';
 import { TextFade } from './TextFade';
 import { useRouter } from 'next/navigation';
-import {
-	FaMapPin,
-	FaCode,
-	FaMobile,
-	FaGraduationCap,
-	FaCoffee,
-} from 'react-icons/fa';
+
 import AnimatedButton from './AnimatedButton';
 import { downloadCV } from '@/services/fileService';
 import ModalDownload from './ModalDownload';
 import ThemeSwitcher from './ThemeSwitcher';
 import {
+	FaMapPin,
 	FaUser,
 	FaEnvelope,
 	FaFileDownload,
-	FaTools,
-	FaRocket,
 	FaHeart,
 } from 'react-icons/fa';
 import { useAppSelector } from '@/store/hooks';
@@ -30,12 +23,11 @@ interface ProfileCardProps {
 }
 
 const ProfileCard: React.FC<ProfileCardProps> = ({ fullName }) => {
-	const [devType, setDevType] = useState('Frontend');
+
 	const [currentSkill, setCurrentSkill] = useState('React');
 	const [isDownloading, setIsDownloading] = useState(false);
 	const [showModal, setShowModal] = useState(false);
 	const [downloadComplete, setDownloadComplete] = useState(false);
-	const { isWelcomeVisible } = useAppSelector((state) => state.welcome);
 
 	const router = useRouter();
 
