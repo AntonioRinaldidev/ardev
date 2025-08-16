@@ -65,6 +65,73 @@
   border-radius: 1px;
   opacity: 0.8;
 }
+
+/* Fixed CSS for Disabled Next Button - Replace the previous disabled styles */
+
+/* Disabled state for next button - mantiene lo stesso stile ma scuro */
+.next-button:disabled,
+.next-button-disabled {
+  /* Mantiene la stessa struttura del bottone normale */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 1.8rem;
+  border: none;
+  border-radius: calc(var(--radius-md) - 2px);
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.025em;
+  position: relative;
+  overflow: hidden;
+  
+  /* Solo questi cambiano per lo stato disabled */
+  background: var(--color-bg-secondary) !important;
+  color: var(--color-text-secondary) !important;
+  cursor: not-allowed !important;
+  pointer-events: none !important;
+  
+  /* Mantiene le stesse ombre ma più sottili */
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+  
+  /* Nessuna transizione per evitare effetti hover */
+  transition: none !important;
+}
+
+/* Rimuove tutti gli effetti hover/active quando disabled */
+.next-button:disabled:hover,
+.next-button-disabled:hover,
+.next-button:disabled:active,
+.next-button-disabled:active {
+  transform: none !important;
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+  background: var(--color-bg-secondary) !important;
+  color: var(--color-text-secondary) !important;
+}
+
+/* Rimuove l'effetto shine quando disabled */
+.next-button:disabled::before,
+.next-button-disabled::before {
+  display: none !important;
+}
+
+/* Visual feedback quando il campo è vuoto */
+.form-field:has(input:invalid),
+.form-field:has(input[value=""]),
+.form-field:has(textarea[value=""]) {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.form-field:has(input:valid:not([value=""])),
+.form-field:has(textarea:valid:not([value=""])) {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 10px rgba(var(--color-primary), 0.2);
+}
+
+/* Step subtitle styling */
 .step-subtitle {
   display: block;
   font-size: 0.9rem;
@@ -176,7 +243,7 @@
   justify-content: center;
   padding: 0.8rem 1.5rem;
   
-  /* Portfolio button styling */
+
   background: 
     linear-gradient(145deg, 
       rgba(255, 255, 255, 0.04) 0%, 
@@ -238,9 +305,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.8rem 1.8rem;
-  
-  /* Portfolio primary button styling */
+  padding: 1rem 1.8rem;
   background: 
     linear-gradient(145deg, 
       rgba(255, 255, 255, 0.04) 0%, 
@@ -337,8 +402,7 @@
   justify-content: center;
   border-radius: 50%;
   font-weight: 600;
-  
-  /* Enhanced styling with portfolio colors */
+
   border: 2px solid transparent;
   box-shadow: 
     0 4px 12px rgba(0, 0, 0, 0.15),

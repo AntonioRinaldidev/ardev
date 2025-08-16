@@ -9,6 +9,7 @@ import React, {
 import { motion, AnimatePresence, Variants } from 'motion/react';
 
 import '@/styles/Stepper.css';
+import AnimatedButton from './AnimatedButton';
 
 interface StepperProps extends HTMLAttributes<HTMLDivElement> {
 	children: ReactNode;
@@ -133,28 +134,26 @@ export default function Stepper({
 				</StepContentWrapper>
 
 				{!isCompleted && (
-					<div className={`footer-container ${footerClassName}`}>
-						<div
-							className={`footer-nav ${currentStep !== 1 ? 'spread' : 'end'}`}>
-							{currentStep !== 1 && (
-								<button
-									onClick={handleBack}
-									className={`back-button ${
-										currentStep === 1 ? 'inactive' : ''
-									}`}
-									{...backButtonProps}>
-									{backButtonText}
-								</button>
-							)}
-							<button
-								onClick={isLastStep ? handleComplete : handleNext}
-								className="next-button"
-								{...nextButtonProps}>
-								{isLastStep ? 'Complete' : nextButtonText}
-							</button>
-						</div>
-					</div>
-				)}
+  <div className={`footer-container ${footerClassName}`}>
+    <div className={`footer-nav ${currentStep !== 1 ? 'spread' : 'end'}`}>
+      {currentStep !== 1 && (
+        <AnimatedButton
+          onClick={handleBack}
+          text={backButtonText}
+          variant="secondary"
+          className={currentStep === 1 ? 'inactive' : ''}
+        />
+      )}
+      <AnimatedButton
+        onClick={isLastStep ? handleComplete : handleNext}
+        text={isLastStep ? 'Complete' : nextButtonText}
+        variant="primary"
+        className={nextButtonProps?.disabled ? 'btn-disabled' : ''}
+        disabled={nextButtonProps?.disabled}
+      />
+    </div>
+  </div>
+)}
 			</div>
 		</div>
 	);

@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './contact.css';
 import { sendContactFormAsync } from '@/services/userService';
 import AnimatedButton from '@/components/AnimatedButton';
@@ -30,6 +30,29 @@ const ContactPage = () => {
 	const [errorMessage, setErrorMessage] = useState('');
 	const router = useRouter();
 
+	const [currentStep, setCurrentStep] = useState(1);
+
+	// Funzione per validare il campo corrente
+	const validateCurrentStep = (
+		step: number,
+		data: typeof formData
+	): boolean => {
+		switch (step) {
+			case 1:
+				return data.name.trim().length > 0;
+			case 2:
+				const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+				return data.email.trim().length > 0 && emailRegex.test(data.email);
+			case 3:
+				return data.subject.trim().length > 0;
+			case 4:
+				return data.message.trim().length > 0;
+			default:
+				return false;
+		}
+	};
+
+	const isStepValid = validateCurrentStep(currentStep, formData);
 	const handleChange = (
 		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
 	) => {
@@ -104,16 +127,21 @@ const ContactPage = () => {
 							ideas and create something amazing together.
 						</motion.p>
 					</div>
+
 					{/* Contact form */}
 					<Stepper
 						className="contact-stepper"
 						initialStep={1}
 						onStepChange={(step) => {
-							console.log(step);
+							setCurrentStep(step);
 						}}
-						onFinalStepCompleted={() => handleSubmit}
+						onFinalStepCompleted={() => handleSubmit({ preventDefault: () => {} } as React.FormEvent)}
 						backButtonText="Previous"
-						nextButtonText="Next">
+						nextButtonText="Next"
+						nextButtonProps={{
+							disabled: !isStepValid,
+							className: !isStepValid ? 'next-button-disabled' : '',
+						}}>
 						<Step>
 							<p>First things first...</p>
 							<span className="step-subtitle">

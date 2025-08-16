@@ -1,86 +1,173 @@
+/* AnimatedButton.css - Portfolio Style Integration */
 
 .animated-btn {
-  padding: 0.65rem 1.4rem;
+  padding: 0.8rem 1.5rem;
   font-size: 1rem;
   font-weight: 600;
-  border-radius: var(--radius-md);
-  border: 2px solid transparent;
-  background-color: transparent;
+  border-radius: calc(var(--radius-md) - 2px);
+  border: 1px solid transparent;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  transition: all 0.3s ease;
-  box-shadow: none;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(15px);
+  
+  /* Portfolio glassmorphism base */
+  background: 
+    linear-gradient(145deg, 
+      rgba(255, 255, 255, 0.04) 0%, 
+      var(--section-bg) 30%, 
+      rgba(0, 0, 0, 0.08) 100%
+    );
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
+/* Shine effect for all buttons */
+.animated-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 100%
+  );
+  transition: left 0.6s ease;
+  transform: skewX(-25deg);
+}
+
+.animated-btn:hover::before {
+  left: 100%;
+}
+
+/* Primary button - Portfolio primary color */
 .btn-primary {
-  color: var(--color-primary);
+  background: 
+    linear-gradient(145deg, 
+      rgba(255, 255, 255, 0.04) 0%, 
+      var(--color-primary) 30%, 
+      var(--color-primary-hover) 100%
+    );
+  color: white;
   border-color: var(--color-primary);
+  box-shadow: 
+    0 8px 25px rgba(0, 0, 0, 0.2),
+    0 0 20px var(--shadow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .btn-primary:hover {
-  background-color: var(--color-primary);
-  color: var(--color-link-hover);
-  box-shadow: 0 0 5px var(--color-primary-hover);
-  transform: translateY(-2px);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 
+    0 15px 40px rgba(0, 0, 0, 0.3),
+    0 0 40px var(--shadow),
+    inset 0 2px 0 rgba(255, 255, 255, 0.3);
+  background: 
+    linear-gradient(145deg, 
+      rgba(255, 255, 255, 0.06) 0%, 
+      var(--color-primary-hover) 30%, 
+      var(--color-primary) 100%
+    );
 }
 
+/* Secondary button - Portfolio link color */
 .btn-secondary {
+  background: 
+    linear-gradient(145deg, 
+      rgba(255, 255, 255, 0.04) 0%, 
+      var(--section-bg) 30%, 
+      rgba(0, 0, 0, 0.08) 100%
+    );
   color: var(--color-link);
   border-color: var(--color-link);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .btn-secondary:hover {
-  background-color: var(--color-link-hover);
-  color: var(--color-bg-secondary);
-  box-shadow: 0 0 5px var(--color-heading);
   transform: translateY(-2px);
+  background: 
+    linear-gradient(145deg, 
+      rgba(255, 255, 255, 0.04) 0%, 
+      var(--color-link) 30%, 
+      var(--color-link-hover) 100%
+    );
+  color: white;
+  box-shadow: 
+    0 8px 25px rgba(0, 0, 0, 0.2),
+    0 0 20px var(--shadow-blu);
 }
 
+/* Development button - Portfolio third color */
 .btn-development {
-  color: var(--color-third);
-  background-color: var(--color-bg);
+  background: 
+    linear-gradient(145deg, 
+      rgba(255, 255, 255, 0.04) 0%, 
+      var(--color-third) 30%, 
+      var(--color-third-hover) 100%
+    );
+  color: white;
   border-color: var(--color-third);
+  box-shadow: 
+    0 8px 25px rgba(0, 0, 0, 0.2),
+    0 0 20px rgba(139, 92, 246, 0.3);
 }
+
 .btn-development:hover {
-  background-color: var(--color-third-hover);
-  color: var(--color-bg-secondary);
-  box-shadow: 0 0 5px var(--color-third-hover);
-  transform: translateY(-2px);
+  transform: translateY(-2px) scale(1.02);
+  background: 
+    linear-gradient(145deg, 
+      rgba(255, 255, 255, 0.06) 0%, 
+      var(--color-third-hover) 30%, 
+      var(--color-third) 100%
+    );
+  box-shadow: 
+    0 12px 30px rgba(0, 0, 0, 0.25),
+    0 0 30px rgba(139, 92, 246, 0.4);
 }
+
+/* Button content styling */
 .btn-content {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+  position: relative;
+  z-index: 2;
 }
 
 .btn-text {
   font-size: 1rem;
   font-weight: 600;
+  letter-spacing: 0.025em;
 }
 
 .btn-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-inline: 0.3rem;
-  font-size: 1.2rem;
-  transition: transform 0.3s ease;
+  font-size: 1.1rem;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.2));
 }
-
-
 
 .animated-btn:hover .btn-icon {
-	transform: scale(1.8) rotate(360deg);
+  transform: scale(1.2) rotate(360deg);
+  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.4));
 }
 
-.btn-hub{
-  border-radius: var(--radius-md) !important ;
-  
+/* Hub button - Keep as is (not touched) */
+.btn-hub {
+  border-radius: var(--radius-md) !important;
 }
+
 .btn-hub:hover {
   background-color: var(--color-primary);
   color: var(--color-bg-secondary);
@@ -89,10 +176,114 @@
   transform: translateY(-2px);
 }
 
+/* Disabled state - Portfolio style */
+.animated-btn:disabled,
+.animated-btn.btn-disabled {
+  background: 
+    linear-gradient(145deg, 
+      rgba(255, 255, 255, 0.02) 0%, 
+      var(--color-bg-secondary) 30%, 
+      rgba(0, 0, 0, 0.1) 100%
+    ) !important;
+  color: var(--color-text-secondary) !important;
+  cursor: not-allowed !important;
+  pointer-events: none !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  transform: none !important;
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+}
+
+.animated-btn:disabled:hover,
+.animated-btn.btn-disabled:hover {
+  transform: none !important;
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+  background: 
+    linear-gradient(145deg, 
+      rgba(255, 255, 255, 0.02) 0%, 
+      var(--color-bg-secondary) 30%, 
+      rgba(0, 0, 0, 0.1) 100%
+    ) !important;
+  color: var(--color-text-secondary) !important;
+}
+
+.animated-btn:disabled .btn-icon,
+.animated-btn.btn-disabled .btn-icon {
+  transform: none !important;
+  filter: none !important;
+}
+
+.animated-btn:disabled::before,
+.animated-btn.btn-disabled::before {
+  display: none !important;
+}
+
+/* Mobile responsiveness */
 @media (max-width: 768px) {
+  .animated-btn {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.9rem;
+  }
+  
   .animated-btn:hover .btn-icon {
-	transform: scale(1.2) rotate(360deg);
-}
+    transform: scale(1.15) rotate(180deg);
+  }
+  
+  .btn-text {
+    font-size: 0.9rem;
+  }
+  
+  .btn-icon {
+    font-size: 1rem;
+  }
 }
 
+@media (max-width: 480px) {
+  .animated-btn {
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+  }
+  
+  .btn-text {
+    font-size: 0.85rem;
+  }
+  
+  .btn-icon {
+    font-size: 0.9rem;
+  }
+}
 
+/* Enhanced focus states for accessibility */
+.animated-btn:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .animated-btn {
+    border-width: 2px;
+  }
+  
+  .animated-btn:disabled,
+  .animated-btn.btn-disabled {
+    border: 2px solid var(--color-text-secondary);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .animated-btn,
+  .animated-btn::before,
+  .btn-icon {
+    animation: none !important;
+    transition: none !important;
+  }
+  
+  .animated-btn:hover .btn-icon {
+    transform: scale(1.05);
+  }
+}
