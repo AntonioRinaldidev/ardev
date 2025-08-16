@@ -145,7 +145,7 @@ const ContactPage = () => {
 						<Step>
 							<p>First things first...</p>
 							<span className="step-subtitle">
-								Tell me your name so I know who I'm working with
+								Tell me your name so I know who I&lsquo;m working with
 							</span>
 
 							<motion.div
