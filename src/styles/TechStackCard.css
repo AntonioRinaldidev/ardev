@@ -39,7 +39,7 @@
       var(--section-bg) 100%
     );
   backdrop-filter: blur(10px) saturate(110%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
@@ -76,7 +76,6 @@
       var(--section-bg) 100%
     );
   backdrop-filter: blur(15px) saturate(120%);
-  border: 1px solid var(--color-primary);
   transform: rotateY(180deg);
   box-shadow: 
     0 8px 25px rgba(0, 0, 0, 0.2),

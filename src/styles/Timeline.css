@@ -30,7 +30,7 @@
   transform: translateX(5px);
   box-shadow: 
     0 8px 25px rgba(0, 0, 0, 0.15),
-    0 0 20px var(--shadow);
+    0 0 5px var(--shadow);
   border-left-color: var(--color-link);
 }
 

@@ -23,7 +23,6 @@ interface ProfileCardProps {
 }
 
 const ProfileCard: React.FC<ProfileCardProps> = ({ fullName }) => {
-
 	const [currentSkill, setCurrentSkill] = useState('React');
 	const [isDownloading, setIsDownloading] = useState(false);
 	const [showModal, setShowModal] = useState(false);
@@ -145,7 +144,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ fullName }) => {
 									animate={{ opacity: 1, y: 0, scale: 1 }}
 									exit={{ opacity: 0, y: -20, scale: 0.8 }}
 									transition={{ duration: 0.6 }}>
-									Frontend
+									Full-Stack
 								</motion.span>
 								<span className="role-static"> Developer</span>
 							</div>
