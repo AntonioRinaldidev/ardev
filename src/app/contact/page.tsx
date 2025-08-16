@@ -15,6 +15,7 @@ import {
 	FaExclamationTriangle,
 	FaArrowLeft,
 } from 'react-icons/fa';
+import Stepper, { Step } from '@/components/StepContact';
 
 const ContactPage = () => {
 	const [formData, setFormData] = useState({
@@ -61,8 +62,8 @@ const ContactPage = () => {
 	};
 
 	const inputVariants = {
-		hidden: { opacity: 0, y: 20 },
-		visible: { opacity: 1, y: 0 },
+		hidden: { opacity: 0, x: 500 },
+		visible: { opacity: 1, x: 0 },
 	};
 
 	return (
@@ -103,138 +104,141 @@ const ContactPage = () => {
 							ideas and create something amazing together.
 						</motion.p>
 					</div>
-
 					{/* Contact form */}
-					<motion.form
-						onSubmit={handleSubmit}
-						className="contact-form"
-						initial={{ opacity: 0 }}
-						animate={{ opacity: 1 }}
-						transition={{ duration: 0.6, delay: 0.4 }}>
-						{/* Name field */}
-						<motion.div
-							className="form-field"
-							variants={inputVariants}
-							initial="hidden"
-							animate="visible"
-							transition={{ duration: 0.5, delay: 0.5 }}>
-							<div className="field-icon">
-								<FaUser />
-							</div>
-							<input
-								type="text"
-								name="name"
-								placeholder="Your Name"
-								value={formData.name}
-								onChange={handleChange}
-								required
-								className="form-input"
-							/>
-						</motion.div>
-
-						{/* Email field */}
-						<motion.div
-							className="form-field"
-							variants={inputVariants}
-							initial="hidden"
-							animate="visible"
-							transition={{ duration: 0.5, delay: 0.6 }}>
-							<div className="field-icon">
-								<FaEnvelope />
-							</div>
-							<input
-								type="email"
-								name="email"
-								placeholder="Your Email"
-								value={formData.email}
-								onChange={handleChange}
-								required
-								className="form-input"
-							/>
-						</motion.div>
-
-						{/* Subject field */}
-						<motion.div
-							className="form-field"
-							variants={inputVariants}
-							initial="hidden"
-							animate="visible"
-							transition={{ duration: 0.5, delay: 0.7 }}>
-							<div className="field-icon">
-								<FaTag />
-							</div>
-							<input
-								type="text"
-								name="subject"
-								placeholder="Subject"
-								value={formData.subject}
-								onChange={handleChange}
-								required
-								className="form-input"
-							/>
-						</motion.div>
-
-						{/* Message field */}
-						<motion.div
-							className="form-field message-field"
-							variants={inputVariants}
-							initial="hidden"
-							animate="visible"
-							transition={{ duration: 0.5, delay: 0.8 }}>
-							<div className="field-icon">
-								<FaComment />
-							</div>
-							<textarea
-								name="message"
-								placeholder="Tell me about your project..."
-								rows={6}
-								value={formData.message}
-								onChange={handleChange}
-								required
-								className="form-textarea"
-							/>
-						</motion.div>
-
-						{/* Submit button */}
-						<motion.button
-							type="submit"
-							disabled={isSubmitting}
-							className="contact-submit-btn"
-							variants={inputVariants}
-							initial="hidden"
-							animate="visible"
-							transition={{ duration: 0.5, delay: 0.9 }}
-							whileHover={{ scale: 1.02 }}
-							whileTap={{ scale: 0.98 }}>
-							<span className="submit-btn-content">
-								<FaPaperPlane className="submit-btn-icon" />
-								{isSubmitting ? 'Sending...' : 'Send Message'}
+					<Stepper
+						className="contact-stepper"
+						initialStep={1}
+						onStepChange={(step) => {
+							console.log(step);
+						}}
+						onFinalStepCompleted={() => handleSubmit}
+						backButtonText="Previous"
+						nextButtonText="Next">
+						<Step>
+							<p>First things first...</p>
+							<span className="step-subtitle">
+								Tell me your name so I know who I'm working with
 							</span>
-						</motion.button>
 
-						{/* Success/Error messages */}
-						{successMessage && (
 							<motion.div
-								className="message-alert success-message"
-								initial={{ opacity: 0, scale: 0.9 }}
-								animate={{ opacity: 1, scale: 1 }}
-								transition={{ duration: 0.4 }}>
-								<FaCheckCircle className="message-icon" />
-								{successMessage}
+								className="form-field"
+								variants={inputVariants}
+								initial="hidden"
+								animate="visible"
+								transition={{ duration: 0.5, delay: 0.5 }}>
+								<div className="field-icon">
+									<FaUser />
+								</div>
+								<input
+									type="text"
+									name="name"
+									placeholder="Your Name"
+									value={formData.name}
+									onChange={handleChange}
+									required
+									className="form-input"
+								/>
 							</motion.div>
-						)}
+						</Step>
+						<Step>
+							<p>How can I reach you?</p>
+							<span className="step-subtitle">
+								Your email address for project updates and replies
+							</span>
+							<motion.div
+								className="form-field"
+								variants={inputVariants}
+								initial="hidden"
+								animate="visible"
+								transition={{ duration: 0.5, delay: 0.6 }}>
+								<div className="field-icon">
+									<FaEnvelope />
+								</div>
+								<input
+									type="email"
+									name="email"
+									placeholder="Your Email"
+									value={formData.email}
+									onChange={handleChange}
+									required
+									className="form-input"
+								/>
+							</motion.div>
+						</Step>
+						<Step>
+							<p>What is your mission?</p>
+							<span className="step-subtitle">
+								A brief subject line to summarize your project
+							</span>
+							<motion.div
+								className="form-field"
+								variants={inputVariants}
+								initial="hidden"
+								animate="visible"
+								transition={{ duration: 0.5, delay: 0.7 }}>
+								<div className="field-icon">
+									<FaTag />
+								</div>
+								<input
+									type="text"
+									name="subject"
+									placeholder="Subject"
+									value={formData.subject}
+									onChange={handleChange}
+									required
+									className="form-input"
+								/>
+							</motion.div>
+						</Step>
+						<Step>
+							<p>Paint me the picture</p>
+							<span className="step-subtitle">
+								Describe your vision, goals, and project details
+							</span>
+							<motion.div
+								className="form-field message-field"
+								variants={inputVariants}
+								initial="hidden"
+								animate="visible"
+								transition={{ duration: 0.5, delay: 0.8 }}>
+								<div className="field-icon">
+									<FaComment />
+								</div>
+								<textarea
+									name="message"
+									placeholder="Tell me about your project..."
+									rows={6}
+									value={formData.message}
+									onChange={handleChange}
+									required
+									className="form-textarea"
+								/>
+							</motion.div>
 
-						{errorMessage && (
-							<motion.div
-								className="message-alert error-message"
-								initial={{ opacity: 0, scale: 0.9 }}
-								animate={{ opacity: 1, scale: 1 }}
-								transition={{ duration: 0.4 }}>
-								<FaExclamationTriangle className="message-icon" />
-								{errorMessage}
-							</motion.div>
-						)}
-					</motion.form>
+							{/* Success/Error messages */}
+							{successMessage && (
+								<motion.div
+									className="message-alert success-message"
+									initial={{ opacity: 0, scale: 0.9 }}
+									animate={{ opacity: 1, scale: 1 }}
+									transition={{ duration: 0.4 }}>
+									<FaCheckCircle className="message-icon" />
+									{successMessage}
+								</motion.div>
+							)}
+
+							{errorMessage && (
+								<motion.div
+									className="message-alert error-message"
+									initial={{ opacity: 0, scale: 0.9 }}
+									animate={{ opacity: 1, scale: 1 }}
+									transition={{ duration: 0.4 }}>
+									<FaExclamationTriangle className="message-icon" />
+									{errorMessage}
+								</motion.div>
+							)}
+						</Step>
+					</Stepper>
 				</motion.div>
 			</div>
 		</section>

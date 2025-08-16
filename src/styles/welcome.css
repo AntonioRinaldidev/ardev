@@ -1,6 +1,6 @@
-/* Artisan-Crafted Welcome Design - Handcrafted with soul */
 
-/* Container principale - cinema-grade backdrop */
+
+
 .welcome-content {
   background: 
     radial-gradient(ellipse 150% 100% at 50% 120%, var(--color-bg-secondary) 0%, transparent 45%),
@@ -15,7 +15,7 @@
   min-height: 100vh;
 }
 
-/* Organic light emanation */
+
 .welcome-content::before {
   content: '';
   position: absolute;
@@ -45,7 +45,7 @@
   }
 }
 
-/* Subtle texture overlay */
+
 .welcome-content::after {
   content: '';
   position: absolute;
@@ -686,9 +686,9 @@
 }
 
 
-/* Mobile-First Responsive Improvements for Welcome Component */
 
-/* Base mobile styles */
+
+
 @media (max-width: 768px) {
   .welcome-content {
     min-height: 100vh;
@@ -785,7 +785,7 @@
   }
 }
 
-/* Extra small mobile devices */
+
 @media (max-width: 480px) {
 
   
@@ -847,7 +847,7 @@
   }
 }
 
-/* Desktop layout improvements */
+
 @media (min-width: 769px) {
   .left-side, .right-side {
     padding: 3rem 2.5rem;
@@ -863,7 +863,7 @@
   }
 }
 
-/* Landscape mobile devices */
+
 @media (max-width: 768px) and (orientation: landscape) {
   .mobile-single-column {
     padding: 1.5rem 1rem;
@@ -884,7 +884,7 @@
   }
 }
 
-/* Fix for very small screens */
+
 @media (max-width: 320px) {
   .mobile-single-column {
     padding: 1rem 0.8rem;

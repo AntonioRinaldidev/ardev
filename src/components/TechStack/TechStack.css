@@ -1,4 +1,4 @@
-/* Clean TechStack Component - Minimal elegance */
+
 
 .tech-stack-section {
   background: 
@@ -66,7 +66,7 @@
   margin: 1rem 0;
 }
 
-/* Mobile */
+
 @media (max-width: 768px) {
   .tech-stack-section {
     padding: 1.5rem 1rem;
