@@ -9,6 +9,7 @@ interface AnimatedButtonProps {
 	icon?: React.ReactNode;
 	className?: string;
 	variant?: 'primary' | 'secondary' | 'development' | 'construction' | 'hub';
+	disabled?: boolean;
 }
 
 const AnimatedButton: React.FC<AnimatedButtonProps> = ({
@@ -17,12 +18,14 @@ const AnimatedButton: React.FC<AnimatedButtonProps> = ({
 	icon,
 	className = '',
 	variant = 'primary',
+	disabled = false,
 }) => {
 	return (
 		<>
 			<button
 				onClick={onClick}
-				className={`animated-btn btn-${variant} ${className}`}>
+				className={`animated-btn btn-${variant} ${className}`}
+				disabled={disabled}>
 				<span className="btn-content">
 					{icon && <span className="btn-icon">{icon}</span>}
 					<span className="btn-text">{text}</span>

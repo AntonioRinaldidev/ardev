@@ -1,4 +1,4 @@
-/* Clean Timeline Component - Minimal glassmorphism */
+
 
 .timeline {
   margin-top: 2rem;
@@ -75,7 +75,7 @@
   line-height: 1.5;
 }
 
-/* Mobile */
+
 @media (max-width: 768px) {
   .timeline-item {
     padding: 1.2rem 1.5rem;

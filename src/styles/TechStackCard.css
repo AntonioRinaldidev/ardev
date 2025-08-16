@@ -1,4 +1,4 @@
-/* Clean TechStackCard Component - Minimal flip cards */
+
 
 .flip-card {
   perspective: 1000px;
@@ -92,7 +92,7 @@
   line-height: 1.4;
 }
 
-/* Mobile */
+
 @media (max-width: 768px) {
   .flip-card {
     height: 90px;

@@ -1,4 +1,4 @@
-/* Clean SocialStats Component - Minimal glassmorphism */
+
 
 .social-stats {
   background: 
@@ -92,7 +92,7 @@
   100% { background-position: 200% 0; }
 }
 
-/* Mobile */
+
 @media (max-width: 768px) {
   .social-stats {
     padding: 1.5rem;

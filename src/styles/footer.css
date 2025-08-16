@@ -21,7 +21,7 @@
 	gap: 1rem;
 }
 
-/* Responsive layout per schermi piccoli */
+
 @media (max-width: 640px) {
 	.footer-container {
 		flex-direction: column;
@@ -42,7 +42,7 @@
 	justify-content: center;
 }
 
-/* Link animati */
+
 .footer-links a {
 	color: var(--color-link);
 	transition: transform 0.2s ease, color 0.2s ease;

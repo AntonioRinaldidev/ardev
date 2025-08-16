@@ -1,4 +1,4 @@
-/* Experience Dropdown - Fixed positioning for mobile and desktop */
+
 
 .experience-dropdown-container {
   position: relative;
@@ -32,7 +32,7 @@
   width: 96%;
 }
 
-/* Arrow indicator */
+
 .dropdown-arrow {
   position: absolute;
   top: -8px;
@@ -56,7 +56,7 @@
   border-bottom: 7px solid var(--card-bg);
 }
 
-/* Mobile close button - Fixed positioning and visibility */
+
 .mobile-close-button {
   position: absolute;
   top: 0.8rem;
@@ -87,7 +87,7 @@
   transform: scale(0.95);
 }
 
-/* Header section - Layout migliorato per contenuti più larghi */
+
 .dropdown-header {
   display: flex;
   align-items: flex-start;
@@ -131,7 +131,7 @@
   object-fit: cover;
 }
 
-/* Info section - Layout orizzontale per contenuti più larghi */
+
 .dropdown-info {
   display: flex;
   flex-direction: row;
@@ -154,7 +154,7 @@
   width: 14px;
 }
 
-/* Description */
+
 .dropdown-description {
   margin-bottom: 1.5rem;
 }
@@ -166,7 +166,7 @@
   margin: 0;
 }
 
-/* Sections - Layout a due colonne per schermi larghi */
+
 .dropdown-sections {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -197,7 +197,7 @@
   letter-spacing: 0.5px;
 }
 
-/* Tech tags */
+
 .tech-tags {
   display: flex;
   flex-wrap: wrap;
@@ -221,7 +221,7 @@
   transform: translateY(-1px);
 }
 
-/* Achievements list */
+
 .achievements-list {
   list-style: none;
   padding: 0;
@@ -249,7 +249,7 @@
   margin-bottom: 0;
 }
 
-/* Footer with project links - Support multiple links */
+
 .dropdown-footer {
   margin-top: 1.5rem;
   padding-top: 1rem;
@@ -285,7 +285,7 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Specific styling for different link types */
+
 .app-store-link {
   color: #007AFF;
   border-color: rgba(0, 122, 255, 0.3);
@@ -345,7 +345,7 @@
   font-size: 0.9rem;
 }
 
-/* Mobile responsiveness - Enhanced and fixed */
+
 @media (max-width: 768px) {
 
   .experience-dropdown {
@@ -598,7 +598,7 @@
   }
 }
 
-/* Accessibility */
+
 @media (prefers-reduced-motion: reduce) {
   .experience-dropdown {
     transition: none !important;
@@ -610,7 +610,7 @@
   }
 }
 
-/* High contrast mode */
+
 @media (prefers-contrast: high) {
   .experience-dropdown {
     border: 2px solid var(--color-primary);

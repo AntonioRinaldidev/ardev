@@ -1,4 +1,4 @@
-/* Clean ToggleGroup Component - Minimal glassmorphism */
+
 
 .timeline-toggle-group {
   display: flex;
@@ -52,7 +52,7 @@
   background: white;
 }
 
-/* Mobile */
+
 @media (max-width: 768px) {
   .timeline-toggle-group {
     border-radius: 12px 12px 0 0;

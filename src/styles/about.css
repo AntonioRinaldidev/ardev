@@ -1,10 +1,16 @@
-/* Clean About Me - Minimal elegance inspired by welcome/hero */
+
 
 .about-section {
-  background: transparent;
-  padding: 4rem 1.5rem;
   min-height: 100vh;
+  background: transparent;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
   position: relative;
+  overflow-x: hidden; /* Nasconde scrollbar orizzontale */
+  width: 100vw;
+  box-sizing: border-box;
 }
 
 .about-header {
@@ -52,7 +58,7 @@
       var(--section-bg) 100%
     );
   backdrop-filter: blur(20px) saturate(110%);
-  border-radius: 20px;
+  border-radius: 24px;
   padding: 3rem 2.5rem;
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 
@@ -110,7 +116,7 @@
 .timeline-content-wrapper{
   margin-bottom: 2rem;
 }
-/* Mobile */
+
 @media (max-width: 768px) {
   .about-section {
     padding: 2rem 1rem;

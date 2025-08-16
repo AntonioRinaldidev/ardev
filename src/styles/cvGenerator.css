@@ -23,7 +23,7 @@
   flex-wrap: wrap;
 }
 
-/* Form */
+
 .cv-form-wrapper {
   background-color: var(--color-bg-secondary);
   border: 2px solid var(--color-primary);
@@ -36,7 +36,7 @@
 .cv-generator-preview * {
   box-sizing: border-box;
 }
-/* Preview */
+
 .cv-generator-preview {
   background-color: var(--card-bg);
   border: 2px solid var(--color-primary);
@@ -48,7 +48,7 @@
   overflow: auto;
 }
 
-/* Responsive */
+
 @media screen and (max-width: 1024px) {
   .cv-generator-content {
     flex-direction: column;
