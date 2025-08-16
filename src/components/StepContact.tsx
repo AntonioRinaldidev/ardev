@@ -284,8 +284,17 @@ function StepIndicator({
 			: 'complete';
 
 	const handleClick = () => {
-		if (step !== currentStep && !disableStepIndicators) {
+		if (disableStepIndicators) return;
+
+		if (step < currentStep) {
 			onClickStep(step);
+			return;
+        }
+		if (step === currentStep) {
+			return;
+		}
+		if (step > currentStep) {	
+			return; 
 		}
 	};
 
