@@ -45,7 +45,7 @@ const SocialPresenceStats: React.FC = () => {
 							<>
 								{commitCount}+
 								<br />
-								I've been coding for a while now!
+								I&lsquove been coding for a while now!
 							</>
 						)}
 					</>
