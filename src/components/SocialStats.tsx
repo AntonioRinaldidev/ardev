@@ -1,7 +1,7 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import { FaGithub, FaLinkedin } from "react-icons/fa";
-import "@/styles/SocialStats.css";
+'use client';
+import React, { useEffect, useState } from 'react';
+import { FaGithub, FaLinkedin } from 'react-icons/fa';
+import '@/styles/SocialStats.css';
 
 const SocialPresenceStats: React.FC = () => {
 	const [commitCount, setCommitCount] = useState<number | null>(null);
@@ -9,17 +9,18 @@ const SocialPresenceStats: React.FC = () => {
 	useEffect(() => {
 		const fetchCommits = async () => {
 			try {
-				const res = await fetch("/api/github-commits");
+				const res = await fetch('/api/github-commits');
 				const data = await res.json();
 
-				if (res.ok && typeof data.commits === "number") {
+				if (res.ok && typeof data.commits === 'number') {
+					console.log('GitHub commits fetched:', data.commits);
 					setCommitCount(data.commits);
 				} else {
-					console.warn("GitHub API response malformed:", data);
+					console.warn('GitHub API response malformed:', data);
 					setCommitCount(0);
 				}
 			} catch (err) {
-				console.error("GitHub API error:", err);
+				console.error('GitHub API error:', err);
 				setCommitCount(null);
 			}
 		};
@@ -31,14 +32,26 @@ const SocialPresenceStats: React.FC = () => {
 		<div className="social-stats">
 			<h3 className="social-heading">My Online Presence</h3>
 			<div className="commit-counter">
-				<strong>Total GitHub Commits:</strong>{" "}
+				<strong>Total GitHub Commits:</strong>{' '}
 				{commitCount !== null ? (
-					commitCount
+					<>
+						{commitCount < 500 ? (
+							<>
+								{commitCount}
+								<br />
+								Everyone has started at some point
+							</>
+						) : (
+							<>
+								{commitCount}+
+								<br />
+								I've been coding for a while now!
+							</>
+						)}
+					</>
 				) : (
 					<span className="skeleton-loader">Loading commits...</span>
 				)}
-				<br />
-				Everyone has started at some point
 			</div>
 			<div className="social-links">
 				<a
