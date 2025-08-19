@@ -4,10 +4,12 @@ import React, { useEffect, useRef } from 'react';
 import { animate, createTimeline, stagger, Timeline } from 'animejs';
 import '@/styles/Sphere.css';
 import { motion } from 'framer-motion';
+import { getJarvisStatus, postMessageJarvis } from '@/services/jarvisService';
 
 const SphereAnimation: React.FC = () => {
 	const root = useRef<HTMLDivElement | null>(null);
 	const sphereRef = useRef<HTMLDivElement | null>(null);
+
 	const getThemeColors = () => {
 		const style = getComputedStyle(document.documentElement);
 		return {
@@ -17,6 +19,13 @@ const SphereAnimation: React.FC = () => {
 			primaryHover: style.getPropertyValue('--color-primary-hover').trim(),
 		};
 	};
+	// useEffect(() => {
+	// 	const fetchJarvisResposne = async () => {
+	// 		const response = await postMessageJarvis('Hi jarvis');
+	// 		console.log(response);
+	// 	};
+	// 	fetchJarvisResposne();
+	// }, []);
 	useEffect(() => {
 		if (!sphereRef.current) return;
 
