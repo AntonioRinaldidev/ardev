@@ -1,4 +1,3 @@
-// src/components/JarvisChat.tsx - PULITO
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -13,7 +12,7 @@ import {
 	type JarvisStatus,
 } from '@/services/jarvisService';
 import '@/styles/JarvisChat.css';
-
+import DecrpytingText from './MatrixText';
 interface ChatMessage {
 	id: string;
 	content: string;
@@ -21,7 +20,8 @@ interface ChatMessage {
 	timestamp: Date;
 	contextUsed?: number;
 	ragEnabled?: boolean;
-	isWelcome?: boolean; // 🔹 Flag per messaggi di benvenuto (solo UI)
+	isWelcome?: boolean;
+	useMatrixEffect?: boolean;
 }
 
 const JarvisChat: React.FC = () => {
@@ -36,12 +36,10 @@ const JarvisChat: React.FC = () => {
 	const messagesEndRef = useRef<HTMLDivElement>(null);
 	const inputRef = useRef<HTMLTextAreaElement>(null);
 
-	// 🚀 Inizializzazione
 	useEffect(() => {
 		initializeJarvis();
 	}, []);
 
-	// 📜 Auto-scroll messaggi
 	useEffect(() => {
 		messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
 	}, [messages]);
@@ -69,7 +67,8 @@ const JarvisChat: React.FC = () => {
 			content: `JARVIS Online\n\nCiao! Sono JARVIS, il tuo assistente AI personale. Posso:\n\n• Chattare e rispondere alle tue domande\n• Accedere alla knowledge base del portfolio\n• Analizzare documenti e progetti\n• Aiutarti con informazioni tecniche\n\nCome posso aiutarti oggi?`,
 			sender: 'jarvis',
 			timestamp: new Date(),
-			isWelcome: true, // 🔹 Questo messaggio è solo per l'UI
+			isWelcome: true,
+			useMatrixEffect: true,
 		};
 		setMessages([welcomeMessage]);
 	};
@@ -92,7 +91,6 @@ const JarvisChat: React.FC = () => {
 		setIsLoading(true);
 
 		try {
-			// 🔹 Invia al backend SOLO il messaggio dell'utente
 			const response: JarvisResponse | null = await sendMessageToJarvis(
 				currentMessage,
 				sessionId || undefined
@@ -113,6 +111,7 @@ const JarvisChat: React.FC = () => {
 					timestamp: new Date(),
 					contextUsed: response.context_used,
 					ragEnabled: response.rag_enabled,
+					useMatrixEffect: true,
 				};
 
 				setMessages((prev) => [...prev, jarvisMessage]);
@@ -162,41 +161,53 @@ const JarvisChat: React.FC = () => {
 
 	return (
 		<div className="jarvis-chat">
-			{/* Messages */}
-			<div className="messages-container">
+			<div className="terminal-container">
 				<AnimatePresence>
 					{messages.map((message) => (
 						<motion.div
 							key={message.id}
-							className={`message ${message.sender}`}
-							initial={{ opacity: 0, y: 20 }}
-							animate={{ opacity: 1, y: 0 }}
-							exit={{ opacity: 0, y: -20 }}>
-							<div className="message-content">
-								<div className="message-text">
-									{message.content.split('\n').map((line, index) => (
-										<span key={index}>
-											{line}
-											{index < message.content.split('\n').length - 1 && <br />}
-										</span>
-									))}
+							className="terminal-line"
+							initial={{ opacity: 0 }}
+							animate={{ opacity: 1 }}
+							exit={{ opacity: 0 }}>
+							{message.sender === 'user' ? (
+								// Linea comando utente
+								<div className="user-command">
+									<span className="prompt user-prompt">user@portfolio:~$</span>
+									<span className="command-text">{message.content}</span>
 								</div>
-							</div>
+							) : (
+								// Linea risposta JARVIS
+								<div className="jarvis-response">
+									<span className="prompt jarvis-prompt">jarvis@system:~$</span>
+									<span className="response-text">
+										{message.useMatrixEffect ? (
+											<DecrpytingText
+												text={message.content}
+												speed={20}
+												sequential={true}
+												revealDirection="start"
+												animateOn="view"
+												maxIterations={4}
+												characters="abcdefghijklmnopqrstuvwxyz0123456789!@#$%&*"
+											/>
+										) : (
+											message.content
+										)}
+									</span>
+								</div>
+							)}
 						</motion.div>
 					))}
 				</AnimatePresence>
 
-				{/* Typing indicator */}
+				{/* Processing indicator */}
 				{isLoading && (
 					<motion.div
-						className="message jarvis typing"
+						className="terminal-line processing-line"
 						initial={{ opacity: 0 }}
 						animate={{ opacity: 1 }}>
-						<div className="typing-indicator">
-							<span></span>
-							<span></span>
-							<span></span>
-						</div>
+						<span className="processing-text">[PROCESSING...]</span>
 					</motion.div>
 				)}
 
@@ -204,22 +215,24 @@ const JarvisChat: React.FC = () => {
 			</div>
 
 			{/* Input */}
-			<div className="chat-input">
+			{/* Terminal Input */}
+			<div className="terminal-input">
+				<span className="input-prompt">user@portfolio:~$</span>
 				<textarea
 					ref={inputRef}
 					value={inputMessage}
 					onChange={(e) => setInputMessage(e.target.value)}
 					onKeyPress={handleKeyPress}
-					placeholder="Write something to JARVIS..."
+					placeholder="Type your command..."
 					rows={1}
-					className="message-input"
+					className="terminal-textarea"
 					disabled={isLoading}
 				/>
 				<button
 					onClick={sendMessage}
 					disabled={!inputMessage.trim() || isLoading}
-					className="send-button">
-					<FaPaperPlane />
+					className="terminal-send-btn">
+					↵
 				</button>
 			</div>
 		</div>
