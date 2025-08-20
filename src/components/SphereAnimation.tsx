@@ -8,6 +8,7 @@ import { motion } from 'framer-motion';
 const SphereAnimation: React.FC = () => {
 	const root = useRef<HTMLDivElement | null>(null);
 	const sphereRef = useRef<HTMLDivElement | null>(null);
+
 	const getThemeColors = () => {
 		const style = getComputedStyle(document.documentElement);
 		return {
@@ -17,6 +18,7 @@ const SphereAnimation: React.FC = () => {
 			primaryHover: style.getPropertyValue('--color-primary-hover').trim(),
 		};
 	};
+
 	useEffect(() => {
 		if (!sphereRef.current) return;
 

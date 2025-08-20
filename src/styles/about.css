@@ -1,14 +1,14 @@
-
-
 .about-section {
+  /* Usa viewport height personalizzata per mobile */
   min-height: 100vh;
+  min-height: calc(var(--vh, 1vh) * 100); /* Fallback per mobile */
   background: transparent;
   padding: 2rem 1rem;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   position: relative;
-  overflow-x: hidden; /* Nasconde scrollbar orizzontale */
+  overflow-x: hidden;
   width: 100vw;
   box-sizing: border-box;
 }
@@ -46,8 +46,9 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  max-width: 1200px;
+  
   margin: 0 auto;
+  flex: 1; /* Occupa tutto lo spazio disponibile */
 }
 
 .about-main-content {
@@ -64,6 +65,7 @@
   box-shadow: 
     0 20px 40px rgba(0, 0, 0, 0.2),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  flex: 1; /* Espande per riempire lo spazio */
 }
 
 .heading {
@@ -113,29 +115,93 @@
   );
   margin: 1rem 0;
 }
-.timeline-content-wrapper{
+
+.timeline-content-wrapper {
   margin-bottom: 2rem;
 }
 
+/* Mobile optimizations */
 @media (max-width: 768px) {
   .about-section {
-    padding: 2rem 1rem;
+    /* Usa viewport height dinamica per mobile */
+    min-height: calc(var(--vh, 1vh) * 100);
+    padding: 1rem 0.5rem; /* Padding ridotto */
+  }
+
+  .about-header {
+    margin-bottom: 1rem; /* Margin ridotto */
+    padding: 0 0.5rem;
+  }
+
+  .about-wrapper {
+    gap: 1rem; /* Gap ridotto */
+    padding: 0 0.5rem;
   }
 
   .about-main-content {
-    padding: 2rem 1.5rem;
+    padding: 1.5rem 1rem; /* Padding molto più compatto */
     border-radius: 16px;
+    margin: 0; /* Rimuovi margin extra */
   }
 
   .heading {
-    font-size: clamp(1.8rem, 8vw, 2.5rem);
+    font-size: clamp(1.5rem, 6vw, 2rem); /* Font size più piccolo */
+    margin-bottom: 1rem; /* Margin ridotto */
   }
 
   .sub-heading {
-    font-size: 1.3rem;
+    font-size: 1.1rem; /* Font size ridotto */
+    margin-bottom: 0.8rem;
   }
 
   .text-paragraph {
-    font-size: 0.9rem;
+    font-size: 0.85rem; /* Font size ridotto */
+    margin-bottom: 1rem; /* Margin ridotto */
+    line-height: 1.5;
+  }
+
+  .timeline-content-wrapper {
+    width: 100%;
+    margin-bottom: 1rem;
+    
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 480px) {
+  .about-section {
+    padding: 0.5rem 0.25rem;
+  }
+
+  .about-main-content {
+    padding: 1rem 0.75rem;
+    border-radius: 12px;
+  }
+
+  .heading {
+    font-size: clamp(1.3rem, 5vw, 1.8rem);
+    margin-bottom: 0.8rem;
+  }
+
+  .text-paragraph {
+    font-size: 0.8rem;
+    margin-bottom: 0.8rem;
+  }
+}
+
+/* Landscape orientation fix */
+@media (max-width: 768px) and (orientation: landscape) {
+  .about-section {
+    min-height: calc(var(--vh, 1vh) * 100);
+    padding: 0.5rem 0.25rem;
+  }
+
+  .about-main-content {
+    padding: 1rem 0.75rem;
+  }
+
+  .heading {
+    font-size: clamp(1.2rem, 4vw, 1.6rem);
+    margin-bottom: 0.5rem;
   }
 }

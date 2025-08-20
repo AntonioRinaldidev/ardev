@@ -1,0 +1,212 @@
+/* JarvisChat.css - Terminal Design */
+
+.jarvis-chat {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: var(--color-bg-secondary);
+  font-family: 'Fira Code', 'JetBrains Mono', 'Consolas', 'Monaco', 'Courier New', monospace;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--color-primary);
+}
+
+/* Terminal Container */
+.terminal-container {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background: var(--color-bg-secondary);
+}
+
+.terminal-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.terminal-container::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: 4px;
+}
+
+.terminal-container::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+/* Terminal Lines */
+.terminal-line {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+/* User Command */
+.user-command {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.user-prompt {
+  color: var(--color-heading);
+  font-weight: 600;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.command-text {
+  color: var(--color-text);
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+/* JARVIS Response */
+.jarvis-response {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.jarvis-prompt {
+  color: var(--color-link);
+  font-weight: 600;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.response-text {
+  color: var(--color-text);
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  flex: 1;
+}
+
+/* Processing Line */
+.processing-line {
+  display: flex;
+  align-items: center;
+  margin: 0.5rem 0;
+}
+
+.processing-text {
+  color: var(--color-primary);
+  font-weight: 600;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { 
+    opacity: 1; 
+  }
+  50% { 
+    opacity: 0.4; 
+  }
+}
+
+/* Terminal Input */
+.terminal-input {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-top: 1px solid var(--color-primary);
+}
+
+.input-prompt {
+  color: var(--color-heading);
+  font-weight: 600;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.terminal-textarea {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: 0.95rem;
+  resize: none;
+  outline: none;
+  min-height: 24px;
+  max-height: 120px;
+  line-height: 1.4;
+}
+
+.terminal-textarea::placeholder {
+  color: var(--color-text-secondary);
+  opacity: 0.6;
+}
+
+.terminal-send-btn {
+  background: transparent;
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.terminal-send-btn:hover:not(:disabled) {
+  background: var(--color-primary);
+  color: var(--color-bg-secondary);
+  transform: translateY(-1px);
+}
+
+.terminal-send-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .jarvis-chat {
+    height: 100vh;
+    border-radius: 0;
+  }
+  
+  .terminal-container {
+    padding: 0.75rem;
+  }
+  
+  .terminal-input {
+    padding: 0.75rem;
+  }
+  
+  .user-command,
+  .jarvis-response {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  
+  .user-prompt,
+  .jarvis-prompt {
+    margin-bottom: 0.25rem;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .processing-text {
+    animation: none;
+  }
+  
+  .terminal-send-btn {
+    transform: none;
+  }
+  
+  .terminal-send-btn:hover:not(:disabled) {
+    transform: none;
+  }
+}

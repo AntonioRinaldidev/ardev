@@ -1,4 +1,4 @@
-// ✅ AnimatedButton.tsx REWORKED
+
 'use client';
 import React from 'react';
 import '@/styles/AnimatedButton.css';
