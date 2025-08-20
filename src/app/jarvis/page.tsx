@@ -5,7 +5,7 @@ import { useRef } from 'react';
 import { motion } from 'framer-motion';
 import SphereAnimation from '@/components/SphereAnimation';
 import JarvisChat from '@/components/JarvisChat';
-import './Jarvispage.css';
+import './JarvisPage.css';
 import AnimatedButton from '@/components/AnimatedButton';
 import { useRouter } from 'next/navigation';
 
