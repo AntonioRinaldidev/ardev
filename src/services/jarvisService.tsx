@@ -1,7 +1,7 @@
 // src/services/jarvisService.tsx - AGGIORNATO per il nuovo backend
 import { getRequest, postRequest } from './ApiService';
 
-const BASE_URL = 'https://antoniorinaldidev.com/';
+const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 // 🔄 Tipi per il nuovo backend
 export interface JarvisMessage {
@@ -34,7 +34,9 @@ export interface UploadDocument {
 // ✅ Status check - endpoint aggiornato
 export const getJarvisStatus = async (): Promise<JarvisStatus> => {
 	try {
-		const response = await getRequest(`${BASE_URL}api/jarvis/status`);
+		const response = await getRequest(
+			process.env.NEXT_PUBLIC_API_GET_JARVIS_STATUS_ENDPOINT || ''
+		);
 		return {
 			status: response.data.status,
 			version: response.data.version,
@@ -57,7 +59,10 @@ export const sendMessageToJarvis = async (
 		const payload: JarvisMessage = { message };
 		if (sessionId) payload.session_id = sessionId; // Backend usa snake_case
 
-		const response = await postRequest(`${BASE_URL}api/jarvis/chat`, payload);
+		const response = await postRequest(
+			process.env.NEXT_PUBLIC_API_POST_JARVIS_MESSAGE_ENDPOINT || '',
+			payload
+		);
 
 		return {
 			jarvis: response.data.jarvis, // Backend ritorna "jarvis"

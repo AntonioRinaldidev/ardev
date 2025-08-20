@@ -2,7 +2,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 
 // ✅ Axios instance with credentials support for HTTP-only cookies
 const ApiService = axios.create({
-	baseURL: process.env.NEXT_PUBLIC_API_BASE_URL_LOCAL,
+	baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
 });
 
 // ✅ Configure JSON request headers

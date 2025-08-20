@@ -184,12 +184,12 @@ const JarvisChat: React.FC = () => {
 										{message.useMatrixEffect ? (
 											<DecrpytingText
 												text={message.content}
-												speed={20}
+												speed={5}
 												sequential={true}
 												revealDirection="start"
 												animateOn="view"
 												maxIterations={4}
-												characters="abcdefghijklmnopqrstuvwxyz0123456789!@#$%&*"
+												characters="abcdefghij23456789!@#$%&*"
 											/>
 										) : (
 											message.content
