@@ -41,8 +41,8 @@ const JarvisPage: React.FC = () => {
 				{/* 🌐 Sphere Section - SINISTRA */}
 				<motion.div
 					className="sphere-section"
-					initial={{ opacity: 0, x: -50 }}
-					animate={{ opacity: 1, x: 0 }}
+					initial={{ opacity: 0, scale: 0 }}
+					animate={{ opacity: 1, scale: 1 }}
 					transition={{ duration: 0.8, delay: 0.2 }}>
 					<SphereAnimation />
 				</motion.div>
