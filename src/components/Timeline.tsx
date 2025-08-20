@@ -2,6 +2,7 @@
 import React from 'react';
 import '../styles/Timeline.css';
 import ExperienceDropdown, { ExperienceDetails } from './ExperienceDropdown';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 interface TimelineItem {
 	icon: React.ReactNode;
@@ -9,7 +10,8 @@ interface TimelineItem {
 	title: string;
 	description?: string;
 	link?: { url: string; text: string };
-	experienceDetails?: ExperienceDetails; // Change this - single experience details
+	experienceDetails?: ExperienceDetails;
+	clickMe?: boolean; // Change this - single experience details
 }
 
 interface TimelineProps {
@@ -18,6 +20,7 @@ interface TimelineProps {
 }
 
 const Timeline: React.FC<TimelineProps> = ({ heading, items }) => {
+	const mobile = useIsMobile();
 	return (
 		<div className="timeline">
 			<h2 className="sub-heading">
@@ -50,6 +53,9 @@ const Timeline: React.FC<TimelineProps> = ({ heading, items }) => {
 										<>
 											<p className="timeline-description">{item.date}</p>
 											<p className="timeline-description">{item.description}</p>
+											{mobile && (
+												<p className="timeline-description-click">Click Me</p>
+											)}
 										</>
 									)}
 								</div>

@@ -55,12 +55,24 @@
 
 @media (max-width: 768px) {
   .timeline-toggle-group {
+    width: 100%;
+    margin: 1rem 0;
     border-radius: 12px 12px 0 0;
+    overflow: hidden;
   }
 
   .timeline-toggle {
-    padding: 0.8rem 1rem;
-    font-size: 0.9rem;
-    min-width: 100px;
+    padding: 0.8rem 0.5rem; /* Padding ridotto per più spazio */
+    font-size: 0.85rem; /* Font più piccolo */
+    min-width: auto; /* Rimuovi min-width fisso */
+    flex: 1; /* Distribuzione uniforme */
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .timeline-toggle {
+    padding: 0.7rem 0.3rem;
+    font-size: 0.8rem;
   }
 }

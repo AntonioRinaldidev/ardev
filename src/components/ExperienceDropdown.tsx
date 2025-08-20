@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
 	FaExternalLinkAlt,
@@ -11,6 +11,7 @@ import {
 	FaGithub,
 	FaGlobe,
 	FaPlay,
+	FaTimes,
 } from 'react-icons/fa';
 import '@/styles/ExperienceDropdown.css';
 
@@ -43,6 +44,21 @@ const ExperienceDropdown: React.FC<ExperienceDropdownProps> = ({
 }) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [hoverTimeout, setHoverTimeout] = useState<NodeJS.Timeout | null>(null);
+	const [isMobile, setIsMobile] = useState(false);
+
+	// Detect mobile device
+	useEffect(() => {
+		const checkIsMobile = () => {
+			setIsMobile(window.innerWidth <= 768);
+		};
+
+		checkIsMobile();
+		window.addEventListener('resize', checkIsMobile);
+
+		return () => {
+			window.removeEventListener('resize', checkIsMobile);
+		};
+	}, []);
 
 	// Function to get icon and label based on link type
 	const getLinkInfo = (link: ProjectLink) => {
@@ -87,23 +103,43 @@ const ExperienceDropdown: React.FC<ExperienceDropdownProps> = ({
 	};
 
 	const handleMouseEnter = () => {
-		if (hoverTimeout) {
-			clearTimeout(hoverTimeout);
+		// Solo su desktop con hover
+		if (!isMobile) {
+			if (hoverTimeout) {
+				clearTimeout(hoverTimeout);
+			}
+			setIsOpen(true);
 		}
-		setIsOpen(true);
 	};
 
 	const handleMouseLeave = () => {
-		const timeout = setTimeout(() => {
-			setIsOpen(false);
-		}, 300);
-		setHoverTimeout(timeout);
+		// Solo su desktop con hover
+		if (!isMobile) {
+			const timeout = setTimeout(() => {
+				setIsOpen(false);
+			}, 300);
+			setHoverTimeout(timeout);
+		}
+	};
+
+	const handleClick = () => {
+		// Su mobile, click per aprire/chiudere
+		if (isMobile) {
+			setIsOpen(!isOpen);
+		}
+	};
+
+	const handleClose = () => {
+		setIsOpen(false);
+		if (hoverTimeout) {
+			clearTimeout(hoverTimeout);
+		}
 	};
 
 	const dropdownVariants = {
 		hidden: {
 			opacity: 0,
-			y: -10,
+			y: isMobile ? 10 : -10,
 			scale: 0.95,
 			transition: {
 				duration: 0.2,
@@ -125,126 +161,156 @@ const ExperienceDropdown: React.FC<ExperienceDropdownProps> = ({
 		<div
 			className="experience-dropdown-container"
 			onMouseEnter={handleMouseEnter}
-			onMouseLeave={handleMouseLeave}>
+			onMouseLeave={handleMouseLeave}
+			onClick={handleClick}>
 			{children}
 			<AnimatePresence>
 				{isOpen && (
-					<motion.div
-						className="experience-dropdown"
-						variants={dropdownVariants}
-						initial="hidden"
-						animate="visible"
-						exit="hidden"
-						onMouseEnter={() => {
-							if (hoverTimeout) {
-								clearTimeout(hoverTimeout);
-							}
-						}}
-						onMouseLeave={() => {
-							const timeout = setTimeout(() => {
-								setIsOpen(false);
-							}, 100);
-							setHoverTimeout(timeout);
-						}}>
-						{/* Header del dropdown */}
-						<div className="dropdown-header">
-							<div className="dropdown-title-section">
-								<h3 className="dropdown-title">{details.title}</h3>
-								<p className="dropdown-company">{details.company}</p>
-							</div>
-							{details.image && (
-								<div className="dropdown-image">
-									<img
-										src={details.image}
-										alt={details.company}
-									/>
-								</div>
-							)}
-						</div>
-
-						{/* Info base - Layout orizzontale */}
-						<div className="dropdown-info">
-							<div className="info-item">
-								<FaCalendarAlt className="info-icon" />
-								<span>{details.period}</span>
-							</div>
-							<div className="info-item">
-								<FaMapMarkerAlt className="info-icon" />
-								<span>{details.location}</span>
-							</div>
-						</div>
-
-						{/* Descrizione */}
-						<div className="dropdown-description">
-							<p>{details.description}</p>
-						</div>
-
-						{/* Sezioni a due colonne */}
-						<div className="dropdown-sections">
-							{/* Tecnologie */}
-							{details.technologies.length > 0 && (
-								<div className="dropdown-section">
-									<div className="section-header">
-										<FaCode className="section-icon" />
-										<span className="section-title">Technologies</span>
-									</div>
-									<div className="tech-tags">
-										{details.technologies.map((tech, index) => (
-											<span
-												key={index}
-												className="tech-tag">
-												{tech}
-											</span>
-										))}
-									</div>
-								</div>
-							)}
-
-							{/* Achievements */}
-							{details.achievements.length > 0 && (
-								<div className="dropdown-section">
-									<div className="section-header">
-										<FaTrophy className="section-icon" />
-										<span className="section-title">Key Achievements</span>
-									</div>
-									<ul className="achievements-list">
-										{details.achievements.map((achievement, index) => (
-											<li
-												key={index}
-												className="achievement-item">
-												{achievement}
-											</li>
-										))}
-									</ul>
-								</div>
-							)}
-						</div>
-
-						{/* Links progetti */}
-						{details.projectLinks && details.projectLinks.length > 0 && (
-							<div className="dropdown-footer">
-								<div className="project-links">
-									{details.projectLinks.map((link, index) => {
-										const linkInfo = getLinkInfo(link);
-										return (
-											<a
-												key={index}
-												href={link.url}
-												target="_blank"
-												rel="noopener noreferrer"
-												className={`project-link ${linkInfo.className}`}>
-												{linkInfo.icon}
-												{linkInfo.label}
-											</a>
-										);
-									})}
-								</div>
-							</div>
+					<>
+						{/* Overlay per mobile */}
+						{isMobile && (
+							<motion.div
+								className="dropdown-overlay"
+								initial={{ opacity: 0 }}
+								animate={{ opacity: 1 }}
+								exit={{ opacity: 0 }}
+								onClick={handleClose}
+							/>
 						)}
 
-						{/* Freccia indicatore */}
-						<div className="dropdown-arrow"></div>
-					</motion.div>
+						<motion.div
+							className="experience-dropdown"
+							variants={dropdownVariants}
+							initial="hidden"
+							animate="visible"
+							exit="hidden"
+							onMouseEnter={() => {
+								if (!isMobile && hoverTimeout) {
+									clearTimeout(hoverTimeout);
+								}
+							}}
+							onMouseLeave={() => {
+								if (!isMobile) {
+									const timeout = setTimeout(() => {
+										setIsOpen(false);
+									}, 100);
+									setHoverTimeout(timeout);
+								}
+							}}
+							onClick={(e) => {
+								// Previeni chiusura quando si clicca dentro il dropdown
+								e.stopPropagation();
+							}}>
+							{/* Pulsante X per mobile */}
+							{isMobile && (
+								<button
+									className="mobile-close-button"
+									onClick={handleClose}
+									aria-label="Close details">
+									<FaTimes />
+								</button>
+							)}
+
+							{/* Header del dropdown */}
+							<div className="dropdown-header">
+								<div className="dropdown-title-section">
+									<h3 className="dropdown-title">{details.title}</h3>
+									<p className="dropdown-company">{details.company}</p>
+								</div>
+								{details.image && (
+									<div className="dropdown-image">
+										<img
+											src={details.image}
+											alt={details.company}
+										/>
+									</div>
+								)}
+							</div>
+
+							{/* Info base - Layout orizzontale */}
+							<div className="dropdown-info">
+								<div className="info-item">
+									<FaCalendarAlt className="info-icon" />
+									<span>{details.period}</span>
+								</div>
+								<div className="info-item">
+									<FaMapMarkerAlt className="info-icon" />
+									<span>{details.location}</span>
+								</div>
+							</div>
+
+							{/* Descrizione */}
+							<div className="dropdown-description">
+								<p>{details.description}</p>
+							</div>
+
+							{/* Sezioni a due colonne */}
+							<div className="dropdown-sections">
+								{/* Tecnologie */}
+								{details.technologies.length > 0 && (
+									<div className="dropdown-section">
+										<div className="section-header">
+											<FaCode className="section-icon" />
+											<span className="section-title">Technologies</span>
+										</div>
+										<div className="tech-tags">
+											{details.technologies.map((tech, index) => (
+												<span
+													key={index}
+													className="tech-tag">
+													{tech}
+												</span>
+											))}
+										</div>
+									</div>
+								)}
+
+								{/* Achievements */}
+								{details.achievements.length > 0 && (
+									<div className="dropdown-section">
+										<div className="section-header">
+											<FaTrophy className="section-icon" />
+											<span className="section-title">Key Achievements</span>
+										</div>
+										<ul className="achievements-list">
+											{details.achievements.map((achievement, index) => (
+												<li
+													key={index}
+													className="achievement-item">
+													{achievement}
+												</li>
+											))}
+										</ul>
+									</div>
+								)}
+							</div>
+
+							{/* Links progetti */}
+							{details.projectLinks && details.projectLinks.length > 0 && (
+								<div className="dropdown-footer">
+									<div className="project-links">
+										{details.projectLinks.map((link, index) => {
+											const linkInfo = getLinkInfo(link);
+											return (
+												<a
+													key={index}
+													href={link.url}
+													target="_blank"
+													rel="noopener noreferrer"
+													className={`project-link ${linkInfo.className}`}>
+													{linkInfo.icon}
+													{linkInfo.label}
+												</a>
+											);
+										})}
+									</div>
+								</div>
+							)}
+
+							{/* Freccia indicatore - solo desktop */}
+							{!isMobile && <div className="dropdown-arrow"></div>}
+						</motion.div>
+					</>
 				)}
 			</AnimatePresence>
 		</div>
