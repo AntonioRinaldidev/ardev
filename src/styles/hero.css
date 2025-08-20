@@ -71,14 +71,7 @@
   transition: color 0.3s ease;
 }
 
-.animated-btn .btn-content {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  position: relative;
-  z-index: 2;
-}
+
 
 .animated-btn .border-svg {
   position: absolute;

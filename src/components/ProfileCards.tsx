@@ -13,9 +13,10 @@ import {
 	FaMapPin,
 	FaUser,
 	FaEnvelope,
-	FaFileDownload,
+	FaFileArrowDown,
 	FaHeart,
-} from 'react-icons/fa';
+	FaRocketchat,
+} from 'react-icons/fa6';
 import { useAppSelector } from '@/store/hooks';
 
 interface ProfileCardProps {
@@ -75,8 +76,8 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ fullName }) => {
 		router.push('/contact');
 	};
 
-	const handlePressTools = () => {
-		router.push('/tools');
+	const handleJarvis = () => {
+		router.push('/jarvis');
 	};
 
 	return (
@@ -217,12 +218,18 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ fullName }) => {
 									icon={<FaEnvelope />}
 									onClick={handleContact}
 								/>
+								<AnimatedButton
+									text="Jarvis"
+									variant="hub"
+									icon={<FaRocketchat />}
+									onClick={handleJarvis}
+								/>
 							</div>
 
 							<div className="secondary-actions-redesign">
 								<AnimatedButton
 									text="Resume"
-									icon={<FaFileDownload />}
+									icon={<FaFileArrowDown />}
 									variant="hub"
 									onClick={handlePressCV}
 								/>
