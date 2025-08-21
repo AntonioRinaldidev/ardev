@@ -13,6 +13,7 @@ import {
 } from '@/services/jarvisService';
 import '@/styles/JarvisChat.css';
 import DecrpytingText from './MatrixText';
+
 interface ChatMessage {
 	id: string;
 	content: string;
@@ -35,6 +36,8 @@ const JarvisChat: React.FC = () => {
 
 	const messagesEndRef = useRef<HTMLDivElement>(null);
 	const inputRef = useRef<HTMLTextAreaElement>(null);
+	const terminalContainerRef = useRef<HTMLDivElement>(null);
+	const chatWrapperRef = useRef<HTMLDivElement>(null); // Nuovo ref per wrapper
 
 	useEffect(() => {
 		initializeJarvis();
@@ -43,6 +46,42 @@ const JarvisChat: React.FC = () => {
 	useEffect(() => {
 		messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
 	}, [messages]);
+
+	// NUOVO APPROCCIO: Cattura wheel event sul wrapper esterno
+	useEffect(() => {
+		const chatWrapper = chatWrapperRef.current;
+		const terminalContainer = terminalContainerRef.current;
+
+		if (!chatWrapper || !terminalContainer) return;
+
+		const handleWheel = (e: WheelEvent) => {
+			// Solo se il mouse è sopra l'area della chat
+			const rect = terminalContainer.getBoundingClientRect();
+			const isOverTerminal =
+				e.clientX >= rect.left &&
+				e.clientX <= rect.right &&
+				e.clientY >= rect.top &&
+				e.clientY <= rect.bottom;
+
+			if (isOverTerminal) {
+				e.preventDefault();
+				e.stopPropagation();
+
+				// Scroll diretto sul container
+				terminalContainer.scrollTop += e.deltaY;
+			}
+		};
+
+		// Aggiungi listener sul wrapper con capture=true per intercettare prima
+		chatWrapper.addEventListener('wheel', handleWheel, {
+			passive: false,
+			capture: true,
+		});
+
+		return () => {
+			chatWrapper.removeEventListener('wheel', handleWheel, { capture: true });
+		};
+	}, []);
 
 	const initializeJarvis = async () => {
 		// Recupera sessione esistente
@@ -160,8 +199,20 @@ const JarvisChat: React.FC = () => {
 	};
 
 	return (
-		<div className="jarvis-chat">
-			<div className="terminal-container">
+		// WRAPPER CON REF per catturare eventi wheel
+		<div
+			className="jarvis-chat"
+			ref={chatWrapperRef}>
+			<div
+				className="terminal-container"
+				ref={terminalContainerRef}
+				style={{
+					// Force scroll properties
+					overflowY: 'auto',
+					overflowX: 'hidden',
+					height: '100%',
+					position: 'relative',
+				}}>
 				<AnimatePresence>
 					{messages.map((message) => (
 						<motion.div

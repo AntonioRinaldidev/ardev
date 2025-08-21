@@ -32,15 +32,14 @@ const SphereAnimation: React.FC = () => {
 			return;
 		}
 
-		// Breath Animation - TIMING MIGLIORATI
 		const breathAnimations: any[] = [];
 
 		for (let i = 0; i < pathLength; i++) {
 			breathAnimations.push(
 				animate(spherePathEls[i], {
 					stroke: [`${colors.third}FF`, ''],
-					easing: 'easeInOut', // Easing più fluido
-					duration: 3000, // Più veloce di prima (era 4400)
+					easing: 'easeInOut', 
+					duration: 3000, 
 					autoplay: false,
 					loop: true,
 				})
@@ -52,7 +51,7 @@ const SphereAnimation: React.FC = () => {
 			{
 				update: (ins: any) => {
 					spherePathEls.forEach((path, i) => {
-						// Solo movimento breathing
+
 						const breathingPhase = 0.0005 * ins.currentTime;
 						const breathingValue = Math.sin(i * 0.25 + breathingPhase);
 						const translateX = breathingValue * 2;

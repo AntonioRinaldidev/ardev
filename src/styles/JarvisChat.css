@@ -14,6 +14,7 @@
 
 /* Terminal Container */
 .terminal-container {
+  position: relative;
   flex: 1;
   padding: 1rem;
   overflow-y: auto;
@@ -21,6 +22,16 @@
   flex-direction: column;
   gap: 0.5rem;
   background: var(--color-bg-secondary);
+    scroll-behavior: smooth;
+  outline: none; /* Rimuove outline quando focused */
+  
+  /* Assicura che catturi gli eventi di scroll */
+  overflow-y: auto;
+  overflow-x: hidden;
+  
+  /* Touch scroll per mobile */
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
 }
 
 .terminal-container::-webkit-scrollbar {
@@ -43,7 +54,23 @@
   margin-bottom: 0.5rem;
   line-height: 1.4;
 }
+.terminal-container:focus {
+  outline: none;
+}
+.terminal-container * {
+  will-change: transform;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .terminal-container {
+    scroll-behavior: smooth;
+  }
+}
 
+@media (prefers-reduced-motion: reduce) {
+  .terminal-container {
+    scroll-behavior: auto;
+  }
+}
 /* User Command */
 .user-command {
   display: flex;
