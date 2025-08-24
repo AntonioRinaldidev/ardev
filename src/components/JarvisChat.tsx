@@ -22,6 +22,7 @@ const JarvisChat: React.FC = () => {
 		sendMessage: sendWebSocketMessage,
 		clearMessages,
 		resetSession,
+		disconnect,
 	} = useJarvisWebSocket();
 
 	// UI REFS
@@ -85,7 +86,11 @@ const JarvisChat: React.FC = () => {
 			sendMessage();
 		}
 	};
-
+	useEffect(() => {
+		return () => {
+			disconnect(); // chiude solo la connessione WebSocket
+		};
+	}, [disconnect]);
 	// CONNECTION STATUS DISPLAY
 	const getConnectionStatus = () => {
 		switch (connectionState) {

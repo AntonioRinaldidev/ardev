@@ -171,64 +171,75 @@ export const useJarvisWebSocket = (initialSessionId?: string | null) => {
 		},
 		[createSystemMessage, createJarvisMessage, createErrorMessage]
 	);
-
+	const shouldReconnectRef = useRef(true);
 	// CONNECTION MANAGEMENT
 	const connect = useCallback(() => {
-		if (ws.current?.readyState === WebSocket.OPEN) return;
+		shouldReconnectRef.current = true;
+		if (
+			ws.current?.readyState === WebSocket.OPEN ||
+			ws.current?.readyState === WebSocket.CONNECTING
+		)
+			return;
+		// 1. Prendi sessionId dal localStorage
+		const storedSessionId = localStorage.getItem('jarvis_session_id');
 
 		setConnectionState('connecting');
 
-		const wsUrl = sessionId
-			? `wss://antoniorinaldidev.com/api/jarvis?session_id=${sessionId}`
-			: `wss://antoniorinaldidev.com/api/jarvis`;
+		const connectDelay = reconnectAttemptsRef.current > 0 ? 500 : 0;
+		setTimeout(() => {
+			const wsUrl = storedSessionId
+				? `wss://antoniorinaldidev.com/api/jarvis?session_id=${storedSessionId}`
+				: `wss://antoniorinaldidev.com/api/jarvis`;
+			ws.current = new WebSocket(wsUrl);
 
-		console.log('🔌 Connecting to:', wsUrl);
+			ws.current.onopen = () => {
+				console.log('✅ WebSocket connected');
+				setConnectionState('connected');
+				reconnectAttemptsRef.current = 0;
+			};
 
-		ws.current = new WebSocket(wsUrl);
+			ws.current.onmessage = (event) => {
+				try {
+					const data: WebSocketMessage = JSON.parse(event.data);
+					console.log();
+					handleMessage(data);
+				} catch (error) {
+					console.error('❌ Error parsing message:', error);
+				}
+			};
 
-		ws.current.onopen = () => {
-			console.log('✅ WebSocket connected');
-			setConnectionState('connected');
-		};
+			ws.current.onclose = () => {
+				console.log('❌ WebSocket disconnected');
+				setConnectionState('disconnected');
+				setIsThinking(false);
 
-		ws.current.onmessage = (event) => {
-			try {
-				const data: WebSocketMessage = JSON.parse(event.data);
-				console.log();
-				handleMessage(data);
-			} catch (error) {
-				console.error('❌ Error parsing message:', error);
-			}
-		};
+				// Auto-reconnect with backoff
+				if (
+					shouldReconnectRef.current &&
+					reconnectAttemptsRef.current < maxReconnectAttempts
+				) {
+					const delay = Math.min(
+						1000 * Math.pow(2, reconnectAttemptsRef.current),
+						10000
+					);
+					console.log(
+						`🔄 Reconnecting in ${delay}ms (attempt ${
+							reconnectAttemptsRef.current + 1
+						})`
+					);
 
-		ws.current.onclose = () => {
-			console.log('❌ WebSocket disconnected');
-			setConnectionState('disconnected');
-			setIsThinking(false);
+					reconnectTimeoutRef.current = setTimeout(() => {
+						reconnectAttemptsRef.current++;
+						connect();
+					}, delay);
+				}
+			};
 
-			// Auto-reconnect with backoff
-			if (reconnectAttemptsRef.current < maxReconnectAttempts) {
-				const delay = Math.min(
-					1000 * Math.pow(2, reconnectAttemptsRef.current),
-					10000
-				);
-				console.log(
-					`🔄 Reconnecting in ${delay}ms (attempt ${
-						reconnectAttemptsRef.current + 1
-					})`
-				);
-
-				reconnectTimeoutRef.current = setTimeout(() => {
-					reconnectAttemptsRef.current++;
-					connect();
-				}, delay);
-			}
-		};
-
-		ws.current.onerror = (error) => {
-			console.error('❌ WebSocket error:', error);
-			setConnectionState('error');
-		};
+			ws.current.onerror = (error) => {
+				console.error('❌ WebSocket error:', error);
+				setConnectionState('error');
+			};
+		}, connectDelay);
 	}, [sessionId, handleMessage]);
 
 	// ACTIONS
@@ -264,6 +275,8 @@ export const useJarvisWebSocket = (initialSessionId?: string | null) => {
 	}, []);
 
 	const disconnect = useCallback(() => {
+		shouldReconnectRef.current = false; // <--- important!
+
 		if (reconnectTimeoutRef.current) {
 			clearTimeout(reconnectTimeoutRef.current);
 			reconnectTimeoutRef.current = null;
@@ -301,8 +314,18 @@ export const useJarvisWebSocket = (initialSessionId?: string | null) => {
 		connect();
 
 		return () => disconnect();
-	}, [sessionId]);
+	}, []);
+	useEffect(() => {
+		const handleBeforeUnload = () => {
+			disconnect();
+		};
 
+		window.addEventListener('beforeunload', handleBeforeUnload);
+
+		return () => {
+			window.removeEventListener('beforeunload', handleBeforeUnload);
+		};
+	}, [disconnect]);
 	// PUBLIC INTERFACE
 	return {
 		// STATE (read-only)
