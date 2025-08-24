@@ -561,28 +561,7 @@
   transform: translateY(-2px);
 }
 
-.actions-redesign .animated-btn {
-  min-width: 120px;
-  border: 0;
-  margin: 0;
-  padding: 1rem 1.2rem;
-  text-align: center;
-  justify-content: center;
-  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-  border-radius: calc(var(--radius-md) - 2px);
-  background: 
-    linear-gradient(145deg, 
-      rgba(255, 255, 255, 0.04) 0%, 
-      var(--section-bg) 30%, 
-      rgba(0, 0, 0, 0.08) 100%
-    );
-  backdrop-filter: blur(15px);
-  position: relative;
-  overflow: hidden;
-  box-shadow: 
-    0 4px 12px rgba(0, 0, 0, 0.15),
-    0 0 0 1px rgba(255, 255, 255, 0.05);
-}
+
 
 .actions-redesign .animated-btn:hover {
   transform: translateY(-3px) scale(1.03);
