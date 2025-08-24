@@ -1,4 +1,4 @@
-import { CvData } from '@/types/cvData';
+
 import { ApiService } from './ApiService';
 
 export const downloadCV = async (): Promise<void> => {

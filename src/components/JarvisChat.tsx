@@ -11,8 +11,9 @@ import DecrpytingText from './MatrixText';
 
 const JarvisChat: React.FC = () => {
 	const [inputMessage, setInputMessage] = useState('');
+	const [inputHeight, setInputHeight] = useState(44);
 
-	// WEBSOCKET HOOK - Single source of truth
+
 	const {
 		messages,
 		connectionState,
@@ -25,18 +26,44 @@ const JarvisChat: React.FC = () => {
 		disconnect,
 	} = useJarvisWebSocket();
 
-	// UI REFS
+
 	const messagesEndRef = useRef<HTMLDivElement>(null);
 	const inputRef = useRef<HTMLTextAreaElement>(null);
 	const terminalContainerRef = useRef<HTMLDivElement>(null);
 	const chatWrapperRef = useRef<HTMLDivElement>(null);
 
-	// AUTO-SCROLL
+
+	const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+		const value = e.target.value;
+		setInputMessage(value);
+
+	
+		const textarea = e.target;
+		textarea.style.height = 'auto'; 
+		const newHeight = Math.min(Math.max(textarea.scrollHeight, 44), 200); 
+		textarea.style.height = `${newHeight}px`;
+		setInputHeight(newHeight);
+
+
+		if (terminalContainerRef.current) {
+			const inputAreaHeight = newHeight + 32; 
+			terminalContainerRef.current.style.paddingBottom = `${inputAreaHeight}px`;
+		}
+	};
+
+
 	useEffect(() => {
-		messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+	
+		const timer = setTimeout(() => {
+			messagesEndRef.current?.scrollIntoView({
+				behavior: 'smooth',
+				block: 'end',
+			});
+		}, 100);
+		return () => clearTimeout(timer);
 	}, [messages]);
 
-	// WHEEL SCROLL HANDLING (il tuo codice esistente)
+
 	useEffect(() => {
 		const chatWrapper = chatWrapperRef.current;
 		const terminalContainer = terminalContainerRef.current;
@@ -68,94 +95,110 @@ const JarvisChat: React.FC = () => {
 		};
 	}, []);
 
-	// MESSAGE SENDING (semplificato!)
+	
 	const sendMessage = async () => {
 		if (!inputMessage.trim() || isThinking || !isConnected) return;
 
 		const success = sendWebSocketMessage(inputMessage.trim());
 
 		if (success) {
-			setInputMessage(''); // Clear input only on successful send
+			setInputMessage('');
+			
+			if (inputRef.current) {
+				inputRef.current.style.height = '44px';
+				setInputHeight(44);
+				
+				if (terminalContainerRef.current) {
+					terminalContainerRef.current.style.paddingBottom = '80px';
+				}
+			}
 		}
 	};
 
-	// KEYBOARD HANDLING
-	const handleKeyPress = (e: React.KeyboardEvent) => {
+	
+	const handleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
 		if (e.key === 'Enter' && !e.shiftKey) {
 			e.preventDefault();
 			sendMessage();
 		}
 	};
+
 	useEffect(() => {
 		return () => {
-			disconnect(); // chiude solo la connessione WebSocket
+			disconnect(); 
 		};
 	}, [disconnect]);
-	// CONNECTION STATUS DISPLAY
+
+	
 	const getConnectionStatus = () => {
-		switch (connectionState) {
-			case 'connected':
-				return <span className="text-green-500">🟢 Connected to JARVIS</span>;
-			case 'connecting':
-				return (
-					<span className="text-yellow-500">🟡 Connecting to JARVIS...</span>
-				);
-			case 'error':
-				return <span className="text-red-500">🔴 Connection Error</span>;
-			case 'disconnected':
-				return <span className="text-red-500">🔴 Disconnected</span>;
-			default:
-				return <span className="text-gray-500">⚪ Unknown Status</span>;
-		}
+		const statusConfig = {
+			connected: {
+				text: 'CONNECTED TO JARVIS',
+				className: 'connected',
+			},
+			connecting: {
+				text: 'CONNECTING TO JARVIS...',
+				className: 'connecting',
+			},
+			error: {
+				text: 'CONNECTION ERROR',
+				className: 'error',
+			},
+			disconnected: {
+				text: 'DISCONNECTED',
+				className: 'disconnected',
+			},
+		};
+
+		const config = statusConfig[connectionState] || statusConfig.disconnected;
+
+		return (
+			<div className="status-left">
+				<div className={`connection-indicator ${config.className}`}></div>
+				<span className={`status-text ${config.className}`}>{config.text}</span>
+			</div>
+		);
 	};
 
 	return (
 		<div
 			className="jarvis-chat"
 			ref={chatWrapperRef}>
-			{/* CONNECTION STATUS BAR */}
-			<div
-				className="connection-status-bar"
-				style={{
-					padding: '8px 16px',
-					borderBottom: '1px solid #333',
-					fontSize: '12px',
-					display: 'flex',
-					justifyContent: 'space-between',
-				}}>
-				<div>{getConnectionStatus()}</div>
-				{sessionId && (
-					<div className="text-gray-400">
-						Session: {sessionId.substring(sessionId.length - 8)}
-					</div>
-				)}
+			
+			<div className="connection-status-bar">
+				{getConnectionStatus()}
+				<div className="status-right">
+					{sessionId && (
+						<div className="session-info">
+							SESSION: {sessionId.substring(sessionId.length - 8).toUpperCase()}
+						</div>
+					)}
+				</div>
 			</div>
+
 
 			<div
 				className="terminal-container"
 				ref={terminalContainerRef}
 				style={{
-					overflowY: 'auto',
-					overflowX: 'hidden',
-					height: '100%',
-					position: 'relative',
+					paddingBottom: `${inputHeight + 36}px`,
 				}}>
 				<AnimatePresence>
 					{messages.map((message) => (
 						<motion.div
 							key={message.id}
 							className="terminal-line"
-							initial={{ opacity: 0 }}
-							animate={{ opacity: 1 }}
-							exit={{ opacity: 0 }}>
+							initial={{ opacity: 0, y: 10 }}
+							animate={{ opacity: 1, y: 0 }}
+							exit={{ opacity: 0, y: -10 }}>
 							{message.sender === 'user' ? (
-								// USER MESSAGE
+								
 								<div className="user-command">
 									<span className="prompt user-prompt">user@portfolio:~$</span>
 									<span className="command-text">{message.content}</span>
 								</div>
 							) : (
-								// JARVIS/SYSTEM MESSAGE
+								
 								<div className="jarvis-response">
 									<span className="prompt jarvis-prompt">
 										{message.sender === 'system'
@@ -176,20 +219,6 @@ const JarvisChat: React.FC = () => {
 										) : (
 											message.content
 										)}
-
-										{/* DEBUG INFO (optional) */}
-										{message.contextUsed !== undefined && (
-											<div
-												className="debug-info"
-												style={{
-													fontSize: '10px',
-													color: '#666',
-													marginTop: '4px',
-												}}>
-												Context: {message.contextUsed} | RAG:{' '}
-												{message.ragEnabled ? 'ON' : 'OFF'}
-											</div>
-										)}
 									</span>
 								</div>
 							)}
@@ -197,7 +226,7 @@ const JarvisChat: React.FC = () => {
 					))}
 				</AnimatePresence>
 
-				{/* THINKING INDICATOR */}
+				
 				{isThinking && (
 					<motion.div
 						className="terminal-line processing-line"
@@ -211,25 +240,28 @@ const JarvisChat: React.FC = () => {
 				<div ref={messagesEndRef} />
 			</div>
 
-			{/* TERMINAL INPUT */}
+		
 			<div className="terminal-input">
-				<span className="input-prompt">user@portfolio:~$</span>
-				<textarea
-					ref={inputRef}
-					value={inputMessage}
-					onChange={(e) => setInputMessage(e.target.value)}
-					onKeyPress={handleKeyPress}
-					placeholder={isConnected ? 'Type your command...' : 'Connecting...'}
-					rows={1}
-					className="terminal-textarea"
-					disabled={!isConnected || isThinking}
-				/>
-				<button
-					onClick={sendMessage}
-					disabled={!inputMessage.trim() || !isConnected || isThinking}
-					className="terminal-send-btn">
-					↵
-				</button>
+				<div className="input-container">
+					<span className="input-prompt">user@portfolio:~$</span>
+					<textarea
+						ref={inputRef}
+						value={inputMessage}
+						onChange={handleInputChange}
+						onKeyDown={handleKeyPress}
+						placeholder={isConnected ? 'Type your message...' : 'Connecting...'}
+						className="terminal-textarea"
+						disabled={!isConnected || isThinking}
+						rows={1}
+						style={{ height: `${inputHeight}px` }}
+					/>
+					<button
+						onClick={sendMessage}
+						disabled={!inputMessage.trim() || !isConnected || isThinking}
+						className="terminal-send-btn">
+						↵
+					</button>
+				</div>
 			</div>
 		</div>
 	);

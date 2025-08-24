@@ -13,7 +13,7 @@
 
 }
 
-/* 🎛️ Header Semplificato */
+
 .jarvis-nav {
   top: 0;
   left: 0;
@@ -22,7 +22,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0;
+  padding: 2rem 1rem;
   background: transparent;
   height: 70px;
   box-sizing: border-box;
@@ -53,9 +53,7 @@
   font-weight: 800;
   margin: 0;
   background: var(--hero-final-bg);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+
   text-shadow: 0 0 10px rgba(174, 173, 173, 0.5);
 }
 
@@ -67,12 +65,12 @@
   text-align: center;
 }
 
-/* NASCONDI I BOTTONI DI MODALITÀ */
+
 .nav-controls {
   display: none;
 }
 
-/* 🌟 Main Container - LAYOUT FISSO SIDE-BY-SIDE */
+
 .jarvis-container {
   position: relative;
   width: 100%;
@@ -82,7 +80,7 @@
   overflow: hidden;
 }
 
-/* 🌐 Sphere Section - SINISTRA FISSA */
+
 .sphere-section {
   width: 50%;
   height: calc(100% - 70px);
@@ -121,17 +119,17 @@
   box-shadow: none;
 }
 
-/* NASCONDI HEADER CHAT */
+
 .chat-header {
   display: none;
 }
 
-/* NASCONDI UPLOAD PANEL */
+
 .upload-panel {
   display: none;
 }
 
-/* 💬 Messages - AREA PRINCIPALE */
+
 .messages-container {
   flex: 1;
   padding: 2rem;
@@ -159,7 +157,7 @@
   background: rgba(0, 100, 255, 0.5);
 }
 
-/* 💬 Message Bubbles */
+
 .message {
   display: flex;
   max-width: 85%;
@@ -224,7 +222,7 @@
   font-weight: 500;
 }
 
-/* ⏳ Typing indicator */
+
 .typing-indicator {
   display: flex;
   gap: 4px;
@@ -248,7 +246,6 @@
   animation-delay: 0.4s;
 }
 
-/* 📝 Input Area - MINIMAL E CLEAN */
 .chat-input {
   display: flex;
   align-items: flex-end;
@@ -312,13 +309,13 @@
 }
 
 
-/* NASCONDI TUTTO IL RESTO */
+
 .transition-overlay,
 .jarvis-status {
   display: none;
 }
 
-/* 🎭 Animations */
+
 @keyframes typing {
   0%, 60%, 100% { transform: translateY(0); }
   30% { transform: translateY(-10px); }
@@ -337,7 +334,7 @@
 
 
 
-/* 📱 Responsive Design */
+
 @media (max-width: 1024px) {
   .jarvis-container {
     flex-direction: column;
