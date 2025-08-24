@@ -553,7 +553,13 @@
     transform: scale(1.2);
   }
 }
-
+.actions-redesign .btn-hub:hover {
+  background-color: var(--color-primary);
+  color: var(--color-bg-secondary);
+  border-radius: 0px 20px 0px 0px;
+  box-shadow: 0 0 5px var(--color-primary-hover);
+  transform: translateY(-2px);
+}
 
 .actions-redesign .animated-btn {
   min-width: 120px;
