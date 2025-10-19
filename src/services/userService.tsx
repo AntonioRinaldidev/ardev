@@ -16,6 +16,7 @@ export const sendContactFormAsync = async (data: {
 	subject: string;
 	message: string;
 }): Promise<BaseResponseDTO> => {
+	console.log(process.env.NEXT_PUBLIC_API_SEND_EMAIL_ENDPOINT)
 	return (
 		await postRequest(
 			process.env.NEXT_PUBLIC_API_SEND_EMAIL_ENDPOINT || '',
