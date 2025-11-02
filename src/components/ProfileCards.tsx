@@ -10,254 +10,279 @@ import { downloadCV } from '@/services/fileService';
 import ModalDownload from './ModalDownload';
 import ThemeSwitcher from './ThemeSwitcher';
 import {
-	FaMapPin,
-	FaUser,
-	FaEnvelope,
-	FaFileArrowDown,
-	FaHeart,
-	FaRocketchat,
+    FaMapPin,
+    FaUser,
+    FaEnvelope,
+    FaFileArrowDown,
+    FaHeart,
+    FaRocketchat,
 } from 'react-icons/fa6';
-import { useAppSelector } from '@/store/hooks';
+// import { useAppSelector } from '@/store/hooks'; // NOTE: This hook is imported but not used.
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 interface ProfileCardProps {
-	fullName: string;
+    fullName: string;
 }
 
 const ProfileCard: React.FC<ProfileCardProps> = ({ fullName }) => {
-	const [currentSkill, setCurrentSkill] = useState('React');
-	const [isDownloading, setIsDownloading] = useState(false);
-	const [showModal, setShowModal] = useState(false);
-	const [downloadComplete, setDownloadComplete] = useState(false);
+    const isMobile = useIsMobile(768);
+    const [currentSkill, setCurrentSkill] = useState('React');
+    const [isDownloading, setIsDownloading] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+    const [downloadComplete, setDownloadComplete] = useState(false);
 
-	const router = useRouter();
+    const router = useRouter();
 
-	const skills = ['React', 'Node.js', 'TypeScript', 'Next.js', 'React Native'];
+    const skills = ['React', 'Node.js', 'TypeScript', 'Next.js', 'React Native'];
 
-	useEffect(() => {
-		setShowModal(false);
-	}, []);
+    // useEffect to close modal on component mount (seems intentional but unusual for a modal)
+    useEffect(() => {
+        setShowModal(false);
+    }, []);
 
-	const handlePressCV = async () => {
-		setShowModal(true);
-		setIsDownloading(true);
-		setDownloadComplete(false);
+    const handlePressCV = async () => {
+        setShowModal(true);
+        setIsDownloading(true);
+        setDownloadComplete(false);
 
-		try {
-			await downloadCV();
-			setIsDownloading(false);
-			setDownloadComplete(true);
-			setTimeout(() => setShowModal(false), 2000);
-		} catch (err) {
-			console.error('Errore durante il download', err);
-			setIsDownloading(false);
-			setDownloadComplete(false);
-			setShowModal(false);
-		}
-	};
+        try {
+            await downloadCV();
+            setIsDownloading(false);
+            setDownloadComplete(true);
+            setTimeout(() => setShowModal(false), 2000);
+        } catch (err) {
+            console.error('Errore durante il download', err);
+            setIsDownloading(false);
+            setDownloadComplete(false);
+            setShowModal(false);
+        }
+    };
 
-	useEffect(() => {
-		const skillInterval = setInterval(() => {
-			setCurrentSkill((prev) => {
-				const currentIndex = skills.indexOf(prev);
-				return skills[(currentIndex + 1) % skills.length];
-			});
-		}, 3500);
+    // useEffect for cycling skills text
+    useEffect(() => {
+        const skillInterval = setInterval(() => {
+            setCurrentSkill((prev) => {
+                const currentIndex = skills.indexOf(prev);
+                return skills[(currentIndex + 1) % skills.length];
+            });
+        }, 3500);
 
-		return () => {
-			clearInterval(skillInterval);
-		};
-	}, []);
+        return () => {
+            clearInterval(skillInterval);
+        };
+    }, []);
 
-	const handlePressHire = () => {
-		router.push('/aboutMe');
-	};
+    const handlePressHire = () => {
+        router.push('/aboutMe');
+    };
 
-	const handleContact = () => {
-		router.push('/contact');
-	};
+    const handleContact = () => {
+        router.push('/contact');
+    };
 
-	const handleJarvis = () => {
-		router.push('/jarvis');
-	};
+    const handleJarvis = () => {
+        router.push('/jarvis');
+    };
 
-	return (
-		<>
-			<div className="profile-card">
-				{/* Main Content Section */}
-				<TextFade
-					direction="down"
-					className="col1 pt-0 pb-2 flex-col flex justify-center items-center space-y-0">
-					{/* Hero Avatar Section */}
-					<motion.div
-						className="profile-avatar-section"
-						initial={{ opacity: 0, scale: 0.5, rotate: -180 }}
-						animate={{ opacity: 1, scale: 1, rotate: 0 }}
-						transition={{ duration: 1.2, ease: 'backOut' }}>
-						<div className="profile-avatar-redesign">
-							<div className="avatar-glow-redesign"></div>
-							<div className="avatar-content-redesign">
-								<span className="avatar-initials-redesign">
-									{fullName
-										.split(' ')
-										.map((n) => n[0])
-										.join('')}
-								</span>
-							</div>
-							<div className="avatar-ring-redesign"></div>
-						</div>
-					</motion.div>
+    // Helper function to render the main action buttons
+    const renderPrimaryActions = () => (
+        <div className="primary-actions-redesign">
+            <AnimatedButton
+                text="About Me"
+                variant="hub"
+                icon={<FaUser />}
+                onClick={handlePressHire}
+            />
+            <AnimatedButton
+                text="Contact"
+                variant="hub"
+                icon={<FaEnvelope />}
+                onClick={handleContact}
+            />
+            <AnimatedButton
+                text="Jarvis"
+                variant="hub"
+                icon={<FaRocketchat />}
+                onClick={handleJarvis}
+            />
+        </div>
+    );
 
-					{/* Main Identity */}
-					<motion.div
-						className="profile-card-top"
-						initial={{ opacity: 0, y: 0 }}
-						animate={{ opacity: 1, y: -30 }}
-						transition={{ duration: 0.6, ease: 'easeOut' }}>
-						<motion.h1
-							className="heading profile-wave-title-redesign"
-							initial={{ opacity: 0, y: 20 }}
-							animate={{ opacity: 1, y: 0 }}
-							transition={{ duration: 1, ease: 'easeOut' }}>
-							Hi there
-							<motion.span
-								className="profile-wave-letter"
-								initial={{ y: -20, opacity: 1 }}
-								animate={{ y: [0, -10, 0, 0, 0], opacity: 1 }}
-								transition={{
-									delay: 0.5,
-									duration: 1,
-									repeat: Infinity,
-									ease: 'easeInOut',
-								}}>
-								!
-							</motion.span>
-						</motion.h1>
+    // Helper function to render the secondary action (Resume)
+    const renderSecondaryAction = () => (
+        <div className="secondary-actions-redesign">
+            <AnimatedButton
+                text="Resume"
+                icon={<FaFileArrowDown />}
+                variant="hub"
+                onClick={handlePressCV}
+            />
+        </div>
+    );
 
-						<div className="profile-info-redesign">
-							<h2 className="profile-name-redesign">{fullName}</h2>
-							<div className="profile-role-redesign">
-								<span className="role-static">
-									Computer Engineering Student &{' '}
-								</span>
-								<motion.span
-									className="role-dynamic"
-									initial={{ opacity: 0, y: 20, scale: 0.8 }}
-									animate={{ opacity: 1, y: 0, scale: 1 }}
-									exit={{ opacity: 0, y: -20, scale: 0.8 }}
-									transition={{ duration: 0.6 }}>
-									Full-Stack
-								</motion.span>
-								<span className="role-static"> Developer</span>
-							</div>
-						</div>
+    return (
+        <>
+            <div className="profile-card">
+                {/* Main Content Section (col1) */}
+                <TextFade
+                    direction="down"
+                    className="col1 pt-0 pb-2 flex-col flex justify-center items-center space-y-0">
+                    {/* Hero Avatar Section */}
+                    <motion.div
+                        className="profile-avatar-section"
+                        initial={{ opacity: 0, scale: 0.5, rotate: -180 }}
+                        animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                        transition={{ duration: 1.2, ease: 'backOut' }}>
+                        <div className="profile-avatar-redesign">
+                            <div className="avatar-glow-redesign"></div>
+                            <div className="avatar-content-redesign">
+                                <span className="avatar-initials-redesign">
+                                    {fullName
+                                        .split(' ')
+                                        .map((n) => n[0])
+                                        .join('')}
+                                </span>
+                            </div>
+                            <div className="avatar-ring-redesign"></div>
+                        </div>
+                    </motion.div>
 
-						{/* Skills Display */}
-						<div className="skills-display">
-							<span className="skills-label">Specialized in </span>
-							<motion.span
-								key={currentSkill}
-								className="current-skill-highlight"
-								initial={{ opacity: 0, rotateX: 90 }}
-								animate={{ opacity: 1, rotateX: 0 }}
-								exit={{ opacity: 0, rotateX: -90 }}
-								transition={{ duration: 0.5 }}>
-								{currentSkill}
-							</motion.span>
-						</div>
-					</motion.div>
+                    {/* Main Identity */}
+                    <motion.div
+                        className="profile-card-top"
+                        initial={{ opacity: 0, y: 0 }}
+                        animate={{ opacity: 1, y: -30 }}
+                        transition={{ duration: 0.6, ease: 'easeOut' }}>
+                        <motion.h1
+                            className="heading profile-wave-title-redesign"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 1, ease: 'easeOut' }}>
+                            Hi there
+                            <motion.span
+                                className="profile-wave-letter"
+                                initial={{ y: -20, opacity: 1 }}
+                                animate={{ y: [0, -10, 0, 0, 0], opacity: 1 }}
+                                transition={{
+                                    delay: 0.5,
+                                    duration: 1,
+                                    repeat: Infinity,
+                                    ease: 'easeInOut',
+                                }}>
+                                !
+                            </motion.span>
+                        </motion.h1>
 
-					{/* Bottom Status Section */}
-					<motion.div
-						className="profile-card-bottom"
-						initial={{ opacity: 0, y: 0 }}
-						animate={{ opacity: 1, y: 50 }}
-						transition={{ duration: 1, ease: 'easeOut' }}>
-						<div className="location-redesign">
-							<FaMapPin className="location-icon" />
-							<span>Based In Italy</span>
-							<div className="status-indicator-redesign"></div>
-							<span className="status-text">Available for projects</span>
-						</div>
+                        <div className="profile-info-redesign">
+                            <h2 className="profile-name-redesign">{fullName}</h2>
+                            <div className="profile-role-redesign">
+                                <span className="role-static">
+                                    Computer Engineering Student &{' '}
+                                </span>
+                                <motion.span
+                                    className="role-dynamic"
+                                    key={currentSkill + 'role'} // Use key to trigger re-animation if needed, though skill update covers it
+                                    initial={{ opacity: 0, y: 20, scale: 0.8 }}
+                                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                                    exit={{ opacity: 0, y: -20, scale: 0.8 }}
+                                    transition={{ duration: 0.6 }}>
+                                    Full-Stack
+                                </motion.span>
+                                <span className="role-static"> Developer</span>
+                            </div>
+                        </div>
 
-						<TextFade
-							direction="down"
-							className="hero-description">
-							<p className="text-paragraph-redesign">
-								Welcome to my portfolio! Crafting elegant interfaces with clean
-								code and exceptional user experiences.
-							</p>
-						</TextFade>
-					</motion.div>
-				</TextFade>
+                        {/* Skills Display */}
+                        <div className="skills-display">
+                            <span className="skills-label">Specialized in </span>
+                            <motion.span
+                                key={currentSkill}
+                                className="current-skill-highlight"
+                                initial={{ opacity: 0, rotateX: 90 }}
+                                animate={{ opacity: 1, rotateX: 0 }}
+                                exit={{ opacity: 0, rotateX: -90 }}
+                                transition={{ duration: 0.5 }}>
+                                {currentSkill}
+                            </motion.span>
+                        </div>
+                    </motion.div>
 
-				{/* Action Panel - mantiene la struttura originale */}
-				<div className="col2">
-					<div className="profile-card-actions-redesign">
-						<motion.div
-							className="actions-redesign"
-							initial={{ opacity: 0, x: 300 }}
-							animate={{ opacity: 1, x: 0 }}
-							transition={{ duration: 1, ease: 'easeOut' }}>
-							<div className="actions-header">
-								<h3 className="actions-title">Let&apos;s Connect</h3>
-								<p className="actions-subtitle">
-									Ready to build something amazing?
-								</p>
-							</div>
+                    {/* Bottom Status Section */}
+                    <motion.div
+                        className="profile-card-bottom"
+                        initial={{ opacity: 0, y: 0 }}
+                        animate={{ opacity: 1, y: 50 }}
+                        transition={{ duration: 1, ease: 'easeOut' }}>
+                        <div className="location-redesign">
+                            <FaMapPin className="location-icon" />
+                            <span>Based In Italy</span>
+                            <div className="status-indicator-redesign"></div>
+                            <span className="status-text">Available for projects</span>
+                        </div>
 
-							<div className="primary-actions-redesign">
-								<AnimatedButton
-									text="About Me"
-									variant="hub"
-									icon={<FaUser />}
-									onClick={handlePressHire}
-								/>
-								<AnimatedButton
-									text="Contact"
-									variant="hub"
-									icon={<FaEnvelope />}
-									onClick={handleContact}
-								/>
-								<AnimatedButton
-									text="Jarvis"
-									variant="hub"
-									icon={<FaRocketchat />}
-									onClick={handleJarvis}
-								/>
-							</div>
+                        <TextFade
+                            direction="down"
+                            className="hero-description">
+                            <p className="text-paragraph-redesign">
+                                Welcome to my portfolio! Crafting elegant interfaces with clean
+                                code and exceptional user experiences.
+                            </p>
+                        </TextFade>
+                    </motion.div>
+                </TextFade>
 
-							<div className="secondary-actions-redesign">
-								<AnimatedButton
-									text="Resume"
-									icon={<FaFileArrowDown />}
-									variant="hub"
-									onClick={handlePressCV}
-								/>
-							</div>
+                {/* Action Panel (col2) */}
+                <div className="col2">
+                    <div className="profile-card-actions-redesign">
+                        <motion.div
+                            className="actions-redesign"
+                            initial={{ opacity: 0, x: 300 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 1, ease: 'easeOut' }}>
+                            <div className="actions-header">
+                                <h3 className="actions-title">Let&apos;s Connect</h3>
+                                <p className="actions-subtitle">
+                                    Ready to build something amazing?
+                                </p>
+                            </div>
 
-							<div className="actions-footer">
-								<div className="footer-message">
-									<FaHeart className="heart-icon" />
-									<span>Crafted with passion and pizza</span>
-								</div>
-							</div>
-							<div className="theme-switcher-container">
-								<ThemeSwitcher />
-							</div>
-						</motion.div>
-					</div>
-				</div>
-			</div>
+                            {/* Conditional Rendering of Buttons for Mobile/Desktop */}
+                            {isMobile ? (
+                                <div className="primary-actions-redesign">
+                                    {renderPrimaryActions().props.children}
+                                    {renderSecondaryAction().props.children}
+                                </div>
+                            ) : (
+                                <>
+                                    {renderPrimaryActions()}
+                                    {renderSecondaryAction()}
+                                </>
+                            )}
+                            {/* NOTE: Removed the duplicated button rendering blocks below this. */}
 
-			{showModal && (
-				<ModalDownload
-					isOpen={showModal}
-					isDownloading={isDownloading}
-					downloadComplete={downloadComplete}
-				/>
-			)}
-		</>
-	);
+                            <div className="actions-footer">
+                                <div className="footer-message">
+                                    <FaHeart className="heart-icon" />
+                                    <span>Crafted with passion and pizza</span>
+                                </div>
+                            </div>
+                            <div className="theme-switcher-container">
+                                <ThemeSwitcher />
+                            </div>
+                        </motion.div>
+                    </div>
+                </div>
+            </div>
+
+            {showModal && (
+                <ModalDownload
+                    isOpen={showModal}
+                    isDownloading={isDownloading}
+                    downloadComplete={downloadComplete}
+                />
+            )}
+        </>
+    );
 };
 
 export default ProfileCard;

@@ -178,6 +178,13 @@ const WelcomeHeroUnified: React.FC = () => {
 		return () => clearTimeout(timer);
 	}, []);
 
+	// Auto-hide welcome on mobile
+	useEffect(() => {
+		if (isMobile && isWelcomeVisible) {
+			dispatch(hideWelcome());
+		}
+	}, [isMobile, isWelcomeVisible, dispatch]);
+
 	// Drag handler
 	const handleDragEnd = useCallback(
 		(event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
@@ -216,7 +223,7 @@ const WelcomeHeroUnified: React.FC = () => {
 				<Hero />
 			</motion.div>
 
-			{isWelcomeVisible && (
+			{isWelcomeVisible && !isMobile && (
 				<div
 					ref={containerRef}
 					className={`welcome-overlay ${
@@ -225,8 +232,7 @@ const WelcomeHeroUnified: React.FC = () => {
 							: `welcome-container-scroll ${isScrollable ? 'scrollable' : ''}`
 					}`}>
 					{/* Desktop container */}
-					{!isMobile && (
-						<div className="desktop-scroll-container">
+					<div className="desktop-scroll-container">
 							<motion.div
 								className="welcome-content"
 								style={{
@@ -349,143 +355,7 @@ const WelcomeHeroUnified: React.FC = () => {
 								</motion.div>
 							</motion.div>
 						</div>
-					)}
 
-					{/* Mobile container */}
-					{isMobile && (
-						<motion.div
-							className="welcome-content mobile-welcome"
-							drag={isScrollable ? 'y' : false}
-							dragConstraints={{ top: -maxDrag, bottom: 0 }}
-							dragElastic={0.05}
-							dragMomentum={true}
-							onDragEnd={handleDragEnd}
-							style={{
-								opacity: containerOpacity,
-								y: springY,
-								willChange: 'transform',
-							}}
-							transition={{
-								type: 'spring',
-								...springConfig,
-							}}>
-							<div className="mobile-single-column">
-								<div className="welcome-avatar">
-									<motion.div
-										className="avatar-circle"
-										initial={{ scale: 0, rotate: -180 }}
-										animate={{ scale: 1, rotate: 0 }}
-										transition={{
-											duration: 1.2,
-											delay: 0.4,
-											type: 'spring',
-											stiffness: 120,
-										}}>
-										<span className="avatar-initials">AR</span>
-									</motion.div>
-								</div>
-
-								<motion.h1
-									className="welcome-title"
-									initial={{ opacity: 0, y: 30 }}
-									animate={{ opacity: 1, y: 0 }}
-									transition={{
-										duration: 1,
-										delay: 0.8,
-										ease: [0.25, 0.46, 0.45, 0.94],
-									}}>
-									Welcome to My Portfolio
-								</motion.h1>
-
-								<motion.p
-									className="welcome-subtitle"
-									initial={{ opacity: 0 }}
-									animate={{ opacity: 1 }}
-									transition={{
-										delay: 1.2,
-										duration: 0.8,
-									}}>
-									Antonio Rinaldi • Full Stack Developer
-								</motion.p>
-
-								<div className="welcome-descriptions">
-									{descriptions.map((desc, index) => (
-										<motion.p
-											key={index}
-											className="welcome-description"
-											initial={{ opacity: 0, y: 20 }}
-											animate={{ opacity: 1, y: 0 }}
-											transition={{
-												delay: 1.6 + index * 0.2,
-												duration: 0.7,
-												ease: 'easeOut',
-											}}>
-											{desc}
-										</motion.p>
-									))}
-
-									<motion.div
-										className="welcome-cta"
-										initial={{ opacity: 0, scale: 0.9 }}
-										animate={{ opacity: 1, scale: 1 }}
-										transition={{
-											delay: 2.8,
-											duration: 0.6,
-											type: 'spring',
-										}}>
-										<div className="scroll-indicator">
-											<span>Swipe to Continue</span>
-											<motion.div
-												className="scroll-arrow"
-												animate={{ y: [0, -8, 0] }}
-												transition={{
-													duration: 1.8,
-													repeat: Infinity,
-													ease: 'easeInOut',
-												}}>
-												↑
-											</motion.div>
-										</div>
-									</motion.div>
-								</div>
-
-								<motion.div
-									className="quick-stats"
-									initial={{ opacity: 0, y: 20 }}
-									animate={{ opacity: 1, y: 0 }}
-									transition={{
-										delay: 2.4,
-										duration: 1,
-										ease: 'easeOut',
-									}}>
-									<div className="stat">
-										<span className="stat-number">1+</span>
-										<span className="stat-label">Years Experience</span>
-									</div>
-									<div className="stat">
-										<span className="stat-number">2+</span>
-										<span className="stat-label">Projects</span>
-									</div>
-									<div className="stat">
-										<span className="stat-number">10+</span>
-										<span className="stat-label">Technologies</span>
-									</div>
-								</motion.div>
-							</div>
-						</motion.div>
-					)}
-
-					{/* Progress indicator */}
-					{isScrollable && (
-						<div className="progress-container">
-							<motion.div
-								className="scroll-progress"
-								style={{
-									scaleX: progressScale,
-								}}
-							/>
-						</div>
-					)}
 				</div>
 			)}
 		</div>
