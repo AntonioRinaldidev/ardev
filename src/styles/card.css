@@ -1,0 +1,40 @@
+.card {
+    width: 90%;
+    max-width: var(--container-width); 
+    height:80dvh;
+    min-height: 600px;
+
+    text-align: center;
+    display: flex;
+    margin: auto;
+    flex-wrap: wrap;
+    
+    position: relative;
+    z-index: var(--z-normal);
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    width: 120%;
+    height: 140%;
+    background: 
+        radial-gradient(ellipse 60% 80% at 30% 40%, var(--shadow-blu) 0%, transparent 40%),
+        radial-gradient(ellipse 70% 90% at 70% 60%, var(--shadow) 0%, transparent 35%),
+        radial-gradient(circle at 45% 85%, var(--color-primary) 0%, transparent 25%);
+    opacity: 0.08;
+    pointer-events: none;
+    z-index: -1;
+    animation: atmosphericFloat 15s ease-in-out infinite alternate;
+}
+
+@keyframes atmosphericFloat {
+    0% { 
+        transform: translate(0, 0) scale(1) rotate(0deg);
+        opacity: 0.06;
+    }
+    100% { 
+        transform: translate(15px, -8px) scale(1.08) rotate(1deg);
+        opacity: 0.12;
+    }
+}

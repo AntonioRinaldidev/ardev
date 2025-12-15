@@ -8,15 +8,15 @@
   opacity: 1 !important;
   position: relative;
   background-color: transparent;
-  padding: auto;
+  
 }
 
 .hero-container-centered {
-  width: 100%;
-  min-width: 1800px;
+  min-width: 80%;
+  height: 100dvh;
+  display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+ 
   gap: 1rem;
 }
 

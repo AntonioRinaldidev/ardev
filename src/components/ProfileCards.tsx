@@ -19,6 +19,7 @@ import {
 } from 'react-icons/fa6';
 // import { useAppSelector } from '@/store/hooks'; // NOTE: This hook is imported but not used.
 import { useIsMobile } from '@/hooks/useIsMobile';
+import Card from './Card';
 
 interface ProfileCardProps {
     fullName: string;
@@ -122,7 +123,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ fullName }) => {
 
     return (
         <>
-            <div className="profile-card">
+            <Card>
                 {/* Main Content Section (col1) */}
                 <TextFade
                     direction="down"
@@ -272,7 +273,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ fullName }) => {
                         </motion.div>
                     </div>
                 </div>
-            </div>
+            </Card>
 
             {showModal && (
                 <ModalDownload
