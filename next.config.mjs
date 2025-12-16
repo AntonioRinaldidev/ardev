@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
 
-
+// Definisci gli header di sicurezza
 const cspHeader = `
-	connect-src 'self' wss://antoniorinaldidev.com https://antoniorinaldidev.com/backend-api;
+    connect-src 'self' wss://antoniorinaldidev.com https://antoniorinaldidev.com/backend-api;
     default-src 'self';
     script-src 'self' 'unsafe-eval' 'unsafe-inline' https://apis.google.com https://www.google-analytics.com;
     style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
@@ -14,21 +14,26 @@ const cspHeader = `
     frame-ancestors 'none';
     block-all-mixed-content;
     upgrade-insecure-requests;
-`
+`;
 
 const nextConfig = {
     output: "standalone",
     reactStrictMode: false,
-    
-   
+
     async headers() {
+        // SE SIAMO IN SVILUPPO: Non restituire headers di sicurezza stringenti
+        if (process.env.NODE_ENV === 'development') {
+            return [];
+        }
+
+        // SE SIAMO IN PRODUZIONE: Restituisci tutti gli headers di sicurezza
         return [
             {
-                source: '/:path*', 
+                source: '/:path*',
                 headers: [
                     {
                         key: 'Content-Security-Policy',
-                        value: cspHeader.replace(/\n/g, ''), 
+                        value: cspHeader.replace(/\n/g, ''),
                     },
                     {
                         key: 'X-DNS-Prefetch-Control',
@@ -40,11 +45,11 @@ const nextConfig = {
                     },
                     {
                         key: 'X-Frame-Options',
-                        value: 'SAMEORIGIN' 
+                        value: 'SAMEORIGIN'
                     },
                     {
                         key: 'X-Content-Type-Options',
-                        value: 'nosniff' 
+                        value: 'nosniff'
                     },
                     {
                         key: 'Referrer-Policy',
@@ -52,7 +57,7 @@ const nextConfig = {
                     }
                 ],
             },
-        ]
+        ];
     },
 };
 
