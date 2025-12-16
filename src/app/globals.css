@@ -130,7 +130,7 @@ body {
 
 /* Scrollbar personalizzata (Stile Cyberpunk) */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 5px;
 }
 ::-webkit-scrollbar-track {
   background: var(--color-bg-secondary);

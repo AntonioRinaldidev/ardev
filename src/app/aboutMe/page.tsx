@@ -18,6 +18,7 @@ import SocialStats from '@/components/SocialStats';
 import { useRouter } from 'next/navigation';
 import ToggleGroup from '@/components/ToggleGroup';
 import Timeline from '@/components/Timeline';
+import Card from '@/components/Card';
 const experienceData = {
 	centroWellness: {
 		title: 'Frontend React Native & React Developer',
@@ -64,7 +65,7 @@ const AboutMe = () => {
 				/>
 			</div>
 
-			<div className="about-wrapper">
+			<Card>
 				<motion.div
 					className="about-main-content"
 					initial={{ opacity: 0, y: 30 }}
@@ -165,7 +166,7 @@ const AboutMe = () => {
 
 					<SocialStats />
 				</motion.div>
-			</div>
+			</Card>
 		</section>
 	);
 };

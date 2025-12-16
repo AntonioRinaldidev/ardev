@@ -5,7 +5,7 @@ import '@/styles/card.css';
 
 const Card: React.FC<PropsWithChildren> = ({ children}) => {
   return (
-    <div className="card">
+    <div className="card" data-lenis-prevent>
         {children}
     </div>
   );

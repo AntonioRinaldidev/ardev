@@ -8,12 +8,14 @@ import JarvisChat from '@/components/JarvisChat';
 import './JarvisPage.css';
 import AnimatedButton from '@/components/AnimatedButton';
 import { useRouter } from 'next/navigation';
+import { useJarvisWebSocket } from '@/hooks/useJarvisWebSocket';
 
 const JarvisPage: React.FC = () => {
 	const router = useRouter();
+	const jarvis = useJarvisWebSocket();
 
 	return (
-		<div className="jarvis-page">
+		<div className="jarvis-page" data-lenis-prevent>
 			{/* 🎛️ Header Semplificato */}
 			<motion.div
 				className="jarvis-nav"
@@ -44,7 +46,7 @@ const JarvisPage: React.FC = () => {
 					initial={{ opacity: 0, scale: 0 }}
 					animate={{ opacity: 1, scale: 1 }}
 					transition={{ duration: 0.8, delay: 0.2 }}>
-					<SphereAnimation />
+					<SphereAnimation isThinking={jarvis.isThinking} />
 				</motion.div>
 
 				{/* 💬 Chat Section - DESTRA */}
@@ -53,7 +55,7 @@ const JarvisPage: React.FC = () => {
 					initial={{ opacity: 0, x: 50 }}
 					animate={{ opacity: 1, x: 0 }}
 					transition={{ duration: 0.8, delay: 0.4 }}>
-					<JarvisChat />
+					<JarvisChat jarvisData={jarvis}/>
 				</motion.div>
 			</motion.div>
 		</div>

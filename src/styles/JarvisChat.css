@@ -1,156 +1,177 @@
-/* JarvisChat.css - Terminal Design */
-
+/* Container Principale - Stile Vetro Scuro */
 .jarvis-chat {
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  background: var(--color-bg-secondary);
-  font-family: 'Fira Code', 'JetBrains Mono', 'Consolas', 'Monaco', 'Courier New', monospace;
-  border-radius: 20px;
+  height: 100%;
+  min-height: 600px; /* Altezza minima per estetica */
+  background: rgba(23, 26, 38, 0.6); /* Base scura semi-trasparente */
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 
+    0 20px 50px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
   overflow: hidden;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-  border: 1px solid var(--color-primary);
+  font-family: 'Inter', sans-serif; /* Font moderno, non più mono */
+  position: relative;
 }
 
-/* Terminal Container */
-.terminal-container {
-  position: relative;
-  flex: 1;
-  padding: 1rem;
-  overflow-y: auto;
+/* Status Bar in alto */
+.connection-status-bar {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+}
+
+.status-left {
+  display: flex;
+  align-items: center;
   gap: 0.5rem;
-  background: var(--color-bg-secondary);
-    scroll-behavior: smooth;
-  outline: none; /* Rimuove outline quando focused */
-  
-  /* Assicura che catturi gli eventi di scroll */
+}
+
+.connection-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  box-shadow: 0 0 10px currentColor;
+}
+
+.connected { color: var(--color-third); background: var(--color-third); }
+.connecting { color: var(--color-link); background: var(--color-link); }
+.disconnected { color: var(--warning-color); background: var(--warning-color); }
+
+/* Area Messaggi Scrollabile */
+.terminal-container {
+  flex: 1;
+  padding: 1.5rem;
   overflow-y: auto;
   overflow-x: hidden;
-  
-  /* Touch scroll per mobile */
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior: contain;
-}
-
-.terminal-container::-webkit-scrollbar {
-  width: 8px;
-}
-
-.terminal-container::-webkit-scrollbar-thumb {
-  background: var(--color-primary);
-  border-radius: 4px;
-}
-
-.terminal-container::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.2);
-}
-
-/* Terminal Lines */
-.terminal-line {
   display: flex;
   flex-direction: column;
-  margin-bottom: 0.5rem;
-  line-height: 1.4;
-}
-.terminal-container:focus {
-  outline: none;
-}
-.terminal-container * {
-  will-change: transform;
-}
-@media (prefers-reduced-motion: no-preference) {
-  .terminal-container {
-    scroll-behavior: smooth;
-  }
+  gap: 1.5rem;
+  scroll-behavior: smooth;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .terminal-container {
-    scroll-behavior: auto;
-  }
+/* Scrollbar personalizzata invisibile ma funzionale o sottile */
+.terminal-container::-webkit-scrollbar {
+  width: 6px;
 }
-/* User Command */
+.terminal-container::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+.terminal-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Bolle Messaggi Comuni */
+.terminal-line {
+  display: flex;
+  width: 100%;
+  opacity: 0;
+  animation: fadeIn 0.3s forwards;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+/* Messaggio UTENTE (Destra) */
 .user-command {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.5rem;
-  margin-bottom: 0.25rem;
+  align-self: flex-end;
+  margin-left: auto;
+  max-width: 80%;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 100%);
+  color: white;
+  padding: 1rem 1.5rem;
+  border-radius: 20px 20px 4px 20px; /* Angolo appuntito in basso a dx */
+  box-shadow: 0 4px 15px rgba(253, 137, 101, 0.3);
+  font-weight: 500;
+  line-height: 1.5;
+  position: relative;
 }
 
-.user-prompt {
-  color: var(--color-heading);
-  font-weight: 600;
-  white-space: nowrap;
-  user-select: none;
-}
-
-.command-text {
-  color: var(--color-text);
-  word-wrap: break-word;
-  white-space: pre-wrap;
-}
-
-/* JARVIS Response */
+/* Messaggio JARVIS (Sinistra) */
 .jarvis-response {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.5rem;
-  margin-bottom: 0.25rem;
-}
-
-.jarvis-prompt {
-  color: var(--color-link);
-  font-weight: 600;
-  white-space: nowrap;
-  user-select: none;
-}
-
-.response-text {
+  align-self: flex-start;
+  margin-right: auto;
+  max-width: 85%;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-left: 3px solid var(--color-link); /* Accento Blu */
   color: var(--color-text);
-  word-wrap: break-word;
-  white-space: pre-wrap;
-  flex: 1;
+  padding: 1rem 1.5rem;
+  border-radius: 4px 20px 20px 20px; /* Angolo appuntito in alto a sx */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  line-height: 1.6;
+  font-size: 0.95rem;
 }
 
-/* Processing Line */
+/* Effetto Matrix/Testo Jarvis */
+.response-text {
+  font-family: 'Fira Code', monospace; /* Codice solo per Jarvis */
+}
+
+/* Indicatore "Thinking" animato */
 .processing-line {
   display: flex;
   align-items: center;
-  margin: 0.5rem 0;
-}
-
-.processing-text {
-  color: var(--color-primary);
-  font-weight: 600;
-  animation: pulse 1.5s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { 
-    opacity: 1; 
-  }
-  50% { 
-    opacity: 0.4; 
-  }
-}
-
-/* Terminal Input */
-.terminal-input {
-  display: flex;
-  align-items: center;
   gap: 0.5rem;
-  padding: 1rem;
-  background: rgba(0, 0, 0, 0.2);
-  border-top: 1px solid var(--color-primary);
+  padding-left: 1rem;
 }
 
-.input-prompt {
-  color: var(--color-heading);
-  font-weight: 600;
-  white-space: nowrap;
-  user-select: none;
+.thinking-dots {
+  display: flex;
+  gap: 4px;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  background: var(--color-link);
+  border-radius: 50%;
+  animation: bounce 1.4s infinite ease-in-out both;
+}
+
+.dot:nth-child(1) { animation-delay: -0.32s; }
+.dot:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes bounce {
+  0%, 80%, 100% { transform: scale(0); }
+  40% { transform: scale(1); }
+}
+
+/* Area Input (Footer) */
+.terminal-input {
+  padding: 1.5rem;
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.input-container {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.8rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 0.5rem 0.5rem 0.5rem 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.input-container:focus-within {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 15px rgba(253, 137, 101, 0.15);
 }
 
 .terminal-textarea {
@@ -158,82 +179,43 @@
   background: transparent;
   border: none;
   color: var(--color-text);
-  font-family: inherit;
-  font-size: 0.95rem;
+  font-size: 1rem;
+  padding: 0.8rem 0;
   resize: none;
   outline: none;
-  min-height: 24px;
   max-height: 120px;
-  line-height: 1.4;
+  line-height: 1.5;
 }
 
 .terminal-textarea::placeholder {
   color: var(--color-text-secondary);
-  opacity: 0.6;
+  opacity: 0.5;
 }
 
 .terminal-send-btn {
-  background: transparent;
-  border: 1px solid var(--color-primary);
-  color: var(--color-primary);
-  padding: 0.5rem 0.75rem;
-  border-radius: 4px;
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  font-family: inherit;
-  font-weight: 600;
-  transition: all 0.2s ease;
+  transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 0 4px 10px rgba(253, 137, 101, 0.3);
 }
 
 .terminal-send-btn:hover:not(:disabled) {
-  background: var(--color-primary);
-  color: var(--color-bg-secondary);
-  transform: translateY(-1px);
+  transform: translateY(-2px) scale(1.05);
+  background: var(--color-primary-hover);
+  box-shadow: 0 6px 15px rgba(253, 137, 101, 0.4);
 }
 
 .terminal-send-btn:disabled {
-  opacity: 0.5;
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.2);
+  box-shadow: none;
   cursor: not-allowed;
-  transform: none;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .jarvis-chat {
-    height: 100vh;
-    border-radius: 0;
-  }
-  
-  .terminal-container {
-    padding: 0.75rem;
-  }
-  
-  .terminal-input {
-    padding: 0.75rem;
-  }
-  
-  .user-command,
-  .jarvis-response {
-    flex-direction: column;
-    gap: 0.25rem;
-  }
-  
-  .user-prompt,
-  .jarvis-prompt {
-    margin-bottom: 0.25rem;
-  }
-}
-
-/* Accessibility */
-@media (prefers-reduced-motion: reduce) {
-  .processing-text {
-    animation: none;
-  }
-  
-  .terminal-send-btn {
-    transform: none;
-  }
-  
-  .terminal-send-btn:hover:not(:disabled) {
-    transform: none;
-  }
 }

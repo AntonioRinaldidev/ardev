@@ -1,270 +1,173 @@
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaPaperPlane } from 'react-icons/fa';
-import {
-	useJarvisWebSocket,
-	type ChatMessage,
-} from '@/hooks/useJarvisWebSocket';
+import { FaPaperPlane, FaArrowUp } from 'react-icons/fa'; // Icona più moderna
+import { useJarvisWebSocket } from '@/hooks/useJarvisWebSocket';
 import '@/styles/JarvisChat.css';
 import DecrpytingText from './MatrixText';
 
-const JarvisChat: React.FC = () => {
-	const [inputMessage, setInputMessage] = useState('');
-	const [inputHeight, setInputHeight] = useState(44);
+interface JarvisChatProps {
+    jarvisData: any; 
+}
 
+const JarvisChat: React.FC<JarvisChatProps> = ({ jarvisData }) => {
+    const [inputMessage, setInputMessage] = useState('');
+    const [inputHeight, setInputHeight] = useState(24); // Start smaller
 
-	const {
-		messages,
-		connectionState,
-		isConnected,
-		isThinking,
-		sessionId,
-		sendMessage: sendWebSocketMessage,
-		clearMessages,
-		resetSession,
-		disconnect,
-	} = useJarvisWebSocket();
+    const {
+        messages,
+        connectionState,
+        isConnected,
+        isThinking,
+        sessionId,
+        sendMessage: sendWebSocketMessage,
+        disconnect,
+    } = jarvisData;
 
+    const messagesEndRef = useRef<HTMLDivElement>(null);
+    const inputRef = useRef<HTMLTextAreaElement>(null);
 
-	const messagesEndRef = useRef<HTMLDivElement>(null);
-	const inputRef = useRef<HTMLTextAreaElement>(null);
-	const terminalContainerRef = useRef<HTMLDivElement>(null);
-	const chatWrapperRef = useRef<HTMLDivElement>(null);
+    // Gestione altezza dinamica input
+    const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setInputMessage(e.target.value);
+        e.target.style.height = 'auto';
+        const newHeight = Math.min(e.target.scrollHeight, 120);
+        e.target.style.height = `${newHeight}px`;
+        setInputHeight(newHeight);
+    };
 
+    // Auto-scroll
+    useEffect(() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, [messages, isThinking]);
 
-	const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-		const value = e.target.value;
-		setInputMessage(value);
+    const sendMessage = async () => {
+        if (!inputMessage.trim() || isThinking || !isConnected) return;
+        const success = sendWebSocketMessage(inputMessage.trim());
+        if (success) {
+            setInputMessage('');
+            setInputHeight(24);
+            if (inputRef.current) inputRef.current.style.height = 'auto';
+        }
+    };
 
-	
-		const textarea = e.target;
-		textarea.style.height = 'auto'; 
-		const newHeight = Math.min(Math.max(textarea.scrollHeight, 44), 200); 
-		textarea.style.height = `${newHeight}px`;
-		setInputHeight(newHeight);
+    const handleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            sendMessage();
+        }
+    };
 
+    // Cleanup connection
+    useEffect(() => {
+        return () => disconnect();
+    }, [disconnect]);
 
-		if (terminalContainerRef.current) {
-			const inputAreaHeight = newHeight + 32; 
-			terminalContainerRef.current.style.paddingBottom = `${inputAreaHeight}px`;
-		}
-	};
+    // Status Indicator Helper
+    const getConnectionConfig = () => {
+        switch (connectionState) {
+            case 'connected': return { text: 'System Online', class: 'connected' };
+            case 'connecting': return { text: 'Initializing...', class: 'connecting' };
+            case 'error': return { text: 'Connection Failure', class: 'disconnected' };
+            default: return { text: 'Offline', class: 'disconnected' };
+        }
+    };
+    const status = getConnectionConfig();
 
+    return (
+        <div className="jarvis-chat">
+            {/* Header Status Bar */}
+            <div className="connection-status-bar">
+                <div className="status-left">
+                    <div className={`connection-indicator ${status.class}`} />
+                    <span style={{ fontWeight: 600 }}>{status.text}</span>
+                </div>
+                {sessionId && (
+                    <div style={{ opacity: 0.6 }}>ID: {sessionId.slice(-6)}</div>
+                )}
+            </div>
 
-	useEffect(() => {
-	
-		const timer = setTimeout(() => {
-			messagesEndRef.current?.scrollIntoView({
-				behavior: 'smooth',
-				block: 'end',
-			});
-		}, 100);
-		return () => clearTimeout(timer);
-	}, [messages]);
+            {/* Chat Area - AGGIUNTO data-lenis-prevent */}
+            <div className="terminal-container" data-lenis-prevent>
+                <AnimatePresence mode="popLayout">
+                    {messages.map((message: any) => (
+                        <motion.div
+                            key={message.id}
+                            className="terminal-line" // Wrapper per l'animazione
+                            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            transition={{ duration: 0.3 }}
+                        >
+                            {message.sender === 'user' ? (
+                                <div className="user-command">
+                                    {message.content}
+                                </div>
+                            ) : (
+                                <div className="jarvis-response">
+                                    <div className="response-text">
+                                        {message.useMatrixEffect ? (
+                                            <DecrpytingText
+                                                text={message.content}
+                                                speed={10} // Più veloce per UX migliore
+                                                sequential={true}
+                                                revealDirection="start"
+                                                animateOn="view"
+                                                characters="J.A.R.V.I.S._10101"
+                                            />
+                                        ) : (
+                                            message.content
+                                        )}
+                                    </div>
+                                </div>
+                            )}
+                        </motion.div>
+                    ))}
+                </AnimatePresence>
 
+                {/* Modern Thinking Indicator */}
+                {isThinking && (
+                    <motion.div 
+                        className="processing-line"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                    >
+                        <div className="jarvis-response" style={{ padding: '0.8rem 1.2rem' }}>
+                            <div className="thinking-dots">
+                                <div className="dot" />
+                                <div className="dot" />
+                                <div className="dot" />
+                            </div>
+                        </div>
+                    </motion.div>
+                )}
 
-	useEffect(() => {
-		const chatWrapper = chatWrapperRef.current;
-		const terminalContainer = terminalContainerRef.current;
+                <div ref={messagesEndRef} />
+            </div>
 
-		if (!chatWrapper || !terminalContainer) return;
-
-		const handleWheel = (e: WheelEvent) => {
-			const rect = terminalContainer.getBoundingClientRect();
-			const isOverTerminal =
-				e.clientX >= rect.left &&
-				e.clientX <= rect.right &&
-				e.clientY >= rect.top &&
-				e.clientY <= rect.bottom;
-
-			if (isOverTerminal) {
-				e.preventDefault();
-				e.stopPropagation();
-				terminalContainer.scrollTop += e.deltaY;
-			}
-		};
-
-		chatWrapper.addEventListener('wheel', handleWheel, {
-			passive: false,
-			capture: true,
-		});
-
-		return () => {
-			chatWrapper.removeEventListener('wheel', handleWheel, { capture: true });
-		};
-	}, []);
-
-	
-	const sendMessage = async () => {
-		if (!inputMessage.trim() || isThinking || !isConnected) return;
-
-		const success = sendWebSocketMessage(inputMessage.trim());
-
-		if (success) {
-			setInputMessage('');
-			
-			if (inputRef.current) {
-				inputRef.current.style.height = '44px';
-				setInputHeight(44);
-				
-				if (terminalContainerRef.current) {
-					terminalContainerRef.current.style.paddingBottom = '80px';
-				}
-			}
-		}
-	};
-
-	
-	const handleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-		if (e.key === 'Enter' && !e.shiftKey) {
-			e.preventDefault();
-			sendMessage();
-		}
-	};
-
-	useEffect(() => {
-		return () => {
-			disconnect(); 
-		};
-	}, [disconnect]);
-
-	
-	const getConnectionStatus = () => {
-		const statusConfig = {
-			connected: {
-				text: 'CONNECTED TO JARVIS',
-				className: 'connected',
-			},
-			connecting: {
-				text: 'CONNECTING TO JARVIS...',
-				className: 'connecting',
-			},
-			error: {
-				text: 'CONNECTION ERROR',
-				className: 'error',
-			},
-			disconnected: {
-				text: 'DISCONNECTED',
-				className: 'disconnected',
-			},
-		};
-
-		const config = statusConfig[connectionState] || statusConfig.disconnected;
-
-		return (
-			<div className="status-left">
-				<div className={`connection-indicator ${config.className}`}></div>
-				<span className={`status-text ${config.className}`}>{config.text}</span>
-			</div>
-		);
-	};
-
-	return (
-		<div
-			className="jarvis-chat"
-			ref={chatWrapperRef}>
-			
-			<div className="connection-status-bar">
-				{getConnectionStatus()}
-				<div className="status-right">
-					{sessionId && (
-						<div className="session-info">
-							SESSION: {sessionId.substring(sessionId.length - 8).toUpperCase()}
-						</div>
-					)}
-				</div>
-			</div>
-
-
-			<div
-				className="terminal-container"
-				ref={terminalContainerRef}
-				style={{
-					paddingBottom: `${inputHeight + 36}px`,
-				}}>
-				<AnimatePresence>
-					{messages.map((message) => (
-						<motion.div
-							key={message.id}
-							className="terminal-line"
-							initial={{ opacity: 0, y: 10 }}
-							animate={{ opacity: 1, y: 0 }}
-							exit={{ opacity: 0, y: -10 }}>
-							{message.sender === 'user' ? (
-								
-								<div className="user-command">
-									<span className="prompt user-prompt">user@portfolio:~$</span>
-									<span className="command-text">{message.content}</span>
-								</div>
-							) : (
-								
-								<div className="jarvis-response">
-									<span className="prompt jarvis-prompt">
-										{message.sender === 'system'
-											? 'system@jarvis:~$'
-											: 'jarvis@system:~$'}
-									</span>
-									<span className="response-text">
-										{message.useMatrixEffect ? (
-											<DecrpytingText
-												text={message.content}
-												speed={5}
-												sequential={true}
-												revealDirection="start"
-												animateOn="view"
-												maxIterations={4}
-												characters="abcdefghij23456789!@#$%&*"
-											/>
-										) : (
-											message.content
-										)}
-									</span>
-								</div>
-							)}
-						</motion.div>
-					))}
-				</AnimatePresence>
-
-				
-				{isThinking && (
-					<motion.div
-						className="terminal-line processing-line"
-						initial={{ opacity: 0 }}
-						animate={{ opacity: 1 }}>
-						<span className="prompt jarvis-prompt">jarvis@system:~$</span>
-						<span className="processing-text">[PROCESSING...]</span>
-					</motion.div>
-				)}
-
-				<div ref={messagesEndRef} />
-			</div>
-
-		
-			<div className="terminal-input">
-				<div className="input-container">
-					<span className="input-prompt">user@portfolio:~$</span>
-					<textarea
-						ref={inputRef}
-						value={inputMessage}
-						onChange={handleInputChange}
-						onKeyDown={handleKeyPress}
-						placeholder={isConnected ? 'Type your message...' : 'Connecting...'}
-						className="terminal-textarea"
-						disabled={!isConnected || isThinking}
-						rows={1}
-						style={{ height: `${inputHeight}px` }}
-					/>
-					<button
-						onClick={sendMessage}
-						disabled={!inputMessage.trim() || !isConnected || isThinking}
-						className="terminal-send-btn">
-						↵
-					</button>
-				</div>
-			</div>
-		</div>
-	);
+            {/* Modern Input Area */}
+            <div className="terminal-input">
+                <div className="input-container">
+                    <textarea
+                        ref={inputRef}
+                        value={inputMessage}
+                        onChange={handleInputChange}
+                        onKeyDown={handleKeyPress}
+                        placeholder={isConnected ? "Ask J.A.R.V.I.S. anything..." : "Establishing uplink..."}
+                        className="terminal-textarea"
+                        disabled={!isConnected || isThinking}
+                        rows={1}
+                    />
+                    <button
+                        onClick={sendMessage}
+                        disabled={!inputMessage.trim() || !isConnected || isThinking}
+                        className="terminal-send-btn"
+                    >
+                        <FaArrowUp /> {/* Icona freccia verso l'alto (stile ChatGPT/Gemini) */}
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
 };
 
 export default JarvisChat;

@@ -16,6 +16,7 @@ import {
 	FaArrowLeft,
 } from 'react-icons/fa';
 import Stepper, { Step } from '@/components/StepContact';
+import Card from '@/components/Card';
 
 const ContactPage = () => {
 	const [formData, setFormData] = useState({
@@ -100,8 +101,7 @@ const ContactPage = () => {
 				/>
 			</div>
 
-			{/* Main content wrapper */}
-			<div className="contact-wrapper">
+			<Card>
 				<motion.div
 					className="contact-main-content"
 					initial={{ opacity: 0, y: 30 }}
@@ -267,8 +267,10 @@ const ContactPage = () => {
 							)}
 						</Step>
 					</Stepper>
+					
 				</motion.div>
-			</div>
+				</Card>
+			
 		</section>
 	);
 };

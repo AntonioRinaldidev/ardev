@@ -1,428 +1,142 @@
-
+/* Container Pagina - Fullscreen fisso */
 .jarvis-page {
-  top: 0;
-  left: 0;
+  position: relative;
   width: 100vw;
-  height: 100vh;
+  height: 100%; /* dvh per iOS è fondamentale */
   display: flex;
   flex-direction: column;
+  overflow: hidden;
   background: transparent;
-  color: white;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
- 
-
 }
 
-
+/* ============================
+   HEADER / NAVIGAZIONE
+   ============================ */
 .jarvis-nav {
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
+  position: relative;
+  z-index: 100;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 2rem 1rem;
-  background: transparent;
-  height: 70px;
-  box-sizing: border-box;
+  padding: 0 2rem; /* Altezza fissa gestita da height */
+  height: 80px;
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  flex-shrink: 0; /* Impedisce che si schiacci */
 }
-.jarvis-nav  .animated-btn {
-  background: 
-    linear-gradient(145deg, 
-      rgba(255, 255, 255, 0.03) 0%, 
-      var(--card-bg) 30%, 
-      var(--section-bg) 100%
-    );
-  backdrop-filter: blur(20px) saturate(110%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 
-    0 8px 25px rgba(0, 0, 0, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  transition: all 0.3s ease;
+
+.nav-title {
+  text-align: right;
+  line-height: 1.2;
 }
-.jarvis-nav .animated-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 
-    0 12px 30px rgba(0, 0, 0, 0.2),
-    0 0 5px var(--shadow),
-    inset 0 1px 0 rgba(255, 255, 255, 0.15);
-}
+
 .nav-title h1 {
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   font-weight: 800;
   margin: 0;
-  background: var(--hero-final-bg);
-
-  text-shadow: 0 0 10px rgba(174, 173, 173, 0.5);
+  color: white;
+  text-shadow: 0 0 15px rgba(0, 185, 255, 0.5);
 }
 
 .nav-title p {
-  margin: 0.25rem 0 0 0;
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 0.8rem;
-  font-style: italic;
-  text-align: center;
+  margin: 0;
+  font-size: 0.7rem;
+  color: var(--color-link);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.8;
 }
 
-
-.nav-controls {
-  display: none;
-}
-
-
+/* ============================
+   LAYOUT PRINCIPALE
+   ============================ */
 .jarvis-container {
-  position: relative;
-  width: 100%;
-  height: 100%;
   display: flex;
-  flex-direction: row;
+  width: 100%;
+  height: calc(100dvh - 80px); /* Spazio rimanente esatto */
+  position: relative;
   overflow: hidden;
 }
 
-
+/* 1. SFERA (Desktop: 50%) */
 .sphere-section {
-  width: 50%;
-  height: calc(100% - 70px);
+  flex: 1;
   display: flex;
+  justify-content: center;
+  align-items: center;
   position: relative;
-  justify-content: center;
-  align-items: center;
   z-index: 1;
+  padding: 2rem;
 }
 
-
+/* 2. CHAT (Desktop: 50%) */
 .chat-section {
-  width: 50%;
-  height: calc(100vh - 70px);
-  display: flex;
-  flex-direction: column;
-  z-index: 2;
-}
-
-.chat-container {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-
-.jarvis-chat {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-  background: transparent;
-  border: none;
-  border-radius: 0;
-  box-shadow: none;
-}
-
-
-.chat-header {
-  display: none;
-}
-
-
-.upload-panel {
-  display: none;
-}
-
-
-.messages-container {
   flex: 1;
-  padding: 2rem;
-  overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  background: transparent;
+  padding: 1rem 2rem 2rem 0;
+  z-index: 10;
+  max-width: 800px;
+  min-height: 0;    /* Fondamentale per nested flex scroll */
+  overflow: hidden; /* Fondamentale */
 }
 
-.messages-container::-webkit-scrollbar {
-  width: 6px;
-}
-
-.messages-container::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.messages-container::-webkit-scrollbar-thumb {
-  background: rgba(0, 100, 255, 0.3);
-  border-radius: 3px;
-}
-
-.messages-container::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 100, 255, 0.5);
-}
-
-
-.message {
-  display: flex;
-  max-width: 85%;
-  animation: slideIn 0.3s ease-out;
-}
-
-.message.user {
-  align-self: flex-end;
-  justify-content: flex-end;
-}
-
-.message.jarvis {
-  align-self: flex-start;
-  justify-content: flex-start;
-}
-
-.message-content {
-  padding: 1.2rem;
-  border-radius: 20px;
-  backdrop-filter: blur(15px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-}
-
-.message.user .message-content {
-  background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.message.jarvis .message-content {
-  background: rgba(0, 100, 255, 0.15);
-  border: 1px solid rgba(0, 100, 255, 0.3);
-  color: #e0e0e0;
-}
-
-.message-text {
-  font-size: 0.95rem;
-  line-height: 1.6;
-  word-wrap: break-word;
-}
-
-.message-meta {
-  display: flex;
-  gap: 1rem;
-  margin-top: 0.5rem;
-  font-size: 0.75rem;
-  opacity: 0.7;
-  justify-content: flex-end;
-}
-
-.message.jarvis .message-meta {
-  justify-content: flex-start;
-}
-
-.context-used {
-  color: #00d4ff;
-  font-weight: 500;
-}
-
-.rag-enabled {
-  color: #00ff88;
-  font-weight: 500;
-}
-
-
-.typing-indicator {
-  display: flex;
-  gap: 4px;
-  padding: 1rem 0;
-  justify-content: center;
-}
-
-.typing-indicator span {
-  width: 8px;
-  height: 8px;
-  background: #00d4ff;
-  border-radius: 50%;
-  animation: typing 1.4s infinite ease-in-out;
-}
-
-.typing-indicator span:nth-child(2) {
-  animation-delay: 0.2s;
-}
-
-.typing-indicator span:nth-child(3) {
-  animation-delay: 0.4s;
-}
-
-.chat-input {
-  display: flex;
-  align-items: flex-end;
-  gap: 0.75rem;
-  padding: 2rem;
-  background: transparent;
-}
-
-.message-input {
-  flex: 1;
-  background: rgba(0, 0, 0, 0.3);
-  border: 2px solid rgba(0, 100, 255, 0.3);
-  border-radius: 25px;
-  padding: 1rem 1.5rem;
-  color: white;
-  font-family: inherit;
-  font-size: 0.95rem;
-  resize: none;
-  min-height: 50px;
-  max-height: 120px;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
-}
-
-.message-input:focus {
-  outline: none;
-  border-color: #00d4ff;
-  background: rgba(0, 0, 0, 0.4);
-  box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
-}
-
-.message-input::placeholder {
-  color: rgba(255, 255, 255, 0.5);
-}
-
-.send-button {
-  background: linear-gradient(45deg, #00d4ff, #0099cc);
-  border: none;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  color: white;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 15px rgba(0, 212, 255, 0.4);
-  flex-shrink: 0;
-}
-
-.send-button:hover:not(:disabled) {
-  transform: translateY(-3px) scale(1.1);
-  box-shadow: 0 8px 25px rgba(0, 212, 255, 0.6);
-}
-
-.send-button:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-  transform: none;
-}
-
-
-
-.transition-overlay,
-.jarvis-status {
-  display: none;
-}
-
-
-@keyframes typing {
-  0%, 60%, 100% { transform: translateY(0); }
-  30% { transform: translateY(-10px); }
-}
-
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-
-
-
+/* ============================
+   MOBILE & TABLET (Il Fix che ti serve)
+   ============================ */
 @media (max-width: 1024px) {
+  /* Layout a colonna per tablet/mobile */
   .jarvis-container {
     flex-direction: column;
-    padding-top: 0;
+  }
 
-  }
-  
+  /* SFERA RIDOTTA: 
+     Su mobile la sfera deve essere piccola, solo decorativa.
+     Usiamo flex-basis fissa o percentuale bassa. */
   .sphere-section {
-    width: 100%;
-    height: 40%;
+    flex: none; /* Non espanderti */
+    height: 25%; /* Occupa solo 1/4 dello schermo (prima era troppo grande) */
+    min-height: 180px; /* Altezza minima per vederla */
+    padding: 0;
+    margin-top: -1rem; /* Tirala un po' su per recuperare spazio */
   }
-  
+
+  /* CHAT ESPANSA:
+     Deve prendere tutto il resto dello spazio. */
   .chat-section {
+    flex: 1; /* Prendi tutto lo spazio rimanente */
     width: 100%;
-    height: 60%;
-  }
-  
-  .messages-container {
-    padding: 1rem;
-  }
-  
-  .chat-input {
-    padding: 1rem;
+    max-width: 100%;
+    padding: 0 1rem 1rem 1rem; /* Padding laterale ridotto */
+    height: auto; /* Lascia gestire a flex */
   }
 }
 
+/* iPhone/Mobile Piccoli */
 @media (max-width: 768px) {
   .jarvis-nav {
-    padding: 0.75rem 1rem;
-    height: 60px;
+    padding: 0 1rem;
+    height: 60px; /* Header più compatto */
   }
-  
 
-  
+  .nav-title h1 { font-size: 1.2rem; }
+  .nav-title p { font-size: 0.6rem; }
+
+  .jarvis-container {
+    height: calc(100dvh - 60px); /* Ricalcolo altezza container */
+  }
+
   .sphere-section {
-    height: 35%;
-  }
-  
-  .chat-section {
-    height: 65%;
-  }
-  
-  .nav-title h1 {
-    font-size: 1.5rem;
-  }
-  
-  .nav-title p {
-    font-size: 0.7rem;
-  }
-  
-  .message {
-    max-width: 95%;
-  }
-  
-  .message-content {
-    padding: 1rem;
-  }
-  
-  .message-input {
-    padding: 0.75rem 1rem;
-    min-height: 44px;
-  }
-  
-  .send-button {
-    width: 44px;
-    height: 44px;
+    height: 22%; /* Sfera ancora più piccola su schermi stretti */
+    min-height: 140px;
   }
 }
 
-@media (max-width: 480px) {
+/* Schermi minuscoli (SE / Fold chiusi) */
+@media (max-width: 380px) {
   .sphere-section {
-    height: 30%;
-  }
-  
-  .chat-section {
-    height: 70%;
-  }
-  
-  .messages-container {
-    padding: 0.75rem;
-  }
-  
-  .chat-input {
-    padding: 0.75rem;
-    gap: 0.5rem;
-  }
-  
-  .message-input {
-    font-size: 0.9rem;
+    height: 18%; /* Minimo indispensabile */
+    min-height: 120px;
   }
 }
