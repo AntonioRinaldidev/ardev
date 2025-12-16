@@ -40,55 +40,27 @@ const SphereAnimation: React.FC<SphereProps> = ({ isThinking = false }) => {
         const currentState = isThinking ? CONFIG.thinking : CONFIG.idle;
 
         // Funzione che avvia/riavvia l'animazione continua
-        const startAnimation = () => {
-            // Se c'è un'animazione attiva, mettila in pausa
-            if (animationRef.current) animationRef.current.pause();
+const startAnimation = () => {
+             if (animationRef.current) animationRef.current.pause();
+             const timeline = createTimeline({ autoplay: true, loop: true });
+             const totalPaths = spherePathEls.length;
+             const waveLength = currentState.duration * 2; 
 
-            const timeline = createTimeline({
-                autoplay: true,
-                loop: true,
-            });
-
-            const totalPaths = spherePathEls.length;
-            const waveLength = currentState.duration * 2; 
-
-            spherePathEls.forEach((path, index) => {
-                // Calcolo onda per effetto fluido
+             spherePathEls.forEach((path, index) => {
                 const wavePosition = ((totalPaths - 1 - index) / totalPaths) * (waveLength * 0.6);
-
-                timeline.add(
-                    path,
-                    {
-                        stroke: [
-                            'rgba(80,80,80,0.5)', // Base scura
-                            currentState.color,   // Colore Attivo (Viola o Ciano)
-                            'rgba(80,80,80,0.5)', // Ritorno base
-                        ],
-                        // Movimento più frenetico se sta pensando
-                        translateX: isThinking 
-                            ? [0, 8, 0, -8, 0] 
-                            : [0, 4, 0],
-                        translateY: isThinking 
-                            ? [0, -8, 0, 8, 0] 
-                            : [0, 4, 0],
-                        
-                        duration: currentState.duration,
-                        easing: 'easeInOutSine', // Sine è più morbido per loop infiniti
-                    },
-                    wavePosition // Offset per creare l'effetto onda
-                );
+                timeline.add(path, {
+                    stroke: ['rgba(80,80,80,0.5)', currentState.color, 'rgba(80,80,80,0.5)'],
+                    translateX: isThinking ? [0, 8, 0, -8, 0] : [0, 4, 0],
+                    translateY: isThinking ? [0, -8, 0, 8, 0] : [0, 4, 0],
+                    duration: currentState.duration,
+                    easing: 'easeInOutSine',
+                }, wavePosition);
             });
-
             animationRef.current = timeline;
         };
-
         startAnimation();
-
-        // Cleanup
-        return () => {
-            if (animationRef.current) animationRef.current.pause();
-        };
-    }, [isThinking]); // 2. L'effetto si riavvia ogni volta che isThinking cambia
+        return () => { if (animationRef.current) animationRef.current.pause(); };
+    }, [isThinking]);
 
     return (
         <div className="animation-wrapper" ref={root}>
@@ -96,19 +68,24 @@ const SphereAnimation: React.FC<SphereProps> = ({ isThinking = false }) => {
                 // 3. Aggiungiamo un piccolo effetto pulsazione alla sfera intera
                 animate={{ 
                     scale: isThinking ? 1.05 : 1,
-                    filter: isThinking ? 'drop-shadow(0 0 15px rgba(0,185,255,0.4))' : 'drop-shadow(0 0 0px rgba(0,0,0,0))'
+                    
                 }}
                 transition={{ duration: 0.5 }}
                 className="sphere-animation"
                 ref={sphereRef}>
                 
-<svg
-
+<motion.svg 
+                    animate={{ 
+                        filter: isThinking 
+                            ? 'drop-shadow(0 0 15px rgba(0,185,255,0.6))' // Ho alzato leggermente l'opacità per compensare
+                            : 'drop-shadow(0 0 0px rgba(0,0,0,0))'
+                    }}
+                    transition={{ duration: 0.5 }}
                     className="sphere"
-
                     viewBox="0 0 440 440"
-
-                    stroke="rgba(80,80,80,.35)">
+                    
+                    style={{ overflow: 'visible' }} // Importante per non tagliare il bagliore
+                >
 
                     <defs>
 
@@ -224,7 +201,7 @@ const SphereAnimation: React.FC<SphereProps> = ({ isThinking = false }) => {
 
                     <path d="M109.698 109.332c-24.408 24.407-51.12 37.268-59.663 28.726-8.542-8.543 4.319-35.255 28.727-59.662 24.407-24.408 51.12-37.27 59.662-28.727 8.543 8.543-4.319 35.255-28.726 59.663z" />
 
-                </svg>
+                </motion.svg>
             </motion.div>
         </div>
     );

@@ -1,34 +1,28 @@
-/* Container Pagina - Fullscreen fisso */
+/* src/app/jarvis/JarvisPage.css */
+
+/* --- CONFIGURAZIONE BASE DESKTOP --- */
 .jarvis-page {
   position: relative;
   width: 100vw;
-  height: 100%; /* dvh per iOS è fondamentale */
+  height: 100dvh; /* Usa dvh per gestire le barre browser mobile */
   display: flex;
   flex-direction: column;
   overflow: hidden;
   background: transparent;
 }
 
-/* ============================
-   HEADER / NAVIGAZIONE
-   ============================ */
 .jarvis-nav {
   position: relative;
   z-index: 100;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 2rem; /* Altezza fissa gestita da height */
+  padding: 0 2rem;
   height: 80px;
   background: rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  flex-shrink: 0; /* Impedisce che si schiacci */
-}
-
-.nav-title {
-  text-align: right;
-  line-height: 1.2;
+  flex-shrink: 0;
 }
 
 .nav-title h1 {
@@ -44,99 +38,102 @@
   font-size: 0.7rem;
   color: var(--color-link);
   text-transform: uppercase;
-  letter-spacing: 1px;
-  opacity: 0.8;
 }
 
-/* ============================
-   LAYOUT PRINCIPALE
-   ============================ */
 .jarvis-container {
   display: flex;
   width: 100%;
-  height: calc(100dvh - 80px); /* Spazio rimanente esatto */
+  
+  height: calc(100dvh - 80px); 
   position: relative;
-  overflow: hidden;
+ 
 }
 
-/* 1. SFERA (Desktop: 50%) */
+/* DESKTOP: 50% e 50% */
 .sphere-section {
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
-  z-index: 1;
   padding: 2rem;
+  z-index: 1;
 }
 
-/* 2. CHAT (Desktop: 50%) */
 .chat-section {
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding: 1rem 2rem 2rem 0;
+  padding: 1rem 1rem 0.5rem 0;
   z-index: 10;
   max-width: 800px;
-  min-height: 0;    /* Fondamentale per nested flex scroll */
-  overflow: hidden; /* Fondamentale */
+  min-height: 0;
+  overflow: hidden;
 }
 
-/* ============================
-   MOBILE & TABLET (Il Fix che ti serve)
-   ============================ */
+/* --- MOBILE & TABLET (Modifiche Aggressive) --- */
+
 @media (max-width: 1024px) {
-  /* Layout a colonna per tablet/mobile */
   .jarvis-container {
+    flex-direction: column; /* Impila verticalmente */
+    overflow: hidden;
+  }
+
+.sphere-section {
+    background: transparent;
+    flex: none; /* Non deve crescere né stringersi */
+    height: 280px; 
+    padding: 1rem;
+    overflow: visible;
+    /* Centriamo bene la sfera */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+.chat-section {
+    /* IL SEGRETO È QUI: */
+    flex: 1;         /* Occupa tutto lo spazio rimanente */
+    display: flex;   /* Diventa un contenitore flex per il figlio */
     flex-direction: column;
-  }
-
-  /* SFERA RIDOTTA: 
-     Su mobile la sfera deve essere piccola, solo decorativa.
-     Usiamo flex-basis fissa o percentuale bassa. */
-  .sphere-section {
-    flex: none; /* Non espanderti */
-    height: 25%; /* Occupa solo 1/4 dello schermo (prima era troppo grande) */
-    min-height: 180px; /* Altezza minima per vederla */
-    padding: 0;
-    margin-top: -1rem; /* Tirala un po' su per recuperare spazio */
-  }
-
-  /* CHAT ESPANSA:
-     Deve prendere tutto il resto dello spazio. */
-  .chat-section {
-    flex: 1; /* Prendi tutto lo spazio rimanente */
+    
+    /* CRUCIALE: min-height: 0 forza il browser a calcolare l'altezza 
+       in base allo spazio disponibile, non al contenuto */
+    min-height: 0;   
+    
+    height: 100%;    /* Forza l'altezza al 100% dello spazio flex */
     width: 100%;
     max-width: 100%;
-    padding: 0 1rem 1rem 1rem; /* Padding laterale ridotto */
-    height: auto; /* Lascia gestire a flex */
+    padding: 0;      /* Rimuoviamo il padding qui, lo gestisce JarvisChat */
+    overflow: hidden; /* Impedisce che la sezione stessa scrolli */
   }
 }
 
-/* iPhone/Mobile Piccoli */
 @media (max-width: 768px) {
   .jarvis-nav {
+    height: 60px; /* Header più sottile */
     padding: 0 1rem;
-    height: 60px; /* Header più compatto */
+    
+  }
+  
+  .jarvis-container {
+    
+    height: calc(100dvh - 60px); /* Ricalcolo spazio utile */
   }
 
   .nav-title h1 { font-size: 1.2rem; }
-  .nav-title p { font-size: 0.6rem; }
-
-  .jarvis-container {
-    height: calc(100dvh - 60px); /* Ricalcolo altezza container */
-  }
-
-  .sphere-section {
-    height: 22%; /* Sfera ancora più piccola su schermi stretti */
-    min-height: 140px;
-  }
 }
 
-/* Schermi minuscoli (SE / Fold chiusi) */
-@media (max-width: 380px) {
+@media (max-width: 480px) {
   .sphere-section {
-    height: 18%; /* Minimo indispensabile */
-    min-height: 120px;
+    /* SU IPHONE: Sfera minima indispensabile */
+
+    height: 200px; 
+  }
+  
+
+  .chat-section {
+     padding: 0;
+    scrollbar-width: none;
+    
   }
 }

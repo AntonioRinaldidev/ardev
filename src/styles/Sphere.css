@@ -5,6 +5,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: visible;
 }
 
 .sphere-animation {
@@ -14,6 +15,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: visible;
 }
 
 .sphere path {
@@ -26,7 +28,8 @@
 .sphere {
   position: relative;
   width: 100%;
-  height:100%
+  height:100%;
+  overflow: visible;
 }
 
 

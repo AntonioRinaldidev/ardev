@@ -3,8 +3,8 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  min-height: 600px; /* Altezza minima per estetica */
-  background: rgba(23, 26, 38, 0.6); /* Base scura semi-trasparente */
+ 
+  background: rgba(23, 26, 38, 0.6); 
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   border-radius: 24px;
@@ -13,7 +13,7 @@
     0 20px 50px rgba(0, 0, 0, 0.5),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
   overflow: hidden;
-  font-family: 'Inter', sans-serif; /* Font moderno, non più mono */
+  font-family: 'Inter', sans-serif; 
   position: relative;
 }
 
@@ -48,7 +48,7 @@
 .connecting { color: var(--color-link); background: var(--color-link); }
 .disconnected { color: var(--warning-color); background: var(--warning-color); }
 
-/* Area Messaggi Scrollabile */
+
 .terminal-container {
   flex: 1;
   padding: 1.5rem;
@@ -60,9 +60,9 @@
   scroll-behavior: smooth;
 }
 
-/* Scrollbar personalizzata invisibile ma funzionale o sottile */
+
 .terminal-container::-webkit-scrollbar {
-  width: 6px;
+  width: 0px;
 }
 .terminal-container::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.1);
@@ -72,7 +72,7 @@
   background: transparent;
 }
 
-/* Bolle Messaggi Comuni */
+
 .terminal-line {
   display: flex;
   width: 100%;
@@ -84,7 +84,7 @@
   to { opacity: 1; }
 }
 
-/* Messaggio UTENTE (Destra) */
+
 .user-command {
   align-self: flex-end;
   margin-left: auto;
@@ -99,28 +99,28 @@
   position: relative;
 }
 
-/* Messaggio JARVIS (Sinistra) */
+
 .jarvis-response {
   align-self: flex-start;
   margin-right: auto;
-  max-width: 85%;
+  width: 100%;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-left: 3px solid var(--color-link); /* Accento Blu */
+  border-left: 3px solid var(--color-link); 
   color: var(--color-text);
   padding: 1rem 1.5rem;
-  border-radius: 4px 20px 20px 20px; /* Angolo appuntito in alto a sx */
+  border-radius: 4px 20px 20px 20px; 
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   line-height: 1.6;
   font-size: 0.95rem;
 }
 
-/* Effetto Matrix/Testo Jarvis */
+
 .response-text {
-  font-family: 'Fira Code', monospace; /* Codice solo per Jarvis */
+  font-family: 'Fira Code', monospace; 
 }
 
-/* Indicatore "Thinking" animato */
+
 .processing-line {
   display: flex;
   align-items: center;
@@ -152,9 +152,9 @@
 /* Area Input (Footer) */
 .terminal-input {
   padding: 1.5rem;
-  background: rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(10px);
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  
+ 
+  
 }
 
 .input-container {
@@ -218,4 +218,74 @@
   color: rgba(255, 255, 255, 0.2);
   box-shadow: none;
   cursor: not-allowed;
+}
+
+
+
+
+@media (max-width: 768px) {
+  .jarvis-chat {
+    
+    border-radius: 16px; /* Raggio leggermente ridotto */
+  }
+
+  /* Riduciamo il padding del contenitore messaggi */
+  .terminal-container {
+    padding: 0.5rem; /* Da 1.5rem a 1rem per guadagnare spazio */
+    gap: 0.5rem;
+  }
+
+  /* Input più compatto */
+  .terminal-input {
+    padding: 0.5rem;
+  }
+
+  /* Bolle leggermente più larghe su mobile per leggere meglio */
+  .user-command,
+  .jarvis-response {
+    max-width: 90%; 
+    padding: 0.8rem 1rem; /* Meno padding interno alle bolle */
+  }
+}
+
+/* SMARTPHONE PICCOLI E IPHONE (max-width 480px) */
+@media (max-width: 480px) {
+  .jarvis-chat {
+    border-radius: 16px 16px 0 0 ; /* Rimuovi bordi curvi per sfruttare tutto lo schermo */
+    border: none;     /* Rimuovi bordi laterali */
+    height: 100%; 
+    width: 100%;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.2rem;
+    scrollbar-width: none;
+  }
+
+  .terminal-container {
+    padding: 0; /* Ancora meno padding laterale */
+  }
+
+  /* FONT SIZE RESPONSIVE */
+  .command-text, 
+  .response-text, 
+  .terminal-textarea {
+    font-size: 0.9rem; /* Testo leggermente più piccolo */
+  }
+
+  /* GESTIONE SAFE AREA IPHONE (La barra nera in basso) */
+  .terminal-input {
+    /* Padding di base + spazio safe area */
+    padding-bottom: 0;
+    padding-left: 0.2rem;
+    padding-right: 0.2rem;
+  }
+
+  .input-container {
+    padding: 0.4rem 0.4rem 0.4rem 1rem; /* Input più sottile */
+  }
+
+  /* Bottone invio più facile da premere */
+  .terminal-send-btn {
+    width: 44px;
+    height: 44px;
+  }
 }

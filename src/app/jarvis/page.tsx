@@ -52,8 +52,8 @@ const JarvisPage: React.FC = () => {
 				{/* 💬 Chat Section - DESTRA */}
 				<motion.div
 					className="chat-section"
-					initial={{ opacity: 0, x: 50 }}
-					animate={{ opacity: 1, x: 0 }}
+					initial={{ opacity: 0 }}
+					animate={{ opacity: 1}}
 					transition={{ duration: 0.8, delay: 0.4 }}>
 					<JarvisChat jarvisData={jarvis}/>
 				</motion.div>
