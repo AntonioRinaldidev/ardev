@@ -13,12 +13,12 @@ import {
 } from 'react-icons/fa';
 import TechStack from '@/components/TechStack/TechStack';
 import AnimatedButton from '@/components/AnimatedButton';
-import '@/styles/about.css';
+import '@/styles/about.css'; 
 import SocialStats from '@/components/SocialStats';
 import { useRouter } from 'next/navigation';
 import ToggleGroup from '@/components/ToggleGroup';
 import Timeline from '@/components/Timeline';
-import Card from '@/components/Card';
+
 const experienceData = {
 	centroWellness: {
 		title: 'Frontend React Native & React Developer',
@@ -33,22 +33,23 @@ const experienceData = {
 			'Implemented real-time chat system connecting patients with medical specialists',
 			'Created in-app purchase system for medical consultations and appointments',
 			'Built comprehensive web dashboard for specialists with full mobile app parity',
-			'Built admin panel for center management and  specialist oversight',
+			'Built admin panel for center management and specialist oversight',
 			'Successfully launched on iOS App Store and Android Play Store',
 			'Integrated secure payment processing for medical consultation purchases',
 		],
 		projectLinks: [
 			{
 				url: 'https://apps.apple.com/it/app/centro-morra/id6738307134',
-				type: 'app-store' as 'app-store',
+				type: 'app-store' as const,
 			},
 			{
 				url: 'https://play.google.com/store/apps/details?id=com.medimatemorra.patient',
-				type: 'google-play' as 'google-play',
+				type: 'google-play' as const,
 			},
 		],
 	},
 };
+
 const AboutMe = () => {
 	const router = useRouter();
 	const [selectedTab, setSelectedTab] = useState<
@@ -56,21 +57,24 @@ const AboutMe = () => {
 	>('education');
 
 	return (
-		<section className="about-section">
-			<div className="about-header">
-				<AnimatedButton
-					variant="primary"
-					text="Back to Home"
-					onClick={() => router.push('/')}
-				/>
-			</div>
+		<div className='container-page'>
+							<div className="about-header">
+					<AnimatedButton
+						variant="primary"
+						text="Back to Home"
+						onClick={() => router.push('/')}
+					/>
+				</div>
+			<section className="about-section">
 
-			<Card>
+                
+            
 				<motion.div
 					className="about-main-content"
 					initial={{ opacity: 0, y: 30 }}
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.7, ease: 'easeOut' }}>
+					
 					<motion.div
 						className="intro"
 						initial={{ opacity: 0, y: 30 }}
@@ -130,20 +134,18 @@ const AboutMe = () => {
 						)}
 
 						{selectedTab === 'experience' && (
-							<>
-								<Timeline
-									heading="Experience"
-									items={[
-										{
-											icon: <FaBriefcase />,
-											title: 'Centro Wellness Morra',
-											description:
-												'Freelance Frontend Developer - Creating responsive user interfaces',
-											experienceDetails: experienceData.centroWellness,
-										},
-									]}
-								/>
-							</>
+							<Timeline
+								heading="Experience"
+								items={[
+									{
+										icon: <FaBriefcase />,
+										title: 'Centro Wellness Morra',
+										description:
+											'Freelance Frontend Developer - Creating responsive user interfaces',
+										experienceDetails: experienceData.centroWellness,
+									},
+								]}
+							/>
 						)}
 
 						{selectedTab === 'hobbies' && (
@@ -163,11 +165,10 @@ const AboutMe = () => {
 					</div>
 
 					<TechStack />
-
 					<SocialStats />
 				</motion.div>
-			</Card>
-		</section>
+			</section>
+		</div>
 	);
 };
 
