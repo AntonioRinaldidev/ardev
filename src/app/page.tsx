@@ -1,12 +1,12 @@
 'use client';
-import * as React from 'react';
+
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useAppSelector, useAppDispatch } from '@/store/hooks';
 
 import { motion } from 'framer-motion';
 import ProfileCard from '@/components/ProfileCards';
-import Card from '@/components/Card';
+
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {

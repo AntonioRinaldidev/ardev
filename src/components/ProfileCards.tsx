@@ -17,7 +17,7 @@ import {
     FaRocketchat,
 } from 'react-icons/fa6';
 import { useIsMobile } from '@/hooks/useIsMobile';
-import Card from './Card'; // ProfileCards relies on Card for dimensions
+import Card from './Card'; 
 
 interface ProfileCardProps {
     fullName: string;
