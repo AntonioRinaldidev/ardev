@@ -6,7 +6,7 @@
 }
 
 .experience-dropdown {
-  position: absolute;
+  position: relative;
   top: 100%;
   left: 0;
   right: 0;
@@ -29,7 +29,7 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
   
   padding: 1.5rem;
-  width: 96%;
+  width: 100%;
 }
 
 
@@ -352,7 +352,7 @@
     position: relative;
 
     margin-top: 1rem;
-   width:80vw;
+   width:100%;
     max-height: 80vh;
     overflow-y: auto;
     overflow-x: hidden;
@@ -360,7 +360,7 @@
     padding: 2rem 1.5rem;
     border-radius: 16px;
     
-    height: 60vh;
+   
 
     /* Enhanced mobile styling */
     box-shadow: 

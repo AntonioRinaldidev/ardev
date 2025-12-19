@@ -67,7 +67,7 @@
 }
 
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .tech-stack-section {
     padding: 1.2rem 0.8rem;
     border-radius: 12px;

@@ -60,15 +60,12 @@
   padding: 3rem ;
   
   box-shadow: 
-    0 20px 40px rgba(0, 0, 0, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    0 20px 40px rgba(0, 0, 0, 0.5);
   width: 100%;
   
   position: relative;
   overflow: hidden;
   box-sizing: border-box;
-  
-  
 }
 .about-main-content::after {
   content: '';
@@ -104,13 +101,16 @@
   -webkit-text-fill-color: transparent;
 }
 
-.sub-heading {
-  font-size: 1.6rem;
-  font-weight: 600;
-  color: var(--color-heading);
-  margin-bottom: 1rem;
-  border-left: 3px solid var(--color-primary);
-  padding-left: 1rem;
+
+
+.intro{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  align-items: center;
+  overflow-x: visible;
+  
 }
 
 .text-paragraph {
@@ -118,9 +118,13 @@
   color: var(--color-text);
   line-height: 1.6;
   margin-bottom: 2rem;
+  text-align: center;
+  text-wrap: wrap;
+  width: 50%;
 }
 
 .hr-heading {
+ 
   border: 0;
   height: 1px;
   background: linear-gradient(

@@ -82,7 +82,7 @@ const AboutMe = () => {
 						transition={{ duration: 0.7, ease: 'easeOut' }}>
 						<h2 className="heading">
 							About Me
-							<hr className="hr-heading" />
+							
 						</h2>
 						<p className="text-paragraph">
 							I&apos;m a Computer Engineering student with a Bachelor&apos;s

@@ -21,7 +21,7 @@
 .sphere path {
   fill: url(#sphereGradient);
   stroke-width: 2px;
-  stroke: rgba(80,80,80,.35);
+  stroke: var(--color-primary);
   backface-visibility: hidden;
 }
 

@@ -23,8 +23,9 @@ const JarvisPage: React.FC = () => {
 				animate={{ opacity: 1, y: 0 }}
 				transition={{ delay: 0.3 }}>
 				<AnimatedButton
-					variant="primary"
+					
 					text="Back to Home"
+					className='animated-btn'
 					onClick={() => router.push('/')}
 				/>
 

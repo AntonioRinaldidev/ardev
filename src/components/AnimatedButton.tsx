@@ -1,38 +1,40 @@
-
 'use client';
 import React from 'react';
+// Make sure the path matches where you saved the CSS file
 import '@/styles/AnimatedButton.css';
 
-interface AnimatedButtonProps {
-	onClick: () => void;
-	text: string;
-	icon?: React.ReactNode;
-	className?: string;
-	variant?: 'primary' | 'secondary' | 'development' | 'construction' | 'hub';
-	disabled?: boolean;
+interface AnimatedButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+    text: string;
+    icon?: React.ReactNode;
+    variant?: 'primary' | 'secondary' | 'development' | 'hub';
+    className?: string;
 }
 
 const AnimatedButton: React.FC<AnimatedButtonProps> = ({
-	onClick,
-	text,
-	icon,
-	className = '',
-	variant = 'primary',
-	disabled = false,
+    onClick,
+    text,
+    icon,
+    className = '',
+    variant = 'primary',
+    disabled = false,
+    type = 'button', // Default to 'button' to prevent accidental form submissions
+    ...props
 }) => {
-	return (
-		<>
-			<button
-				onClick={onClick}
-				className={`animated-btn btn-${variant} ${className}`}
-				disabled={disabled}>
-				<span className="btn-content">
-					{icon && <span className="btn-icon">{icon}</span>}
-					<span className="btn-text">{text}</span>
-				</span>
-			</button>
-		</>
-	);
+    return (
+        <button
+            type={type}
+            onClick={onClick}
+            disabled={disabled}
+            className={`animated-btn btn-${variant} ${className}`}
+            {...props}
+        >
+
+            <span className="btn-content">
+                {icon && <span className="btn-icon">{icon}</span>}
+                <span className="btn-text">{text}</span>
+            </span>
+        </button>
+    );
 };
 
 export default AnimatedButton;

@@ -69,6 +69,34 @@
   min-height: 0;
   overflow: hidden;
 }
+.jarvis-nav .animated-btn {
+  background: 
+    linear-gradient(145deg, 
+      rgba(255, 255, 255, 0.03) 0%, 
+      var(--card-bg) 30%, 
+      var(--section-bg) 100%
+    );
+  backdrop-filter: blur(20px) saturate(110%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 8px 25px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+
+}
+.jarvis-nav .animated-btn:hover {
+  transform: translateY(-2px);
+    background: 
+    linear-gradient(145deg, 
+      rgba(255, 255, 255, 0.05) 0%, 
+      var(--card-bg) 30%, 
+      var(--section-bg) 100%
+    ); 
+  box-shadow: 
+    0 12px 30px rgba(0, 0, 0, 0.2),
+    0 0 5px var(--shadow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
 
 /* --- MOBILE & TABLET (Modifiche Aggressive) --- */
 
