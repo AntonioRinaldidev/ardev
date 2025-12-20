@@ -1,10 +1,9 @@
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaPaperPlane, FaArrowUp } from 'react-icons/fa'; // Icona più moderna
+import { FaArrowUp } from 'react-icons/fa'; // Icona più moderna
 
 import '@/styles/JarvisChat.css';
-import DecrpytingText from './MatrixText';
 
 interface JarvisChatProps {
 	jarvisData: any;

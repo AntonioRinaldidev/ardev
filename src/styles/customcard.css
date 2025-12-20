@@ -1,8 +1,0 @@
-.card {
-    background-color: var(--card-bg);
-    width: 100%;
-    height: 30vh;
-    margin: 5vh;
-    position: relative;
-    z-index: 0;
-  }
