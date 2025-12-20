@@ -17,7 +17,7 @@ interface ThemeState {
 }
 
 const initialState: ThemeState = {
-	currentTheme: 'violet',
+	currentTheme: 'neon',
 	isInitialized: false,
 };
 

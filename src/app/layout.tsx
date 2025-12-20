@@ -8,6 +8,7 @@ import { LenisProvider } from '@/providers/LenisProvider';
 import AppWrapper from '@/components/AppWrapper';
 
 import GradientBackground from '@/components/GradientBackground';
+import { ThemeScript } from '@/components/ThemeScript';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -113,8 +114,9 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang='en'>
+		<html lang='en' suppressHydrationWarning>
 			<body className={inter.className} suppressHydrationWarning>
+				<ThemeScript />
 				<ReduxProvider>
 					<LenisProvider>
 						<GradientBackground />
