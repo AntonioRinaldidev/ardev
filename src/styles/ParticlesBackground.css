@@ -1,114 +1,123 @@
-
-
+/* styles/ParticlesBackground.css */
 
 .space-container {
-	position: fixed;
-	inset: 0;
-	width: 100vw;
-	height: 100vh;
-	min-height: 100vh;
-	min-height: -webkit-fill-available;
-	background: var(--theme-bg-gradient);
-	background-size: 100% 100%;
-	animation: gradientShift 12s ease infinite;
-	overflow: hidden;
-	z-index: -1;
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    /* Usa il colore di sfondo del tema come base solida */
+    background: var(--color-bg-secondary); 
+    z-index: -1;
+    overflow: hidden;
+    /* Rimuoviamo l'animazione gradientShift precedente per evitare confusione visiva */
+    transition: background 0.5s ease;
 }
 
-
-@supports (-webkit-touch-callout: none) {
-	.space-container {
-		/* Estendi il container oltre i bordi */
-		top: -50px;
-		bottom: -50px;
-		left: -50px;
-		right: -50px;
-		width: calc(100vw + 100px);
-		height: calc(100vh + 100px);
-		min-height: calc(100vh + 100px);
-		min-height: -webkit-fill-available;
-	}
+/* --- NUOVA SEZIONE: Gradient Blobs --- */
+.gradients-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    filter: blur(40px); /* Questo crea l'effetto sfumato morbido */
+    z-index: 0; /* Livello più basso dentro il container */
+    pointer-events: none;
 }
 
-
-.space-container::after {
-	content: '';
-	position: fixed;
-	bottom: -200px;
-	left: -200px;
-	right: -200px;
-	height: 400px;
-
-	background-size: 600% 600%;
-
-	z-index: -1;
-	pointer-events: none;
+.g1, .g2, .g3, .g4, .g5 {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.4; /* Opacità ridotta per non disturbare le particelle */
+    mix-blend-mode: screen; /* O 'hard-light' a seconda dei gusti */
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
 }
 
+/* Blob 1: Primario */
+.g1 {
+    background: radial-gradient(circle, var(--color-primary) 0, transparent 50%);
+    width: 80%; height: 80%;
+    top: calc(50% - 40%); left: calc(50% - 40%);
+    animation: moveVertical 30s alternate infinite;
+}
+
+/* Blob 2: Link Color (Spesso ciano o rosa) */
+.g2 {
+    background: radial-gradient(circle, var(--color-link) 0, transparent 50%);
+    width: 60%; height: 60%;
+    top: calc(50% - 30%); left: calc(50% - 30%);
+    transform-origin: calc(50% - 400px);
+    animation: moveInCircle 20s reverse infinite;
+}
+
+/* Blob 3: Terzo colore */
+.g3 {
+    background: radial-gradient(circle, var(--color-third) 0, transparent 50%);
+    width: 50%; height: 50%;
+    top: calc(50% - 25% + 200px); left: calc(50% - 25% - 500px);
+    transform-origin: calc(50% + 400px);
+    animation: moveInCircle 40s linear infinite;
+}
+
+/* Blob 4: Hover/Secondary */
+.g4 {
+    background: radial-gradient(circle, var(--color-primary-hover) 0, transparent 50%);
+    width: 70%; height: 70%;
+    top: calc(50% - 35%); left: calc(50% - 35%);
+    transform-origin: calc(50% - 200px);
+    animation: moveHorizontal 40s ease infinite;
+    opacity: 0.3;
+}
+
+/* Keyframes Movimento */
+@keyframes moveInCircle {
+    0% { transform: rotate(0deg); }
+    50% { transform: rotate(180deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes moveVertical {
+    0% { transform: translateY(-50%); }
+    50% { transform: translateY(50%); }
+    100% { transform: translateY(-50%); }
+}
+
+@keyframes moveHorizontal {
+    0% { transform: translateX(-50%) translateY(-10%); }
+    50% { transform: translateX(50%) translateY(10%); }
+    100% { transform: translateX(-50%) translateY(-10%); }
+}
+
+/* --- FINE NUOVA SEZIONE --- */
+
+/* Manteniamo il tuo Overlay esistente per la vignettatura */
 .overlay-wrapper {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	pointer-events: none;
-	display: flex;
-	justify-content: center;
-	align-items: flex-start;
-	padding-top: 20vh;
-	z-index: 1;
-}
-
-
-@supports (-webkit-touch-callout: none) {
-	.overlay-wrapper {
-		top: 50px;
-		left: 50px;
-		width: calc(100% - 100px);
-		height: calc(100% - 100px);
-	}
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1; /* Sopra i blob, sotto le particelle */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 20vh;
 }
 
 .space-overlay {
-	width: 70vw;
-	height: 70vh;
-	background: radial-gradient(circle, rgba(0, 0, 0, 0.4) 0%, transparent 70%);
-	border-radius: 9999px;
-	filter: blur(100px);
+    width: 100vw;
+    height: 100dvh;
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.4) 0%, transparent 70%);
+    border-radius: 9999px;
+    filter: blur(80px);
 }
 
-
+/* Mobile Fixes */
 @media (max-width: 768px) {
-	.space-container {
-		height: 100vh;
-		height: calc(var(--vh, 1vh) * 100);
-		min-height: -webkit-fill-available;
-	}
-	
-	@supports (-webkit-touch-callout: none) {
-		.space-container {
-			height: calc(var(--vh, 1vh) * 100 + 100px);
-			min-height: -webkit-fill-available;
-		}
-	}
-}
-
-
-
-@keyframes pulse {
-	0%, 100% { opacity: 0.25; transform: scale(1); }
-	50% { opacity: 0.5; transform: scale(1.1); }
-}
-
-@keyframes wavePulse {
-	0%, 100% { opacity: 0.05; transform: scale(1); }
-	50% { opacity: 0.1; transform: scale(1.1); }
-}
-
-.animate-pulse {
-	animation: pulse 4s ease-in-out infinite;
-}
-
-.delay {
-	animation-delay: 2s;
+    .space-container {
+        height: 100vh;
+        height: calc(var(--vh, 1vh) * 100);
+    }
 }
