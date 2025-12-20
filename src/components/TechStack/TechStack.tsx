@@ -1,5 +1,6 @@
 'use client';
-import React, { useState } from 'react';
+
+import React from 'react';
 import {
 	SiJavascript,
 	SiTypescript,
@@ -11,60 +12,87 @@ import {
 	SiMongodb,
 	SiNodedotjs,
 	SiGithub,
+	SiGit,
+	SiNextdotjs,
 } from 'react-icons/si';
-import { FaJava, FaGitAlt } from 'react-icons/fa';
-import { FiCode } from 'react-icons/fi';
-import TechStackCard from './TechStackCard';
+import { FaJava } from 'react-icons/fa';
+import { FiCpu } from 'react-icons/fi';
+import { motion } from 'framer-motion';
 import './TechStack.css';
-import { motion, AnimatePresence } from 'framer-motion';
 
 const techs = [
-	{ name: 'JavaScript', icon: <SiJavascript />, tooltip: 'JavaScript ES6+' },
-	{ name: 'TypeScript', icon: <SiTypescript />, tooltip: 'Typed JavaScript' },
-	{ name: 'Node.js', icon: <SiNodedotjs />, tooltip: 'JavaScript Runtime' },
-	{ name: 'HTML', icon: <SiHtml5 />, tooltip: 'HTML5 Semantics' },
-	{ name: 'React', icon: <SiReact />, tooltip: 'React UI Library' },
-	{
-		name: 'React Native',
-		icon: <SiReactrouter />,
-		tooltip: 'Mobile Framework',
-	},
-	{ name: 'Java', icon: <FaJava />, tooltip: 'Java Backend' },
-	{ name: 'Python', icon: <SiPython />, tooltip: 'Scripting & Data' },
-	{ name: 'SQL', icon: <SiMysql />, tooltip: 'MySQL Database' },
-	{ name: 'MongoDB', icon: <SiMongodb />, tooltip: 'NoSQL Document Database' },
-	{ name: 'Git', icon: <FaGitAlt />, tooltip: 'Version Control' },
+	{ name: 'JavaScript', icon: <SiJavascript />, category: 'Language' },
+	{ name: 'TypeScript', icon: <SiTypescript />, category: 'Language' },
+	{ name: 'Python', icon: <SiPython />, category: 'AI & Data' },
+	{ name: 'Java', icon: <FaJava />, category: 'Backend' },
+	{ name: 'React', icon: <SiReact />, category: 'Frontend' },
+	{ name: 'Next.js', icon: <SiNextdotjs />, category: 'Framework' },
+	{ name: 'React Native', icon: <SiReactrouter />, category: 'Mobile' },
+	{ name: 'Node.js', icon: <SiNodedotjs />, category: 'Backend' },
+	{ name: 'SQL', icon: <SiMysql />, category: 'Database' },
+	{ name: 'MongoDB', icon: <SiMongodb />, category: 'NoSQL' },
+	{ name: 'Git', icon: <SiGit />, category: 'DevOps' },
+	{ name: 'GitHub', icon: <SiGithub />, category: 'Collaboration' },
 ];
 
+const containerVariants = {
+	hidden: { opacity: 0 },
+	visible: {
+		opacity: 1,
+		transition: {
+			staggerChildren: 0.1,
+		},
+	},
+};
+
+const itemVariants = {
+	hidden: { opacity: 0, y: 20 },
+	visible: {
+		opacity: 1,
+		y: 0,
+		transition: { duration: 0.5, ease: 'easeOut' },
+	},
+};
+
 const TechStack: React.FC = () => {
-	const [showAll, setShowAll] = useState(false);
-
 	return (
-		<section className="tech-stack-section">
-			<h2 className="tech-stack-title">
-				<FiCode className="tech-title-icon" />
-				Technologies I Work With
-				<hr className="hr-heading" />
-			</h2>
+		<section className='tech-stack-container'>
+			<motion.div
+				initial={{ opacity: 0, y: -10 }}
+				animate={{ opacity: 1, y: 0 }}
+				transition={{ duration: 0.5 }}
+				className='tech-header'>
+				<h2 className='tech-title'>
+					<FiCpu className='tech-icon-title' />
+					Tech Stack
+				</h2>
+				<div className='hr-heading' />
+			</motion.div>
 
-			<div className="tech-badges">
-				<AnimatePresence>
-					{techs.map((tech) => (
-						<motion.div
-							key={tech.name}
-							initial={{ opacity: 0, y: 15 }}
-							animate={{ opacity: 1, y: 0 }}
-							exit={{ opacity: 0, y: 15 }}
-							transition={{ duration: 0.4 }}>
-							<TechStackCard
-								name={tech.name}
-								icon={tech.icon}
-								tooltip={tech.tooltip}
-							/>
-						</motion.div>
-					))}
-				</AnimatePresence>
-			</div>
+			<motion.div
+				className='tech-grid'
+				variants={containerVariants}
+				initial='hidden'
+				whileInView='visible'
+				viewport={{ once: true, margin: '-50px' }}>
+				{techs.map((tech) => (
+					<motion.div
+						key={tech.name}
+						variants={itemVariants}
+						className='tech-card'
+						whileHover={{
+							y: -5,
+							transition: { duration: 0.2 },
+						}}>
+						<div className='tech-card-glow' />
+						<div className='tech-icon-wrapper'>{tech.icon}</div>
+						<div className='tech-info'>
+							<span className='tech-name'>{tech.name}</span>
+							<span className='tech-category'>{tech.category}</span>
+						</div>
+					</motion.div>
+				))}
+			</motion.div>
 		</section>
 	);
 };
