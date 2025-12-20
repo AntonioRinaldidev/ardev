@@ -111,6 +111,32 @@
   --shadow-glow: 0 0 15px rgba(0, 0, 0, 0.1);
   --border: var(--border-width) solid rgba(0, 0, 0, 0.08);
 }
+:root.dark-minimal {
+  /* --- Layout & Glass --- */
+  --color-bg-secondary: #000000;      /* Nero puro */
+  --card-bg: rgba(0, 0, 0, 0.8);      /* Nero coprente con leggero vetro */
+  --section-bg: rgba(255, 255, 255, 0.03); /* Accenno di luce per separare le sezioni */
+  
+  /* --- Typography (L'opposto del Minimal) --- */
+  --color-text: #ffffff;              /* Bianco puro */
+  --color-text-secondary: #a1a1aa;    /* Grigio neutro (Zinc 400) */
+  --color-heading: #ffffff;
+  
+  /* --- Colori Identitari (Neutri) --- */
+  --color-primary: #ffffff;           /* Il primario diventa il bianco */
+  --color-primary-hover: #e4e4e7;     /* Grigio chiarissimo */
+  --color-link: #ffffff;              /* Link bianchi per estremo minimalismo */
+  --color-third: #3f3f46;             /* Grigio scuro per elementi terziari */
+  
+  /* --- UI Elements --- */
+  --btn-hub-color: #ffffff;
+  --theme-bg-gradient: linear-gradient(135deg, #000000, #09090b); /* Nero e quasi-nero (Zinc 950) */
+  
+  /* --- Effetti (Luce al posto dell'ombra) --- */
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 20px rgba(255, 255, 255, 0.1); /* Bagliore bianco invece che nero */
+  --border: var(--border-width) solid rgba(255, 255, 255, 0.15); /* Bordo bianco sottile */
+}
 
 /* Mint (Deep Sea) */
 :root.mint {

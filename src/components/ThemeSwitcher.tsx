@@ -2,7 +2,14 @@
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { cycleTheme, type Theme } from '@/store/themeSlice';
-import { FaLeaf, FaBolt, FaRobot, FaGem, FaRegCircle } from 'react-icons/fa';
+import {
+	FaLeaf,
+	FaBolt,
+	FaRobot,
+	FaGem,
+	FaRegCircle,
+	FaCircle,
+} from 'react-icons/fa';
 import '@/app/globals.css';
 
 const themeIcons: Record<Theme, JSX.Element> = {
@@ -11,6 +18,7 @@ const themeIcons: Record<Theme, JSX.Element> = {
 	mint: <FaLeaf />,
 	neon: <FaBolt />,
 	minimal: <FaRegCircle />,
+	'dark-minimal': <FaCircle />,
 };
 
 export default function ThemeSwitcher() {
@@ -22,12 +30,12 @@ export default function ThemeSwitcher() {
 	};
 
 	return (
-		<div className="theme-switcher">
+		<div className='theme-switcher'>
 			<button
 				onClick={handleCycleTheme}
-				className="theme-button active"
+				className='theme-button active'
 				title={`Current theme: ${currentTheme}`}>
-				<span className="icon">{themeIcons[currentTheme]}</span>
+				<span className='icon'>{themeIcons[currentTheme]}</span>
 			</button>
 		</div>
 	);

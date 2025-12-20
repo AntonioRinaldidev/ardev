@@ -1,7 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-
-const themes = ['violet', 'cyber', 'mint', 'neon', 'minimal'] as const;
+const themes = [
+	'violet',
+	'cyber',
+	'mint',
+	'neon',
+	'minimal',
+	'dark-minimal',
+] as const;
 export type Theme = (typeof themes)[number];
 
 interface ThemeState {
