@@ -1,6 +1,6 @@
 
 .hero-section {
-
+  
   display: flex;
   align-items: center;
   justify-content: center;
@@ -91,6 +91,7 @@
 }
 
 @media (max-width: 768px) {
+ 
   .hero-container-centered {
     min-width: 100%;
     padding: 1rem;

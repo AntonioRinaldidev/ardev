@@ -1,12 +1,13 @@
 .card {
     width: 90%;
     max-width: var(--container-width); 
-   
-    min-height: 20dvh;
+
     text-align: center;
     display: flex;
     margin: auto;
     flex-wrap: wrap;
+    padding-top: 3rem ;
+    padding-bottom: 3rem ;
     
    
     
@@ -14,11 +15,12 @@
     z-index: var(--z-normal);
 }
 
+
 .card::before {
     content: '';
     position: absolute;
     width: 120%;
-    height: 140%;
+    height: 100%;
     background: 
         radial-gradient(ellipse 60% 80% at 30% 40%, var(--shadow-blu) 0%, transparent 40%),
         radial-gradient(ellipse 70% 90% at 70% 60%, var(--shadow) 0%, transparent 35%),
@@ -37,5 +39,15 @@
     100% { 
         transform: translate(15px, -8px) scale(1.08) rotate(1deg);
         opacity: 0.12;
+    }
+}
+
+@media (max-width: 768px) {
+    .card {
+        overflow-y: auto;
+    }
+
+    .card::-webkit-scrollbar {
+        display: none;
     }
 }

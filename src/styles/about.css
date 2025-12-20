@@ -15,6 +15,10 @@
   box-sizing: border-box;
 }
 
+.about-section::-webkit-scrollbar {
+  display: none;
+}
+
 .about-header {
   display: flex;
   justify-content: flex-start;

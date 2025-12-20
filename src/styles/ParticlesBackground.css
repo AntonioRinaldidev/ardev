@@ -9,7 +9,7 @@
 	min-height: 100vh;
 	min-height: -webkit-fill-available;
 	background: var(--theme-bg-gradient);
-	background-size: 600% 600%;
+	background-size: 100% 100%;
 	animation: gradientShift 12s ease infinite;
 	overflow: hidden;
 	z-index: -1;
