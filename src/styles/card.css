@@ -1,14 +1,13 @@
 .card {
     width: 90%;
     max-width: var(--container-width); 
-    height:80dvh;
-    min-height: 600px;
-    
-
+   
+    min-height: 20dvh;
     text-align: center;
     display: flex;
     margin: auto;
     flex-wrap: wrap;
+    
    
     
     position: relative;

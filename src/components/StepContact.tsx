@@ -50,7 +50,7 @@ export default function Stepper({
 	disableStepIndicators = false,
 	renderStepIndicator,
 	...rest
-}: StepperProps) {
+}: Readonly<StepperProps>) {
 	const [currentStep, setCurrentStep] = useState<number>(initialStep);
 	const [direction, setDirection] = useState<number>(0);
 	const stepsArray = Children.toArray(children);
@@ -87,9 +87,7 @@ export default function Stepper({
 	};
 
 	return (
-		<div
-			className="outer-container"
-			{...rest}>
+		<div className='outer-container' {...rest}>
 			<div className={`step-circle-container ${stepCircleContainerClassName}`}>
 				<div className={`step-indicator-row ${stepContainerClassName}`}>
 					{stepsArray.map((_, index) => {
@@ -134,26 +132,27 @@ export default function Stepper({
 				</StepContentWrapper>
 
 				{!isCompleted && (
-  <div className={`footer-container ${footerClassName}`}>
-    <div className={`footer-nav ${currentStep !== 1 ? 'spread' : 'end'}`}>
-      {currentStep !== 1 && (
-        <AnimatedButton
-          onClick={handleBack}
-          text={backButtonText}
-          variant="secondary"
-          className={currentStep === 1 ? 'inactive' : ''}
-        />
-      )}
-      <AnimatedButton
-        onClick={isLastStep ? handleComplete : handleNext}
-        text={isLastStep ? 'Complete' : nextButtonText}
-        variant="primary"
-        className={nextButtonProps?.disabled ? 'btn-disabled' : ''}
-        disabled={nextButtonProps?.disabled}
-      />
-    </div>
-  </div>
-)}
+					<div className={`footer-container ${footerClassName}`}>
+						<div
+							className={`footer-nav ${currentStep !== 1 ? 'spread' : 'end'}`}>
+							{currentStep !== 1 && (
+								<AnimatedButton
+									onClick={handleBack}
+									text={backButtonText}
+									variant='secondary'
+									className={currentStep === 1 ? 'inactive' : ''}
+								/>
+							)}
+							<AnimatedButton
+								onClick={isLastStep ? handleComplete : handleNext}
+								text={isLastStep ? 'Complete' : nextButtonText}
+								variant='primary'
+								className={nextButtonProps?.disabled ? 'btn-disabled' : ''}
+								disabled={nextButtonProps?.disabled}
+							/>
+						</div>
+					</div>
+				)}
 			</div>
 		</div>
 	);
@@ -179,13 +178,9 @@ function StepContentWrapper({
 	return (
 		<motion.div
 			className={className}
-			style={{ position: 'relative', overflow: 'hidden' }}
-			animate={{ height: isCompleted ? 0 : parentHeight }}
+			style={{ position: 'relative' }}
 			transition={{ type: 'spring', duration: 0.4 }}>
-			<AnimatePresence
-				initial={false}
-				mode="sync"
-				custom={direction}>
+			<AnimatePresence initial={false} mode='sync' custom={direction}>
 				{!isCompleted && (
 					<SlideTransition
 						key={currentStep}
@@ -223,9 +218,9 @@ function SlideTransition({
 			ref={containerRef}
 			custom={direction}
 			variants={stepVariants}
-			initial="enter"
-			animate="center"
-			exit="exit"
+			initial='enter'
+			animate='center'
+			exit='exit'
 			transition={{
 				duration: 0.6,
 				ease: [0.25, 0.8, 0.25, 1], // Portfolio easing
@@ -260,7 +255,7 @@ interface StepProps {
 }
 
 export function Step({ children }: StepProps): JSX.Element {
-	return <div className="step-default">{children}</div>;
+	return <div className='step-default'>{children}</div>;
 }
 
 interface StepIndicatorProps {
@@ -289,19 +284,19 @@ function StepIndicator({
 		if (step < currentStep) {
 			onClickStep(step);
 			return;
-        }
+		}
 		if (step === currentStep) {
 			return;
 		}
-		if (step > currentStep) {	
-			return; 
+		if (step > currentStep) {
+			return;
 		}
 	};
 
 	return (
 		<motion.div
 			onClick={handleClick}
-			className="step-indicator"
+			className='step-indicator'
 			whileHover={{ scale: 1.05 }}
 			whileTap={{ scale: 0.95 }}
 			initial={false}>
@@ -331,14 +326,14 @@ function StepIndicator({
 					duration: 0.4,
 					ease: [0.25, 0.8, 0.25, 1],
 				}}
-				className="step-indicator-inner"
+				className='step-indicator-inner'
 				data-status={status}>
 				{status === 'complete' ? (
-					<CheckIcon className="check-icon" />
+					<CheckIcon className='check-icon' />
 				) : status === 'active' ? (
-					<div className="active-dot" />
+					<div className='active-dot' />
 				) : (
-					<span className="step-number">{step}</span>
+					<span className='step-number'>{step}</span>
 				)}
 			</motion.div>
 		</motion.div>
@@ -351,9 +346,9 @@ interface StepConnectorProps {
 
 function StepConnector({ isComplete }: StepConnectorProps) {
 	return (
-		<div className="step-connector">
+		<div className='step-connector'>
 			<motion.div
-				className="step-connector-inner"
+				className='step-connector-inner'
 				initial={{ width: 0 }}
 				animate={{
 					width: isComplete ? '100%' : 0,
@@ -374,10 +369,10 @@ function CheckIcon(props: CheckIconProps) {
 	return (
 		<svg
 			{...props}
-			fill="none"
-			stroke="currentColor"
+			fill='none'
+			stroke='currentColor'
 			strokeWidth={3}
-			viewBox="0 0 24 24">
+			viewBox='0 0 24 24'>
 			<motion.path
 				initial={{ pathLength: 0, opacity: 0 }}
 				animate={{ pathLength: 1, opacity: 1 }}
@@ -387,9 +382,9 @@ function CheckIcon(props: CheckIconProps) {
 					ease: [0.25, 0.8, 0.25, 1],
 					duration: 0.6,
 				}}
-				strokeLinecap="round"
-				strokeLinejoin="round"
-				d="M5 13l4 4L19 7"
+				strokeLinecap='round'
+				strokeLinejoin='round'
+				d='M5 13l4 4L19 7'
 			/>
 		</svg>
 	);
