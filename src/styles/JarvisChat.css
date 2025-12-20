@@ -89,16 +89,33 @@
   align-self: flex-end;
   margin-left: auto;
   max-width: 80%;
+  /* Usa il gradiente dinamico del tema */
   background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 100%);
-  color: white;
+  
+  /* Gestione intelligente del colore del testo */
+  color: #ffffff; /* Default bianco per i temi scuri */
+  
   padding: 1rem 1.5rem;
-  border-radius: 20px 20px 4px 20px; /* Angolo appuntito in basso a dx */
-  box-shadow: 0 4px 15px rgba(253, 137, 101, 0.3);
+  border-radius: 20px 20px 4px 20px;
+  
+  /* Shadow basata sul colore primario del tema */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2), 0 0 10px var(--shadow-glow);
+  
   font-weight: 500;
   line-height: 1.5;
-  position: relative;
 }
 
+/* Fix per il tema Minimal (dove lo sfondo è chiaro e il testo deve essere scuro) */
+:root.minimal .user-command {
+  color: #ffffff; 
+  background: var(--color-primary); /* Slate scuro su bianco */
+}
+
+/* Fix per Dark Minimal (Bianco su Nero) */
+:root.dark-minimal .user-command {
+  color: #000000;
+  background: #ffffff;
+}
 
 .jarvis-response {
   align-self: flex-start;

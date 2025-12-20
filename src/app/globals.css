@@ -43,11 +43,7 @@
   --transition-base: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-/* =========================================
-   2. THEME OVERRIDES
-   ========================================= */
 
-/* Violet (Midnight Orchid) */
 :root.violet {
   --color-bg-secondary: #110920;
   --card-bg: rgba(21, 12, 36, 0.8);
