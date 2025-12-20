@@ -4,7 +4,7 @@
 const cspHeader = `
     connect-src 'self' wss://antoniorinaldidev.com https://antoniorinaldidev.com/backend-api;
     default-src 'self';
-    script-src 'self' 'unsafe-eval' 'unsafe-inline' https://apis.google.com https://www.google-analytics.com;
+    script-src 'self' 'unsafe-eval' 'unsafe-inline' https://apis.google.com https://www.google-analytics.com https://static.cloudflareinsights.com;
     style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
     img-src 'self' blob: data: https:;
     font-src 'self' data: https://fonts.gstatic.com;
