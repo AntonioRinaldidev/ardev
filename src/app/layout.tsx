@@ -27,7 +27,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
 	title: 'Antonio Rinaldi – Web & Mobile Developer',
 	description:
-		'Portfolio personale di Antonio Rinaldi, ingegnere informatico con focus su React, Next.js, AI e Computer Vision.',
+		'Personal portfolio of Antonio Rinaldi, Computer Engineer specializing in React, Next.js, AI, and Computer Vision.',
 	keywords: [
 		'Antonio Rinaldi',
 		'Web Developer',
@@ -38,9 +38,8 @@ export const metadata: Metadata = {
 		'Computer Vision',
 		'AI',
 		'Portfolio',
+		'Software Engineer',
 		'Italy',
-		'Vallo Della Lucania',
-		'Padova',
 	],
 	authors: [{ name: 'Antonio Rinaldi', url: 'https://antoniorinaldidev.com' }],
 	creator: 'Antonio Rinaldi',
@@ -93,11 +92,11 @@ export const metadata: Metadata = {
 	openGraph: {
 		title: 'Antonio Rinaldi – Portfolio',
 		description:
-			'Sviluppo web e mobile, AI & Robotics. Guarda i miei progetti e contattami per collaborazioni.',
+			'Web and mobile development, AI & Robotics. Explore my projects and contact me for collaborations.',
 		url: 'https://antoniorinaldidev.com',
 		siteName: 'Antonio Rinaldi',
 		type: 'website',
-		locale: 'it_IT',
+		locale: 'en_US', // Updated locale
 		images: [
 			{
 				url: 'https://antoniorinaldidev.com/og-image-v2.jpg',
@@ -109,14 +108,12 @@ export const metadata: Metadata = {
 };
 export default function RootLayout({
 	children,
-}: {
+}: Readonly<{
 	children: React.ReactNode;
-}) {
+}>) {
 	return (
-		<html lang="en">
-			<body
-				className={inter.className}
-				suppressHydrationWarning>
+		<html lang='en'>
+			<body className={inter.className} suppressHydrationWarning>
 				<ReduxProvider>
 					<LenisProvider>
 						<ParticlesBackground />
