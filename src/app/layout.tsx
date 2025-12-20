@@ -6,7 +6,8 @@ export const dynamic = 'force-dynamic';
 import ReduxProvider from '@/components/ReduxProvider';
 import { LenisProvider } from '@/providers/LenisProvider';
 import AppWrapper from '@/components/AppWrapper';
-import ParticlesBackground from '@/components/ParticlesBackground';
+
+import GradientBackground from '@/components/GradientBackground';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -116,7 +117,7 @@ export default function RootLayout({
 			<body className={inter.className} suppressHydrationWarning>
 				<ReduxProvider>
 					<LenisProvider>
-						<ParticlesBackground />
+						<GradientBackground />
 						<AppWrapper>{children}</AppWrapper>
 					</LenisProvider>
 				</ReduxProvider>

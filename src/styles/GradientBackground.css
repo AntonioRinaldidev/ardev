@@ -1,0 +1,77 @@
+/* styles/GradientBackground.css */
+
+.gradient-bg-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    overflow: hidden;
+    background: var(--color-bg-secondary); /* Uses your theme background */
+}
+
+.gradients-container {
+    filter: blur(40px);
+    width: 100%;
+    height: 100%;
+}
+
+/* We create blobs using your theme colors */
+.g1, .g2, .g3, .g4, .g5 {
+    position: absolute;
+    background: radial-gradient(circle at center, var(--color-primary) 0, transparent 50%);
+    mix-blend-mode: hard-light;
+    width: 80%;
+    height: 80%;
+    top: calc(50% - 40%);
+    left: calc(50% - 40%);
+    opacity: 0.4; /* Adjust for subtlety */
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+
+.g1 {
+    animation: moveVertical 30s alternate infinite;
+    background: radial-gradient(circle at center, var(--color-primary) 0, transparent 50%);
+}
+
+.g2 {
+    animation: moveInCircle 20s reverse infinite;
+    background: radial-gradient(circle at center, var(--color-link) 0, transparent 50%);
+    transform-origin: calc(50% - 400px);
+}
+
+.g3 {
+    animation: moveInCircle 40s linear infinite;
+    background: radial-gradient(circle at center, var(--color-third) 0, transparent 50%);
+    top: calc(50% - 40% + 200px);
+    left: calc(50% - 40% - 500px);
+    transform-origin: calc(50% + 400px);
+}
+
+.g4 {
+    animation: moveHorizontal 40s ease infinite;
+    background: radial-gradient(circle at center, var(--color-primary-hover) 0, transparent 50%);
+    transform-origin: calc(50% - 200px);
+    opacity: 0.3;
+}
+
+/* Keyframes for movement */
+@keyframes moveInCircle {
+    0% { transform: rotate(0deg); }
+    50% { transform: rotate(180deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes moveVertical {
+    0% { transform: translateY(-50%); }
+    50% { transform: translateY(50%); }
+    100% { transform: translateY(-50%); }
+}
+
+@keyframes moveHorizontal {
+    0% { transform: translateX(-50%) translateY(-10%); }
+    50% { transform: translateX(50%) translateY(10%); }
+    100% { transform: translateX(-50%) translateY(-10%); }
+}
