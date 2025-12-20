@@ -12,7 +12,8 @@
   /* --- Typography --- */
   --font-main: 'Inter', system-ui, -apple-system, sans-serif;
   --font-mono: 'Fira Code', monospace;
-
+}
+:root.artic-deep {
   /* --- Default Palette (Arctic Deep) --- */
   --color-bg-secondary: #0a1118;
   --card-bg: rgba(13, 22, 33, 0.85); /* Glass base */

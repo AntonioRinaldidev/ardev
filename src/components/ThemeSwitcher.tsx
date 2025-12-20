@@ -9,10 +9,12 @@ import {
 	FaGem,
 	FaRegCircle,
 	FaCircle,
+	FaSnowflake,
 } from 'react-icons/fa';
 import '@/app/globals.css';
 
 const themeIcons: Record<Theme, JSX.Element> = {
+	'artic-deep': <FaSnowflake />,
 	violet: <FaGem />,
 	cyber: <FaRobot />,
 	mint: <FaLeaf />,

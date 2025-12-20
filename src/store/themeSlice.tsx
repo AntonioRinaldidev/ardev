@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const themes = [
+	'artic-deep',
 	'violet',
 	'cyber',
 	'mint',
