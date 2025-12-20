@@ -13,7 +13,7 @@ import {
 } from 'react-icons/fa';
 import TechStack from '@/components/TechStack/TechStack';
 import AnimatedButton from '@/components/AnimatedButton';
-import '@/styles/about.css'; 
+import '@/styles/about.css';
 import SocialStats from '@/components/SocialStats';
 import { useRouter } from 'next/navigation';
 import ToggleGroup from '@/components/ToggleGroup';
@@ -58,33 +58,26 @@ const AboutMe = () => {
 
 	return (
 		<div className='container-page'>
-							<div className="about-header">
-					<AnimatedButton
-						variant="primary"
-						text="Back to Home"
-						onClick={() => router.push('/')}
-					/>
-				</div>
-			<section className="about-section">
-
-                
-            
+			<div className='about-header'>
+				<AnimatedButton
+					variant='primary'
+					text='Back to Home'
+					onClick={() => router.push('/')}
+				/>
+			</div>
+			<section className='about-section'>
 				<motion.div
-					className="about-main-content"
+					className='about-main-content'
 					initial={{ opacity: 0, y: 30 }}
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.7, ease: 'easeOut' }}>
-					
 					<motion.div
-						className="intro"
+						className='intro'
 						initial={{ opacity: 0, y: 30 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.7, ease: 'easeOut' }}>
-						<h2 className="heading">
-							About Me
-							
-						</h2>
-						<p className="text-paragraph">
+						<h2 className='heading'>About Me</h2>
+						<p className='text-paragraph'>
 							I&apos;m a Computer Engineering student with a Bachelor&apos;s
 							degree and currently pursuing a Master&apos;s degree in Artificial
 							Intelligence and Robotics. I have a strong interest in frontend
@@ -102,10 +95,10 @@ const AboutMe = () => {
 						]}
 					/>
 
-					<div className="timeline-content-wrapper">
+					<div className='timeline-content-wrapper'>
 						{selectedTab === 'education' && (
 							<Timeline
-								heading="Education"
+								heading='Education'
 								items={[
 									{
 										icon: <FaClock />,
@@ -135,7 +128,7 @@ const AboutMe = () => {
 
 						{selectedTab === 'experience' && (
 							<Timeline
-								heading="Experience"
+								heading='Experience'
 								items={[
 									{
 										icon: <FaBriefcase />,
@@ -150,7 +143,7 @@ const AboutMe = () => {
 
 						{selectedTab === 'hobbies' && (
 							<Timeline
-								heading="Hobbies"
+								heading='Hobbies'
 								items={[
 									{
 										icon: <FaGamepad />,

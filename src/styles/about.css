@@ -5,12 +5,12 @@
   padding: 3rem 4rem 4rem 4rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  
   align-items: center;
   
  
   position: relative;
-  overflow-x: hidden;
+
   width: 100%;
   box-sizing: border-box;
 }
@@ -146,11 +146,23 @@
 
 /* Mobile optimizations */
 @media (max-width: 1024px) {
-  .about-section {
-    /* Usa viewport height dinamica per mobile */
-    min-height: calc(var(--vh, 1vh) * 100);
-    padding: 1rem 0.5rem; /* Padding ridotto */
+html, body {
+    overflow-y: auto !important;
+    scrollbar-width: none !important; /* Firefox */
+    -ms-overflow-style: none !important; /* IE/Edge */
   }
+
+ 
+
+  
+  .about-section {
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    height: auto !important;
+    
+  }
+
+ 
 
   .about-header {
     margin-bottom: 1rem; /* Margin ridotto */

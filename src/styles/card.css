@@ -9,8 +9,6 @@
     padding-top: 3rem ;
     padding-bottom: 3rem ;
     
-   
-    
     position: relative;
     z-index: var(--z-normal);
 }
@@ -45,6 +43,7 @@
 @media (max-width: 768px) {
     .card {
         overflow-y: auto;
+        overflow-x: hidden;
     }
 
     .card::-webkit-scrollbar {
