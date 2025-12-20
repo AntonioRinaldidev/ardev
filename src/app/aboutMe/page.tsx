@@ -68,12 +68,12 @@ const AboutMe = () => {
 			<section className='about-section'>
 				<motion.div
 					className='about-main-content'
-					initial={{ opacity: 0, y: 30 }}
+					initial={{ opacity: 0, y: 50 }}
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.7, ease: 'easeOut' }}>
 					<motion.div
 						className='intro'
-						initial={{ opacity: 0, y: 30 }}
+						initial={{ opacity: 0, y: 50 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.7, ease: 'easeOut' }}>
 						<h2 className='heading'>About Me</h2>
