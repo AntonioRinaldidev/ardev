@@ -1045,12 +1045,7 @@ body {
     .profile-card-bottom{
         margin-bottom: 3rem;
     }
-    .theme-switcher-container{
-        position: absolute;
-        top: 0.1rem;
-        right: 0.1rem;
-        z-index: 10;
-    }
+
 }
 
 

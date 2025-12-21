@@ -188,6 +188,9 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ fullName }) => {
 				{/* Right Column: Actions */}
 				<div className='col2'>
 					<div className='profile-card-actions-redesign'>
+						<div className='theme-switcher-container'>
+							<ThemeSwitcher />
+						</div>
 						<motion.div
 							className='actions-redesign'
 							initial={{ opacity: 0, x: 50 }}
@@ -217,9 +220,6 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ fullName }) => {
 									<FaHeart className='heart-icon' />
 									<span>Crafted with passion</span>
 								</div>
-							</div>
-							<div className='theme-switcher-container'>
-								<ThemeSwitcher />
 							</div>
 						</motion.div>
 					</div>
