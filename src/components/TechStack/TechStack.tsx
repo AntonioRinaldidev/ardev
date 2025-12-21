@@ -14,6 +14,9 @@ import {
 	SiGithub,
 	SiGit,
 	SiNextdotjs,
+	SiCplusplus,
+	SiOpencv,
+	SiRos,
 } from 'react-icons/si';
 import { FaJava } from 'react-icons/fa';
 import { FiCpu } from 'react-icons/fi';
@@ -21,18 +24,96 @@ import { motion } from 'framer-motion';
 import './TechStack.css';
 
 const techs = [
-	{ name: 'JavaScript', icon: <SiJavascript />, category: 'Language' },
-	{ name: 'TypeScript', icon: <SiTypescript />, category: 'Language' },
-	{ name: 'Python', icon: <SiPython />, category: 'AI & Data' },
-	{ name: 'Java', icon: <FaJava />, category: 'Backend' },
-	{ name: 'React', icon: <SiReact />, category: 'Frontend' },
-	{ name: 'Next.js', icon: <SiNextdotjs />, category: 'Framework' },
-	{ name: 'React Native', icon: <SiReactrouter />, category: 'Mobile' },
-	{ name: 'Node.js', icon: <SiNodedotjs />, category: 'Backend' },
-	{ name: 'SQL', icon: <SiMysql />, category: 'Database' },
-	{ name: 'MongoDB', icon: <SiMongodb />, category: 'NoSQL' },
-	{ name: 'Git', icon: <SiGit />, category: 'DevOps' },
-	{ name: 'GitHub', icon: <SiGithub />, category: 'Collaboration' },
+	// --- FOUNDATIONS (Skill Comuni) ---
+	{
+		name: 'Git',
+		tree: 'general',
+		icon: <SiGit />,
+		category: 'Version Control',
+	},
+	{
+		name: 'GitHub',
+		tree: 'general',
+		icon: <SiGithub />,
+		category: 'Collaboration',
+	},
+	{ name: 'SQL', tree: 'general', icon: <SiMysql />, category: 'Database' },
+
+	// --- ALBERO 1: Web & Mobile Development ---
+	{
+		name: 'JavaScript',
+		tree: 'software-dev',
+		icon: <SiJavascript />,
+		category: 'Language',
+	},
+	{
+		name: 'TypeScript',
+		tree: 'software-dev',
+		icon: <SiTypescript />,
+		category: 'Language',
+	},
+	{
+		name: 'React',
+		tree: 'software-dev',
+		icon: <SiReact />,
+		category: 'Frontend',
+	},
+	{
+		name: 'Next.js',
+		tree: 'software-dev',
+		icon: <SiNextdotjs />,
+		category: 'Framework',
+	},
+	{
+		name: 'React Native',
+		tree: 'software-dev',
+		icon: <SiReactrouter />,
+		category: 'Mobile',
+	},
+	{
+		name: 'Node.js',
+		tree: 'software-dev',
+		icon: <SiNodedotjs />,
+		category: 'Backend',
+	},
+	{
+		name: 'MongoDB',
+		tree: 'software-dev',
+		icon: <SiMongodb />,
+		category: 'NoSQL',
+	},
+
+	// --- ALBERO 2: AI & Robotics ---
+	{
+		name: 'Python',
+		tree: 'ai-robotics',
+		icon: <SiPython />,
+		category: 'AI & Data',
+	},
+	{
+		name: 'C++',
+		tree: 'ai-robotics',
+		icon: <SiCplusplus />,
+		category: 'System Programming',
+	},
+	{
+		name: 'Java',
+		tree: 'ai-robotics',
+		icon: <FaJava />,
+		category: 'Software Architecture',
+	},
+	{
+		name: 'ROS2',
+		tree: 'ai-robotics',
+		icon: <SiRos />,
+		category: 'Robotics OS',
+	},
+	{
+		name: 'OpenCV',
+		tree: 'ai-robotics',
+		icon: <SiOpencv />,
+		category: 'Computer Vision',
+	},
 ];
 
 const containerVariants = {

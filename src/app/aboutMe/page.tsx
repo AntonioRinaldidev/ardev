@@ -18,6 +18,7 @@ import SocialStats from '@/components/SocialStats';
 import { useRouter } from 'next/navigation';
 import ToggleGroup from '@/components/ToggleGroup';
 import Timeline from '@/components/Timeline';
+import TechTree from '@/components/TechTree';
 
 const experienceData = {
 	centroWellness: {
@@ -157,7 +158,7 @@ const AboutMe = () => {
 						)}
 					</div>
 
-					<TechStack />
+					<TechTree />
 					<SocialStats />
 				</motion.div>
 			</section>

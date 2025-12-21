@@ -1,0 +1,183 @@
+.techtree-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* FOUNDATIONS */
+.techtree-foundations {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.techtree-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    margin-bottom: 1.5rem;
+    opacity: 0.5;
+}
+
+.foundations-grid {
+    display: flex;
+    gap: 1rem;
+}
+
+.foundation-pill {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.foundation-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+}
+
+.foundation-name {
+    font-size: 0.65rem;
+    font-weight: 700;
+}
+
+/* STEM (Il tronco) */
+.techtree-stem {
+    width: 2px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.2), var(--color-primary));
+    margin-top: 1rem;
+}
+
+/* BRANCHES */
+.techtree-branches {
+    display: flex;
+    width: 100%;
+    gap: 3rem;
+    margin-top: -2px; /* Unisce visivamente al tronco */
+}
+
+/* Rimuovi border-top dalle classi originali e aggiungi questo */
+.branch-column {
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+
+}
+
+.branch-column::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-top: 2px solid transparent;
+    /* Applica la sfumatura qui */
+    background: linear-gradient(to right, rgba(255,255,255,0.1), var(--color-primary)) border-box;
+    /* Crea la maschera per far vedere solo il bordo */
+    mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    -webkit-mask-composite: destination-out;
+}
+
+.branch-column.web::before {
+    border-right: 2px solid transparent;
+    border-top-right-radius: 24px;
+    /* Sfumatura da sinistra a destra (dal tronco verso l'esterno) */
+    background: linear-gradient(to right, rgba(255,255,255,0.1), var(--color-primary)) border-box;
+}
+
+.branch-column.ai::before {
+    border-left: 2px solid transparent;
+    border-top-left-radius: 24px;
+    /* Sfumatura da destra a sinistra (dal tronco verso l'esterno) */
+    background: linear-gradient(to left, rgba(255,255,255,0.1), #10b981) border-box;
+} 
+
+
+.branch-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+}
+
+.branch-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+/* Colori rami */
+.web .branch-header { color: var(--color-primary); }
+.ai .branch-header { color: #10b981; /* Un verde smeraldo per AI */ }
+
+.branch-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+/* TECH CARDS */
+.tech-card {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+}
+
+.web .tech-card:hover { border-color: var(--color-primary); }
+.ai .tech-card:hover { border-color: #10b981; }
+
+.tech-card-icon {
+    font-size: 1.5rem;
+    opacity: 0.8;
+}
+
+.tech-card-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.tech-card-name {
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.tech-card-category {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    opacity: 0.4;
+    letter-spacing: 0.1em;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+    .techtree-branches {
+        flex-direction: column;
+        gap: 2rem;
+    }
+    .branch-column.web, .branch-column.ai {
+        align-items: center;
+        border: none;
+        padding: 0;
+    }
+    .branch-grid {
+        grid-template-columns: 1fr;
+    }
+}
