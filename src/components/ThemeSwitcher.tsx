@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
 	FaLeaf,
 	FaBolt,
-	FaRobot,
+	
 	FaGem,
 	FaRegCircle,
 	FaCircle,
@@ -15,7 +15,7 @@ import {
 const themeIcons: Record<Theme, JSX.Element> = {
 	'artic-deep': <FaSnowflake />,
 	violet: <FaGem />,
-	cyber: <FaRobot />,
+	
 	mint: <FaLeaf />,
 	neon: <FaBolt />,
 	minimal: <FaRegCircle />,
