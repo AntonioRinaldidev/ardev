@@ -28,6 +28,8 @@
 .foundations-grid {
     display: flex;
     gap: 1rem;
+    flex-wrap: wrap;
+     justify-content: center;
 }
 
 .foundation-pill {
@@ -124,10 +126,10 @@
 
 .branch-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1rem;
 }
-
 /* TECH CARDS */
 .tech-card {
     display: flex;
@@ -141,8 +143,7 @@
     transition: all 0.3s ease;
 }
 
-.web .tech-card:hover { border-color: var(--color-primary); }
-.ai .tech-card:hover { border-color: #10b981; }
+
 
 .tech-card-icon {
     font-size: 2.5rem;
@@ -167,11 +168,15 @@
 }
 
 /* RESPONSIVE */
-@media (max-width: 1024px) {
+@media (max-width: 970px) {
     .techtree-branches {
         flex-direction: column;
         gap: 2rem;
     }
+
+    .branch-column::before
+        {display: none;}
+        
     .branch-column.web, .branch-column.ai {
         align-items: center;
         border: none;
@@ -179,5 +184,10 @@
     }
     .branch-grid {
         grid-template-columns: 1fr;
+    }
+    .branch-column {
+        border-left: 2px solid var(--color-primary); /* Simple vertical indicator instead */
+        margin-left: 20px;
+        padding-left: 1.5rem;
     }
 }

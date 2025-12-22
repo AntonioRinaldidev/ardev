@@ -7,7 +7,7 @@
   background: rgba(23, 26, 38, 0.6); 
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border-radius: 24px;
+  border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 
     0 20px 50px rgba(0, 0, 0, 0.5),

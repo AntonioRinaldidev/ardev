@@ -1,23 +1,29 @@
+/* styles/card.css */
 .card {
-    width: 90%;
-    max-width: var(--container-width); 
-
-    text-align: center;
-    display: flex;
-    margin: auto;
-    flex-wrap: wrap;
-    padding-top: 3rem ;
-    padding-bottom: 3rem ;
     
+    width: 95%;
+    max-width: 1800px; 
+    margin: 2rem auto;
+    
+   
+    display: block; 
+    
+
+    background: transparent;
     position: relative;
     z-index: var(--z-normal);
+    
+    border-radius: 24px;
+    padding: 0; 
 }
 
 
 .card::before {
     content: '';
     position: absolute;
-    width: 120%;
+    top: 0; 
+    left: 0; 
+    width: 100%; 
     height: 100%;
     background: 
         radial-gradient(ellipse 60% 80% at 30% 40%, var(--shadow-blu) 0%, transparent 40%),
@@ -26,27 +32,26 @@
     opacity: 0.08;
     pointer-events: none;
     z-index: -1;
+    border-radius: 24px;
     animation: atmosphericFloat 15s ease-in-out infinite alternate;
 }
 
 @keyframes atmosphericFloat {
-    0% { 
-        transform: translate(0, 0) scale(1) rotate(0deg);
-        opacity: 0.06;
-    }
-    100% { 
-        transform: translate(15px, -8px) scale(1.08) rotate(1deg);
-        opacity: 0.12;
-    }
+    0% { transform: scale(1); opacity: 0.06; }
+    100% { transform: scale(1.05); opacity: 0.12; }
 }
 
 @media (max-width: 768px) {
     .card {
-        overflow-y: auto;
-        overflow-x: hidden;
+        overflow-y: visible; /* Fix per evitare scrollbar interne indesiderate */
+        overflow-x: visible;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
     }
 
     .card::-webkit-scrollbar {
         display: none;
     }
 }
+
+
