@@ -26,6 +26,19 @@
   transition: all 0.3s ease;
 }
 
+.timeline-item.is-clickable {
+    cursor: pointer;
+    text-decoration: none; /* Rimuove la sottolineatura da tutto il blocco */
+    color: inherit; /* Mantiene il colore del testo originale */
+    display: flex; /* CORRETTO: Mantieni flex per allineare icona e testo */
+    width: 100%;   /* I tag <a> a volte non prendono tutta la larghezza da soli */
+    box-sizing: border-box;
+}
+
+.timeline-item.is-clickable:hover {
+    background-color: var(--section-bg)
+}
+
 .timeline-item:hover {
   transform: translateX(5px);
   box-shadow: 
@@ -40,15 +53,15 @@
   flex-shrink: 0;
   margin-top: 0.2rem;
   padding: 0.5rem;
-  background: rgba(255, 255, 255, 0.05);
+
   border-radius: 8px;
   transition: all 0.3s ease;
 }
 
 .timeline-item:hover .timeline-icon {
   color: var(--color-link);
-  background: rgba(255, 255, 255, 0.1);
-  transform: scale(1.1);
+  
+  transform: translateX(5px);
 }
 
 .timeline-title {

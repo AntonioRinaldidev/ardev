@@ -44,10 +44,26 @@
   box-shadow: 0 0 10px currentColor;
 }
 
-.connected { color: var(--color-third); background: var(--color-third); }
-.connecting { color: var(--color-link); background: var(--color-link); }
-.disconnected { color: var(--warning-color); background: var(--warning-color); }
+/* Connected: Sfondo verde chiaro, Testo verde scuro */
+.connected { 
+    
+    background: #1a8a47;
+    border: 1px solid rgba(46, 204, 113, 0.3);
+}
 
+/* Connecting: Sfondo giallo chiaro, Testo Ocra/Oro scuro (Il punto critico) */
+.connecting { 
+    background: #b78805; /* Oro scuro/Ocra. Il giallo puro non passa il contrasto. */
+    
+    border: 1px solid rgba(241, 196, 15, 0.3);
+}
+
+/* Disconnected: Sfondo grigio chiaro, Testo grigio scuro */
+.disconnected { 
+    background: #586466; /* Grigio più scuro e deciso */
+    
+    border: 1px solid rgba(149, 165, 166, 0.3);
+}
 
 .terminal-container {
   flex: 1;
