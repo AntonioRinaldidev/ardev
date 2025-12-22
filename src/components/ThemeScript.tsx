@@ -6,11 +6,10 @@ export const ThemeScript = () => {
         var themes = [
             'artic-deep',
             'violet',
-            'cyber',
             'mint',
             'neon',
-            'minimal',
             'dark-minimal',
+            'minimal',
         ];
         
         var savedTheme = localStorage.getItem('theme');
@@ -21,7 +20,7 @@ export const ThemeScript = () => {
           html.classList.add(savedTheme);
         } else {
           // Fallback: Default theme (deve corrispondere all'initialState del tuo slice)
-          html.classList.add('artic-deep');
+          html.classList.add('dark-minimal');
         }
       } catch (e) {}
     })();

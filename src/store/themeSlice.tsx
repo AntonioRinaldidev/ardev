@@ -3,11 +3,10 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 const themes = [
 	'artic-deep',
 	'violet',
-	'cyber',
 	'mint',
 	'neon',
-	'minimal',
 	'dark-minimal',
+	'minimal',
 ] as const;
 export type Theme = (typeof themes)[number];
 
@@ -17,7 +16,7 @@ interface ThemeState {
 }
 
 const initialState: ThemeState = {
-	currentTheme: 'neon',
+	currentTheme: 'dark-minimal',
 	isInitialized: false,
 };
 
