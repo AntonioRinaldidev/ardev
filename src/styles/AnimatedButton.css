@@ -1,246 +1,171 @@
-/* AnimatedButton.css */
+/* styles/AnimatedButton.css - VERSIONE "CYBER-SOLID" */
 
+/* --- BASE STYLES --- */
 .animated-btn {
   position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  
+  /* Dimensioni e Spazi */
   padding: 0.8rem 1.5rem;
-  font-size: 1rem;
-  font-weight: 600;
-  border-radius: calc(var(--radius-md) - 2px);
-  border: 0px solid transparent;
+  min-height: 48px;
+  width: auto;
+  
+  /* Tipografia più tecnica */
+  font-size: 0.95rem;
+  font-weight: 700; /* Più grassetto */
+  letter-spacing: 0.03em;
+  text-transform: uppercase; /* Opzionale: rende tutto più "bottone" */
+  
+  /* Stile Base */
+  border-radius: 12px;
   cursor: pointer;
   overflow: hidden;
-  backdrop-filter: blur(15px);
-  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   
-  /* Portfolio glassmorphism base */
-  background: linear-gradient(
-    145deg, 
-    rgba(255, 255, 255, 0.1) 0%, 
-    var(--section-bg) 30%, 
-    rgba(0, 0, 0, 1) 100%
-  );
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  /* Niente Blur, Colore Solido Sfumato */
+  background: var(--card-bg); /* Colore di base scuro */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--color-text);
+  
+  /* Transizioni scattanti ma fluide */
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
-/* --- Shine Effect --- */
-.animated-btn::before {
+/* --- EFFETTO HOVER GENERALE --- */
+.animated-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* --- SHINE EFFECT (Più sottile e veloce) --- */
+.animated-btn::after {
   content: '';
   position: absolute;
   top: 0;
   left: -100%;
-  width: 100%;
+  width: 30%; /* Più stretto */
   height: 100%;
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0.4) 50%,
     transparent 100%
   );
-  transform: skewX(-25deg);
-  transition: left 0.6s ease;
+  transform: skewX(-20deg);
+  transition: left 0.4s ease;
   pointer-events: none;
-  z-index: 1;
+  z-index: 10;
 }
 
-.animated-btn:hover::before {
-  left: 100%;
+.animated-btn:hover::after {
+  left: 150%;
 }
 
-/* --- Content Layout --- */
+/* --- CONTENT LAYOUT --- */
 .btn-content {
   position: relative;
   z-index: 2;
-  display: inline-flex;
+  display: flex;
   align-items: center;
+  justify-content: center;
+  gap: 0.8rem; /* Spaziatura generosa */
   width: 100%;
-  gap: 0.5rem;
-  text-align: center;
-  justify-content: center; /* Ensures text centers nicely */
-}
-
-.btn-text {
-  font-size: 1rem;
-  font-weight: 600;
-  letter-spacing: 0.025em;
-  color: var(--btn-hub-color, var(--color-text));
 }
 
 .btn-icon {
-  position: absolute;
-  left: 0; /* Anchors icon to the left edge */
-  display: inline-flex;
+  display: flex;
+  align-items: center;
   justify-content: center;
-  align-items: center; 
   font-size: 1.1rem;
-  width: 1.2rem;
-  height: 1.2rem;
-  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.2));
+  transition: transform 0.2s ease;
 }
 
 .animated-btn:hover .btn-icon {
-  transform: scale(1.2) rotate(360deg);
-  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.4));
+  transform: scale(1.1); /* Semplice ingrandimento */
 }
 
-/* --- Variants --- */
+/* --- VARIANTS --- */
 
-/* 1. Primary */
+/* 1. Primary: Colore Pieno e Vibrante */
 .btn-primary {
-  background: linear-gradient(
-    145deg, 
-    rgba(255, 255, 255, 0.04) 0%, 
-    var(--color-primary) 30%, 
-    var(--color-primary-hover) 100%
-  );
-  color: var(--color-text);
-  border-color: var(--color-primary);
-  box-shadow: 
-    0 8px 25px rgba(0, 0, 0, 0.2),
-    0 0 20px var(--shadow),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  background: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  color: white; /* Testo sempre bianco per contrasto */
 }
 
 .btn-primary:hover {
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 
-    0 15px 40px rgba(0, 0, 0, 0.3),
-    0 0 40px var(--shadow),
-    inset 0 2px 0 rgba(255, 255, 255, 0.3);
+  background: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
+  box-shadow: 0 0 15px rgba(141, 93, 255, 0.5); /* Glow colorato */
 }
 
-/* 2. Secondary */
+/* 2. Secondary: Bordo Colorato (Outline) */
 .btn-secondary {
-  background: linear-gradient(
-    145deg, 
-    rgba(255, 255, 255, 0.04) 0%, 
-    var(--section-bg) 30%, 
-    rgba(0, 0, 0, 0.08) 100%
-  );
-  color: var(--color-link);
-  border-color: var(--color-link);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.1); /* Bordo più spesso */
+  color: var(--color-text-secondary);
 }
 
 .btn-secondary:hover {
-  transform: translateY(-2px);
-  background: linear-gradient(
-    145deg, 
-    rgba(255, 255, 255, 0.04) 0%, 
-    var(--color-link) 30%, 
-    var(--color-link-hover) 100%
-  );
-  color: white;
-  box-shadow: 
-    0 8px 25px rgba(0, 0, 0, 0.2),
-    0 0 20px var(--shadow-blu);
+  border-color: var(--color-text);
+  color: var(--color-text);
+  background: rgba(255, 255, 255, 0.05);
 }
 
-/* 3. Development */
-.btn-development {
-  background: linear-gradient(
-    145deg, 
-    rgba(255, 255, 255, 0.04) 0%, 
-    var(--color-third) 30%, 
-    var(--color-third-hover) 100%
-  );
-  color: white;
-  border-color: var(--color-third);
-  box-shadow: 
-    0 8px 25px rgba(0, 0, 0, 0.2),
-    0 0 20px rgba(139, 92, 246, 0.3);
-}
-
-.btn-development:hover {
-  transform: translateY(-2px) scale(1.02);
-  background: linear-gradient(
-    145deg, 
-    rgba(255, 255, 255, 0.06) 0%, 
-    var(--color-third-hover) 30%, 
-    var(--color-third) 100%
-  );
-  box-shadow: 
-    0 12px 30px rgba(0, 0, 0, 0.25),
-    0 0 30px rgba(139, 92, 246, 0.4);
-}
-
-/* 4. Hub (Special Variant) */
+/* 3. Hub: Il pulsante "Magico" */
 .btn-hub {
-  border-radius: var(--radius-md) !important;
-  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: 4px solid var(--btn-hub-color, var(--color-primary)); /* Indicatore laterale colorato */
+  justify-content: flex-start; /* Allinea a sinistra */
+  padding-left: 1.2rem;
+}
+
+.btn-hub .btn-content {
+  justify-content: flex-start; /* Contenuto a sinistra */
 }
 
 .btn-hub:hover {
-  background-color: var(--btn-hub-color);
-  color: var(--color-bg-secondary);
-  border-radius: 0px 20px  !important;
-  box-shadow: 0 0 5px var(--btn-hub-color);
-  transform: translateY(-2px);
-  
+  background: var(--btn-hub-color, var(--color-primary));
+  color: #000; /* Testo nero su sfondo colorato */
+  border-color: transparent;
+  border-left-width: 0; /* Rimuove il bordo laterale quando si riempie */
 }
 
-/* Specific text alignment for Hub buttons to balance the left-icon */
-.btn-hub .btn-content .btn-text {
-  margin-left: 20%; /* Reduced from 40% for better responsiveness */
-}
 
-/* --- Disabled State --- */
+
+/* --- STATES --- */
+
 .animated-btn:disabled {
-  background: linear-gradient(
-    145deg, 
-    rgba(255, 255, 255, 0.02) 0%, 
-    var(--color-bg-secondary) 30%, 
-    rgba(0, 0, 0, 0.1) 100%
-  ) !important;
-  color: var(--color-text-secondary) !important;
-  cursor: not-allowed !important;
-  pointer-events: none !important;
-  border-color: rgba(255, 255, 255, 0.1) !important;
+  opacity: 0.6;
+  cursor: not-allowed;
+  filter: grayscale(100%);
   transform: none !important;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+  box-shadow: none !important;
 }
 
-.animated-btn:disabled .btn-icon {
-  transform: none !important;
-  filter: none !important;
-}
+/* --- RESPONSIVE --- */
 
-.animated-btn:disabled::before {
-  display: none !important;
-}
-
-/* --- Responsive & Accessibility --- */
 @media (max-width: 768px) {
   .animated-btn {
-    padding: 0.7rem 1.2rem;
-    font-size: 0.9rem;
-  }
-  
-  .animated-btn:hover .btn-icon {
-    transform: scale(1.15) rotate(180deg);
+    padding: 0.7rem 1rem;
+    font-size: 0.85rem;
+    min-height: 44px;
   }
 }
 
 @media (max-width: 480px) {
   .animated-btn {
-    padding: 0.6rem 1rem;
-    font-size: 0.85rem;
+    width: 100%; /* Full width su mobile */
   }
-}
-
-.animated-btn:focus-visible {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 2px;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .animated-btn,
-  .animated-btn::before,
-  .btn-icon {
-    animation: none !important;
-    transition: none !important;
+  
+  /* Nel mobile, centriamo il contenuto anche per i pulsanti Hub */
+  .btn-hub, .btn-hub .btn-content {
+    justify-content: center;
+    padding-left: 1rem;
+    border-left-width: 1px; /* Resetta lo stile speciale */
   }
 }

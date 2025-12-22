@@ -48,43 +48,59 @@
   z-index: 10;
 }
 
-.contact-header .animated-btn {
-  background: 
-    linear-gradient(145deg, 
-      rgba(255, 255, 255, 0.03) 0%, 
-      var(--card-bg) 30%, 
-      var(--section-bg) 100%
-    );
-  backdrop-filter: blur(20px) saturate(110%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 
-    0 8px 25px rgba(0, 0, 0, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  transition: all 0.3s ease;
 
+
+/* --- OVERRIDE HEADER (Pulsanti "Back") - THEME ADAPTIVE --- */
+
+
+.contact-header .animated-btn {
+  /* Reset: Rimuove lo stile Hub */
+  background: var(--theme-bg-gradient) !important;
+  border-left-width: 1px !important;
+  padding: 0.7rem 1.4rem !important;
+  
+  /* Stile Base: Neutro rispetto al tema */
+  border: 1px solid var(--color-text-secondary) !important;
+  color: var(--color-text-secondary) !important;
+  border-radius: 16px !important; /* Forma a pillola */
+  box-shadow: none !important;
+  
+  /* Opacità ridotta per il bordo a riposo */
+  opacity: 0.7;
 }
+
 
 .contact-header .animated-btn:hover {
-  transform: translateY(-2px);
-    background: 
-    linear-gradient(145deg, 
-      rgba(255, 255, 255, 0.05) 0%, 
-      var(--card-bg) 30%, 
-      var(--section-bg) 100%
-    ); 
-  box-shadow: 
-    0 12px 30px rgba(0, 0, 0, 0.2),
-    0 0 5px var(--shadow),
-    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  opacity: 1;
+  transform: translateY(3px); /* Movimento indietro */
+  
+  /* ADATTAMENTO AL TEMA: Usa le variabili globali */
+  border-color: var(--color-primary) !important;
+  color: var(--color-primary) !important;
+  
+  /* Sfondo leggero neutro */
+  background: rgba(255, 255, 255, 0.05) !important;
+  
+  /* Glow che usa l'ombra del tema corrente */
+  box-shadow: 0 0 15px var(--shadow), inset 0 0 5px var(--shadow) !important;
+}
+
+/* Icona */
+
+.contact-header .animated-btn .btn-icon {
+  transition: transform 0.3s ease;
 }
 
 
+.contact-header .animated-btn:hover .btn-icon {
+  transform: translateX(-4px) scale(1.1);
+}
 
 
 
 .contact-main-content {
 
-  border-radius: 24px;
+  border-radius: 16px;
   padding: 3rem ;
   
   box-shadow: 

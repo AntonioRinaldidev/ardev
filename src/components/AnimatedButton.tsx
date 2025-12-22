@@ -10,25 +10,24 @@ interface AnimatedButtonProps extends React.ButtonHTMLAttributes<HTMLButtonEleme
     className?: string;
 }
 
-const AnimatedButton: React.FC<AnimatedButtonProps> = ({
+const AnimatedButton: React.FC<AnimatedButtonProps & { hubColor?: string }> = ({
     onClick,
     text,
     icon,
     className = '',
     variant = 'primary',
+    
     disabled = false,
-    type = 'button', // Default to 'button' to prevent accidental form submissions
     ...props
 }) => {
     return (
         <button
-            type={type}
-            onClick={onClick}
+            {...props}
             disabled={disabled}
             className={`animated-btn btn-${variant} ${className}`}
-            {...props}
+           
+            onClick={onClick}
         >
-
             <span className="btn-content">
                 {icon && <span className="btn-icon">{icon}</span>}
                 <span className="btn-text">{text}</span>

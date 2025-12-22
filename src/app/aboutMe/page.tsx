@@ -25,7 +25,7 @@ const experienceData = {
 		title: 'Frontend React Native & React Developer',
 		company: 'Centro Wellness Morra',
 		location: 'Italy',
-		period: 'Jun 2024 - Present',
+		period: 'Jun 2024 - September 2025',
 		description:
 			'Developed React web application and React Native mobile apps for healthcare ecosystem.',
 		technologies: ['React', 'React Native', 'TypeScript'],
@@ -67,6 +67,7 @@ const AboutMe = () => {
 				/>
 			</div>
 			<section className='about-section'>
+				
 				<motion.div
 					className='about-main-content'
 					initial={{ opacity: 0, y: 50 }}
