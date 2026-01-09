@@ -19,6 +19,8 @@ import {
 import { useIsMobile } from "@/hooks/useIsMobile";
 import Card from "./Card";
 import ARLogo from "../../public/ARLogo.svg";
+import AnimatedLogo from "./AnimatedLogo";
+import AnimatedLogo2 from "./AnimatedLogo2";
 
 interface ProfileCardProps {
   fullName: string;
@@ -115,14 +117,15 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ fullName }) => {
             className="col1 pt-0 pb-2 flex-col flex justify-center items-center space-y-0"
           >
             <motion.div
-              className="profile-avatar-section"
-              initial={{ opacity: 0, scale: 0.5, rotate: -180 }}
-              animate={{ opacity: 1, scale: 1, rotate: 0 }}
-              transition={{ duration: 1.2, ease: "backOut" }}
+              className="profile-avatar-redesign"
+              animate={{ y: [0, -5, 0] }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                ease: "linear",
+              }}
             >
-              <div className="profile-avatar-redesign">
-                <ARLogo />
-              </div>
+              <AnimatedLogo2 />
             </motion.div>
 
             <motion.div

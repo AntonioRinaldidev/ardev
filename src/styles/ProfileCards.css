@@ -8,7 +8,7 @@
   --space-lg: clamp(1.5rem, 2.5vw, 2.5rem);
   --space-xl: clamp(2rem, 3.5vw, 4.5rem);
 
-  --avatar-size: clamp(6rem, 12vw, 14rem);
+  --avatar-size: clamp(12rem, 20vw, 20rem);
   --title-min: 1.5rem;
   --title-prefer: 6vw;
   --title-max: 9rem;
@@ -46,6 +46,7 @@
     transparent 100%
   );
   padding: 3rem;
+  padding-top: 1rem;
   position: relative;
   border-right: 1px solid rgba(255, 255, 255, 0.1);
   box-sizing: border-box;

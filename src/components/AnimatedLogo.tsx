@@ -1,0 +1,135 @@
+import React from "react";
+import { motion } from "framer-motion";
+
+const AnimatedLogo = () => {
+  // Configurazione del contenitore per far apparire i path uno dopo l'altro
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15, // Ritardo tra l'inizio di ogni path
+        delayChildren: 0.3, // Ritardo iniziale prima della prima animazione
+      },
+    },
+  };
+
+  // Configurazione dell'animazione di "scrittura" per ogni singolo path
+  const pathVariants = {
+    hidden: {
+      pathLength: 0,
+      opacity: 0,
+    },
+    visible: {
+      pathLength: 1,
+      opacity: 1,
+      transition: {
+        duration: 1.5,
+        ease: "easeInOut",
+      },
+    },
+  };
+
+  return (
+    <div
+      className="animated-logo-wrapper"
+      style={{
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <svg
+        version="1.1"
+        viewBox="200 300 600 250"
+        xmlns="http://www.w3.org/2000/svg"
+        className="image"
+        style={{ overflow: "visible" }}
+      >
+        <motion.g
+          className="logo-group"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <motion.path
+            variants={pathVariants}
+            transform="translate(466,301)"
+            d="m0 0h164l15 3 16 7 11 8 11 11 7 11 6 13 3 12 1 8v12l-2 14-4 12-6 12-8 10-10 10-11 7-11 5-6 1 16 24 11 15 8 12 12 17 9 13v2h-57l-10-14-10-15-15-22-26-38-15-22-10-14v-2l72-1 9-3 10-9 4-8 1-3v-16l-4-10-6-7-12-6-5-1-133-1-14-25-11-20z"
+          />
+
+          <motion.path
+            variants={pathVariants}
+            transform="translate(450,301)"
+            d="m0 0 3 3 10 19 13 23 16 29 14 24 15 28 9 15-1 2h-28l-26-1-13-24-11-20-1-1-16 30-9 16-32 58-12 21-9 16h-54l2-5 13-24 13-23 15-27 16-29 15-27 16-29 14-25 15-27z"
+          />
+
+          <motion.path
+            variants={pathVariants}
+            transform="translate(434,457)"
+            d="m0 0h104l14 25 10 18 14 25 7 12-1 3h-53l-16-29-6-10-37-1 6 7v8l-4 4-2 1h-6l-5-5-1-6 3-5 3-3-14-1v23l4 2 2 6-2 5-3 3-6 1-5-3-2-3v-7l5-5 1-22h-16v39l-5 1v-40h-12l2-5 12-23 8-14z"
+          />
+
+          <motion.path
+            variants={pathVariants}
+            transform="translate(623,358)"
+            d="m0 0 6 2 3 3 1 6-3 5-3 2h-7l-4-4v-2l-52 1-7 8-6 6h-38l-2-3v-3h37l10-10 3-4 54-1 5-5z"
+          />
+
+          <motion.path
+            variants={pathVariants}
+            transform="translate(620,380)"
+            d="m0 0h7l5 5v8l-4 4-6 1-5-3-2-3h-38l-9 10-1 1h-44l-3-6 45-1 9-10 41-1z"
+          />
+
+          <motion.path
+            variants={pathVariants}
+            transform="translate(402,496)"
+            d="m0 0 5 1 1 1v24l5 4 1 7-3 5-4 2-7-1-4-4-1-6 3-5 3-2z"
+          />
+
+          <motion.path
+            variants={pathVariants}
+            transform="translate(525,357)"
+            d="m0 0h7l5 5v7l-4 5-6 1-5-3-2-4h-17l-2-5 19-1z"
+          />
+
+          <motion.path
+            variants={pathVariants}
+            transform="translate(466,507)"
+            d="m0 0 5 2-1 5-4 1-2-1v-5z"
+          />
+          <motion.path
+            variants={pathVariants}
+            transform="translate(445,527)"
+            d="m0 0 5 1v5l-4 2-3-2 1-5z"
+          />
+          <motion.path
+            variants={pathVariants}
+            transform="translate(622,364)"
+            d="m0 0 5 1v5l-5 1-2-2 1-4z"
+          />
+          <motion.path
+            variants={pathVariants}
+            transform="translate(404,527)"
+            d="m0 0 4 2-1 5h-5l-1-5z"
+          />
+          <motion.path
+            variants={pathVariants}
+            transform="translate(527,362)"
+            d="m0 0 4 1 1 4-1 2h-5l-1-5z"
+          />
+          <motion.path
+            variants={pathVariants}
+            transform="translate(622,385)"
+            d="m0 0 4 1 1 5-5 1-2-2 1-4z"
+          />
+        </motion.g>
+      </svg>
+    </div>
+  );
+};
+
+export default AnimatedLogo;

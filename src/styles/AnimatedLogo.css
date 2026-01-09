@@ -1,0 +1,24 @@
+.logo-group path {
+  /* Colore del bordo durante il disegno */
+  stroke: var(--color-primary);
+  stroke-width: 0.8px;
+  /* Il riempimento deve essere trasparente all'inizio */
+  fill: transparent;
+  /* Animazione per riempire il colore dopo il disegno */
+  animation: fillInColor 0.8s forwards 2.5s;
+}
+
+@keyframes fillInColor {
+  from {
+    fill: transparent;
+  }
+  to {
+    fill: var(--color-primary);
+  }
+}
+
+/* Rendi l'SVG scalabile all'interno dell'avatar */
+.animated-logo-wrapper svg {
+  width: 70%;
+  height: 70%;
+}
