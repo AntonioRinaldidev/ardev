@@ -1,35 +1,6 @@
 
 
-### Architettura del Progetto
 
-```mermaid
-sequenceDiagram
-    participant A as Client A (Mittente)
-    participant S as Signaling & Push Server
-    participant T as STUN/TURN Infrastructure
-    participant B as Client B (Destinatario)
-
-    Note over A: Auth Apple (iOS) / FlashCall (Android)
-    A->>S: Invio Hash numeri Rubrica (Discovery)
-    S-->>A: Lista contatti registrati (Match)
-    
-    A->>S: Inizializza Trasferimento (Metadata)
-    S->>B: Push Notification (Wake-up)
-    Note over B: App attivata in Background
-    B->>S: Connessione WebSocket (Handshake)
-    
-    A<->T: Raccolta ICE Candidates (NAT discovery)
-    B<->T: Raccolta ICE Candidates
-    
-    A->>S: SDP Offer (Parametri Criptati)
-    S->>B: SDP Offer
-    B->>S: SDP Answer
-    S->>A: SDP Answer
-    
-    Note over A,B: Tunnel P2P DTLS/SCTP Stabilito
-    A->>B: Trasferimento File Diretto (E2EE)
-    Note over S: Nessun file archiviato (Zero-Knowledge)
-```
 
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
