@@ -1,4 +1,8 @@
 
+
+### Architettura del Progetto
+
+```mermaid
 sequenceDiagram
     participant A as Client A (Mittente)
     participant S as Signaling & Push Server
@@ -25,9 +29,7 @@ sequenceDiagram
     Note over A,B: Tunnel P2P DTLS/SCTP Stabilito
     A->>B: Trasferimento File Diretto (E2EE)
     Note over S: Nessun file archiviato (Zero-Knowledge)
-
-
-
+```
 
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
